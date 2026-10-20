@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>House Admin — Booking Management - Dark Mode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0A0E1A;
+      color: #F1F5F9;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0A0E1A] text-[#F1F5F9] antialiased">
+  <!-- Top Navigation Bar (80px tall, dark navy #0A0E1A, subtle border #1E2A45) -->
+  <header class="w-full h-20 bg-[#0A0E1A] border-b border-[#1E2A45] px-16 flex items-center justify-between sticky top-0 z-50">
+    <!-- Left: Brand Logo -->
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-[#8B5CF6] flex items-center justify-center shadow-sm">
+        <svg class="w-4 h-4 text-white fill-current" viewBox="0 0 24 24">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+        </svg>
+      </div>
+      <span class="text-white font-bold text-lg tracking-tight">StayHaven</span>
+    </div>
+
+    <!-- Center: Pill Navigation -->
+    <nav class="bg-[#141B2D] border border-[#1E2A45] p-1 rounded-full flex items-center gap-1 shadow-inner">
+      <a href="#" class="px-5 py-1.5 text-sm font-medium text-[#94A3B8] hover:text-white rounded-full transition-colors">Dashboard</a>
+      <a href="#" class="px-5 py-1.5 text-sm font-medium text-[#94A3B8] hover:text-white rounded-full transition-colors">Listings</a>
+      <a href="#" class="px-5 py-1.5 text-sm font-semibold text-[#8B5CF6] bg-[#1E2A45] rounded-full shadow-sm">Bookings</a>
+    </nav>
+
+    <!-- Right: Controls -->
+    <div class="flex items-center gap-3">
+      <!-- Dark mode sun toggle -->
+      <button class="w-10 h-10 rounded-full bg-[#141B2D] border border-[#1E2A45] flex items-center justify-center text-[#94A3B8] hover:text-white transition-colors" aria-label="Toggle theme">
+        <span class="material-symbols-outlined text-[20px]">light_mode</span>
+      </button>
+
+      <!-- Sign out button -->
+      <button class="px-5 py-2 text-sm font-semibold text-white bg-[#141B2D] border border-[#1E2A45] rounded-full hover:border-[#8B5CF6] transition-colors">
+        Sign out
+      </button>
+
+      <!-- Circular user avatar (with #8B5CF6 icon) -->
+      <div class="rounded-full bg-[#8B5CF6] flex items-center justify-center overflow-hidden flex-shrink-0" style="width: 36px; height: 36px;"><span class="material-symbols-outlined text-white text-[20px]" style="font-variation-settings: 'FILL' 1, 'wght' 400;">person</span></div>
+    </div>
+  </header>
+
+  <!-- Page Content Container -->
+  <main class="max-w-[1440px] mx-auto px-16 py-10">
+    <!-- Page Header -->
+    <div class="mb-10">
+      <span class="text-xs uppercase font-bold text-[#8B5CF6] tracking-[1.5px] block mb-2">HOUSE ADMIN WORKSPACE</span>
+      <h1 class="text-[40px] font-extrabold text-[#F1F5F9] tracking-tight leading-tight mb-2">Booking management</h1>
+      <p class="text-base text-[#94A3B8]">Manage upcoming stays and guest requests.</p>
+    </div>
+
+    <!-- Bookings Table Card -->
+    <div class="bg-[#141B2D] rounded-2xl border border-[#1E2A45] overflow-hidden shadow-[0_4px_24px_-2px_rgba(139,92,246,0.06)]">
+      <!-- Table Header Row -->
+      <div class="bg-[#0A0E1A] border-b border-[#1E2A45] px-8 py-4 flex items-center">
+        <div class="w-[30%] text-xs font-semibold text-[#94A3B8] uppercase tracking-[1px]">GUEST</div>
+        <div class="w-[45%] text-xs font-semibold text-[#94A3B8] uppercase tracking-[1px]">DETAILS</div>
+        <div class="w-[25%] text-xs font-semibold text-[#94A3B8] uppercase tracking-[1px] text-right">STATUS AND ACTIONS</div>
+      </div>
+
+      <!-- Table Rows -->
+      <div class="divide-y divide-[#1E2A45]">
+        <!-- Row 1: Maya Thompson -->
+        <div class="px-8 py-6 flex items-center justify-between hover:bg-[#1E2A45]/30 transition-colors">
+          <!-- Column 1: Guest -->
+          <div class="w-[30%] flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-full bg-[#2A1F4E] flex items-center justify-center text-[#A78BFA] text-sm font-bold flex-shrink-0">
+              MT
+            </div>
+            <span class="text-base font-semibold text-[#F1F5F9]">Maya Thompson</span>
+          </div>
+
+          <!-- Column 2: Details -->
+          <div class="w-[45%] text-sm text-[#94A3B8]">
+            Lavender House · Jun 18–21
+          </div>
+
+          <!-- Column 3: Status and Actions -->
+          <div class="w-[25%] flex items-center justify-end gap-4">
+            <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#0F3D24] text-[#4ADE80]">
+              Confirmed
+            </span>
+            <button class="px-4 py-1.5 rounded-full border-[1.5px] border-[#8B5CF6] text-[#8B5CF6] text-sm font-semibold hover:bg-[#8B5CF6] hover:text-white transition-colors">
+              Manage
+            </button>
+          </div>
+        </div>
+
+        <!-- Row 2: Daniel Kim -->
+        <div class="px-8 py-6 flex items-center justify-between hover:bg-[#1E2A45]/30 transition-colors">
+          <!-- Column 1: Guest -->
+          <div class="w-[30%] flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-full bg-[#1E3A5F] flex items-center justify-center text-[#93C5FD] text-sm font-bold flex-shrink-0">
+              DK
+            </div>
+            <span class="text-base font-semibold text-[#F1F5F9]">Daniel Kim</span>
+          </div>
+
+          <!-- Column 2: Details -->
+          <div class="w-[45%] text-sm text-[#94A3B8]">
+            Casa Sol · Jun 22–27
+          </div>
+
+          <!-- Column 3: Status and Actions -->
+          <div class="w-[25%] flex items-center justify-end gap-4">
+            <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#0F3D24] text-[#4ADE80]">
+              Confirmed
+            </span>
+            <button class="px-4 py-1.5 rounded-full border-[1.5px] border-[#8B5CF6] text-[#8B5CF6] text-sm font-semibold hover:bg-[#8B5CF6] hover:text-white transition-colors">
+              Manage
+            </button>
+          </div>
+        </div>
+
+        <!-- Row 3: Ife Okafor -->
+        <div class="px-8 py-6 flex items-center justify-between hover:bg-[#1E2A45]/30 transition-colors">
+          <!-- Column 1: Guest -->
+          <div class="w-[30%] flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-full bg-[#3F2E0A] flex items-center justify-center text-[#FBBF24] text-sm font-bold flex-shrink-0">
+              IO
+            </div>
+            <span class="text-base font-semibold text-[#F1F5F9]">Ife Okafor</span>
+          </div>
+
+          <!-- Column 2: Details -->
+          <div class="w-[45%] text-sm text-[#94A3B8]">
+            The Cloud Villa · Jun 25–27
+          </div>
+
+          <!-- Column 3: Status and Actions -->
+          <div class="w-[25%] flex items-center justify-end gap-4">
+            <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-semibold bg-[#3F2E0A] text-[#FBBF24]">
+              Pending
+            </span>
+            <button class="px-4 py-1.5 rounded-full border-[1.5px] border-[#8B5CF6] text-[#8B5CF6] text-sm font-semibold hover:bg-[#8B5CF6] hover:text-white transition-colors">
+              Manage
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+
+
+
+</body></html>

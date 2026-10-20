@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=390, height=844, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>StayHaven - Sign In (Mobile)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f3ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<!-- iPhone Mobile Viewport (390x844) -->
+<main class="w-full h-[844px] relative flex items-center justify-center font-sans overflow-hidden bg-white shadow-2xl">
+<!-- Background Backdrop with Guesthouse Interior + Dimmed Blur Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="Guesthouse Backdrop" class="w-full h-full object-cover scale-105 filter blur-[6px]" src="https://lh3.googleusercontent.com/aida/AEtjO1XkZS6nTAntIueqvkRuOLgh9lGMPdVKARWMHXsya8BMSOVaLNtc9fFxtDkz6WLr8XBHqKIcaKwhwKJNI2xXg-_RojEQL6b8OZcWRaAziFg-RqpviSaYxCHlkyqnoyooMVrYe6pPg25k4gc3PwCwk6uPy79CY0UP4jJ_YviFy6sFP8Q47MQiBlHFgQXL8oXg-BZ8tERPdiCpyTEvHNUt7Z1dZwv8nE5uQo7_MLx-ykTlSasFRxlY1pbpP4I"/>
+<!-- Semi-transparent overlay with backdrop blur -->
+<div class="absolute inset-0 bg-white/60 backdrop-blur-md"></div>
+</div>
+<!-- Top Header: Close Button (Absolute position, top-6 left-4) -->
+<!-- Centered Login Card -->
+<section class="relative z-10 mx-4 w-full max-w-[360px] bg-white rounded-[32px] p-6 shadow-2xl flex flex-col">
+<!-- Card Header: Logo left, Close button right -->
+<div class="flex justify-between items-center mb-8">
+<div class="flex items-center gap-2.5">
+<div class="bg-[#7C3AED] w-9 h-9 rounded-xl flex items-center justify-center text-white shadow-md shadow-purple-200">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-xl font-bold text-gray-900 tracking-tight">StayHaven</span>
+</div>
+<button aria-label="Close" class="w-8 h-8 rounded-full bg-[#F3F4F6] flex items-center justify-center text-gray-700 hover:bg-gray-200 transition-all" type="button">
+<svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+<!-- Text Section -->
+<div class="text-left">
+<h1 class="text-[28px] font-bold text-gray-900 tracking-tight leading-tight">Welcome back</h1>
+<p class="text-[15px] text-[#6B7280] mt-2 mb-6">Sign in with your registered account.</p>
+</div>
+<!-- Form Section -->
+<form class="flex flex-col gap-4" onsubmit="event.preventDefault()">
+<!-- Input 1 -->
+<div class="text-left">
+<label class="text-sm font-bold text-gray-900 mb-1.5 block">Email address</label>
+<input class="w-full bg-[#F8FAFC] border border-gray-200 rounded-xl p-3.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7C3AED] transition-all" placeholder="Enter account" type="email"/>
+</div>
+<!-- Input 2 -->
+<div class="text-left">
+<label class="text-sm font-bold text-gray-900 mb-1.5 block">Password</label>
+<input class="w-full bg-[#F8FAFC] border border-gray-200 rounded-xl p-3.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7C3AED] transition-all" placeholder="Enter password" type="password"/>
+</div>
+<!-- Submit Button -->
+<button class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white w-full py-3.5 rounded-full font-semibold text-[16px] mt-2 shadow-md shadow-purple-200 transition-all active:scale-[0.99]" type="submit">
+          Sign in
+        </button>
+</form>
+<!-- Bottom Links -->
+<div class="mt-6 text-center flex flex-col gap-2">
+<p class="text-sm">
+<span class="text-gray-500">New to StayHaven? </span>
+<a class="text-[#7C3AED] font-bold hover:underline" href="#">Create an account</a>
+</p>
+<p class="text-xs text-gray-400 text-center mt-4 px-2 leading-normal">
+          Your next unforgettable stay is just a click away.
+        </p>
+</div>
+</section>
+</main>
+</body>
+</html>

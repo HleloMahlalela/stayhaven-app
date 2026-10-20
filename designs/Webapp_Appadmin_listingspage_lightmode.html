@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=1280, initial-scale=1.0" name="viewport"/>
+<title>StayHaven - Listing Approvals</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: #F5F3FF;
+      color: #0F172A;
+      width: 1280px;
+      height: 686px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body class="w-[1280px] h-[686px] bg-[#F8F9FA] text-[#0F172A] flex flex-col overflow-hidden">
+<!-- TOP NAVIGATION BAR -->
+<header class="w-full h-[80px] bg-[#F8F9FA] px-8 flex items-center justify-between shrink-0">
+<!-- Left: Logo -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#7C3AED] flex items-center justify-center text-white shadow-sm">
+<!-- House icon -->
+<svg class="w-5 h-5 fill-none stroke-current stroke-2" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"></path>
+</svg>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#0F172A]">StayHaven</span>
+</div>
+<!-- Center: Pill Navigation -->
+<nav class="bg-white border border-[#E5E7EB] shadow-sm p-1.5 rounded-full flex items-center gap-1">
+<button class="px-5 py-2 rounded-full text-sm font-medium text-[#64748B] hover:bg-[#F8FAFC] transition-colors" type="button">
+        Overview
+      </button>
+<button class="px-5 py-2 rounded-full text-sm font-semibold bg-[#EDE9FE] text-[#7C3AED] transition-colors" type="button">
+        Listings
+      </button>
+<button class="px-5 py-2 rounded-full text-sm font-medium text-[#64748B] hover:bg-[#F8FAFC] transition-colors" type="button">
+        House admins
+      </button>
+</nav>
+<!-- Right: Action items -->
+<div class="flex items-center gap-4">
+<!-- Dark mode / moon icon button -->
+<button class="w-10 h-10 rounded-full bg-white border border-[#E5E7EB] shadow-sm flex items-center justify-center text-[#7C3AED] transition-colors" type="button">
+<svg class="w-5 h-5 fill-none stroke-current stroke-2" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+</button>
+<!-- Sign out button -->
+<button class="px-5 py-2 rounded-full bg-white border border-[#7C3AED] text-[#7C3AED] font-semibold text-sm hover:bg-[#F5F3FF] transition-colors" type="button">
+        Sign out
+      </button>
+<!-- Avatar -->
+<div class="w-10 h-10 rounded-full bg-[#7C3AED] flex items-center justify-center text-white">
+<svg class="w-5 h-5 fill-white" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+</svg>
+</div>
+</div>
+</header>
+<!-- MAIN CONTENT CONTAINER -->
+<main class="w-full flex-1 px-10 pt-8 pb-6 flex flex-col justify-start max-w-[1280px] mx-auto">
+<!-- PAGE HEADER -->
+<div class="mb-6">
+<div class="text-[12px] font-bold text-[#7C3AED] uppercase tracking-widest mb-1.5">
+        APP ADMIN WORKSPACE
+      </div>
+<h1 class="text-[32px] font-[800] text-[#0F172A] tracking-tight leading-tight mb-1">
+        Listing approvals
+      </h1>
+<p class="text-[15px] text-[#64748B]">
+        Approve submissions and suspend listings that need attention.
+      </p>
+</div>
+<!-- DATA TABLE CARD -->
+<div class="bg-white rounded-[32px] shadow-sm border border-[#E5E7EB] overflow-hidden flex flex-col">
+<!-- Header Row -->
+<div class="border-b border-[#F1F5F9] px-6 py-3.5 flex items-center justify-between text-[12px] font-semibold uppercase text-[#94A3B8] tracking-wider">
+<div class="w-5/12 text-left">PROPERTY/GUEST</div>
+<div class="w-4/12 text-left">DETAILS</div>
+<div class="w-3/12 text-right">STATUS AND ACTIONS</div>
+</div>
+<!-- Data Rows -->
+<div class="divide-y divide-[#F1F5F9]">
+<!-- Row 1 -->
+<div class="px-6 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+<!-- Property -->
+<div class="w-5/12 flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-[12px] bg-[#F3E8FF] flex items-center justify-center text-[#7C3AED] shrink-0">
+<svg class="w-5 h-5 fill-none stroke-current stroke-2" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"></path>
+</svg>
+</div>
+<span class="text-[15px] font-bold text-[#0F172A] whitespace-nowrap">Acacia Garden House</span>
+</div>
+<!-- Details -->
+<div class="w-4/12 text-[14px] text-[#64748B]">
+            Sarah K. · Submitted 2h ago
+          </div>
+<!-- Status and Actions -->
+<div class="w-3/12 flex items-center justify-end gap-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#FEF3C7] text-[#92400E] border-0 whitespace-nowrap">
+<span class="w-1.5 h-1.5 rounded-full bg-[#92400E]"></span>
+              Pending
+            </span>
+<button class="px-4 py-1.5 rounded-full bg-[#EDE9FE] text-[#7C3AED] font-semibold text-sm cursor-pointer hover:bg-[#DDD6FE] transition-colors border-0 whitespace-nowrap" type="button">
+              Review
+            </button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="px-6 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+<!-- Property -->
+<div class="w-5/12 flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-[12px] bg-[#DBEAFE] flex items-center justify-center text-[#1E40AF] shrink-0">
+<svg class="w-5 h-5 fill-none stroke-current stroke-2" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"></path>
+</svg>
+</div>
+<span class="text-[15px] font-bold text-[#0F172A] whitespace-nowrap">Moonrise Cottage</span>
+</div>
+<!-- Details -->
+<div class="w-4/12 text-[14px] text-[#64748B]">
+            David M. · Submitted 5h ago
+          </div>
+<!-- Status and Actions -->
+<div class="w-3/12 flex items-center justify-end gap-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#FEF3C7] text-[#92400E] border-0 whitespace-nowrap">
+<span class="w-1.5 h-1.5 rounded-full bg-[#92400E]"></span>
+              Pending
+            </span>
+<button class="px-4 py-1.5 rounded-full bg-[#EDE9FE] text-[#7C3AED] font-semibold text-sm cursor-pointer hover:bg-[#DDD6FE] transition-colors border-0 whitespace-nowrap" type="button">
+              Review
+            </button>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="px-6 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+<!-- Property -->
+<div class="w-5/12 flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-[12px] bg-[#FEF3C7] flex items-center justify-center text-[#92400E] shrink-0">
+<svg class="w-5 h-5 fill-none stroke-current stroke-2" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"></path>
+</svg>
+</div>
+<span class="text-[15px] font-bold text-[#0F172A] whitespace-nowrap">The Olive Rooms</span>
+</div>
+<!-- Details -->
+<div class="w-4/12 text-[14px] text-[#64748B]">
+            Talia N. · Flagged yesterday
+          </div>
+<!-- Status and Actions -->
+<div class="w-3/12 flex items-center justify-end gap-3">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#EDE9FE] text-[#7C3AED] border-0 whitespace-nowrap">
+<span class="w-1.5 h-1.5 rounded-full bg-[#7C3AED]"></span>
+              Review
+            </span>
+<button class="px-4 py-1.5 rounded-full bg-[#EDE9FE] text-[#7C3AED] font-semibold text-sm cursor-pointer hover:bg-[#DDD6FE] transition-colors border-0 whitespace-nowrap" type="button">
+              Manage
+            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

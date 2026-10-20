@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>StayHaven - App Admin House Admin Accounts (Dark Mode)</title>
+<!-- Load Tailwind CSS v3 with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              950: '#0A0E1A', // Page base background
+              900: '#141B2D', // Card container background
+              800: '#1E2A45', // Borders & active pill surface
+            },
+            purple: {
+              brand: '#8B5CF6',
+              btn: '#2A1F4E',
+              btnText: '#A78BFA',
+            },
+            status: {
+              greenBg: '#064E3B',
+              greenText: '#4ADE80',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style data-purpose="custom-layout">
+    body {
+      background-color: #0A0E1A;
+      font-family: 'Inter', sans-serif;
+      color: #F1F5F9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    /* Fixed Reference Frame (1280px x 686px) */
+    .viewport-frame {
+      width: 1280px;
+      height: 686px;
+      background-color: #0A0E1A;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body class="bg-[#0A0E1A]">
+<!-- Main 1280x686 Container Frame -->
+<div class="viewport-frame shadow-2xl" data-purpose="viewport-container">
+<!-- BEGIN: TopNavigationBar -->
+<header class="h-[80px] min-h-[80px] w-full px-8 bg-[#0A0E1A] border-b border-[#1E2A45] flex items-center justify-between" data-purpose="top-navigation">
+<!-- Brand Logo Section -->
+<div class="flex items-center gap-3">
+<!-- Crisp white house on bright purple square -->
+<div class="w-10 h-10 rounded-xl bg-[#8B5CF6] flex items-center justify-center shadow-sm">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+<path d="M3 10.5L12 3l9 7.5v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<path d="M9 21V12h6v9"></path>
+</svg>
+</div>
+<span class="text-xl font-bold tracking-tight text-white">StayHaven</span>
+</div>
+<!-- Center Pill Navigation -->
+<nav class="flex items-center bg-[#141B2D] p-1.5 rounded-full border border-[#1E2A45]/40" data-purpose="main-nav-tabs">
+<button class="px-5 py-2 text-sm font-medium text-[#94A3B8] hover:text-white rounded-full transition-colors" type="button">
+          Overview
+        </button>
+<button class="px-5 py-2 text-sm font-medium text-[#94A3B8] hover:text-white rounded-full transition-colors" type="button">
+          Listings
+        </button>
+<button class="px-5 py-2 text-sm font-medium text-[#8B5CF6] bg-[#1E2A45] rounded-full shadow-inner" type="button">
+          House admins
+        </button>
+</nav>
+<!-- Right Header Actions (Theme, Logout, Avatar) -->
+<div class="flex items-center gap-4">
+<!-- Sun Mode Toggle Button -->
+<button class="w-10 h-10 rounded-full bg-[#141B2D] border border-[#1E2A45] flex items-center justify-center text-[#94A3B8] hover:text-white transition-colors" title="Switch theme" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="4"></circle>
+<path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke-linecap="round"></path>
+</svg>
+</button>
+<!-- Sign Out Button -->
+<button class="px-5 py-2 rounded-full text-sm font-medium text-white bg-[#141B2D] border border-[#1E2A45] hover:bg-[#1E2A45] transition-colors" type="button">
+          Sign out
+        </button>
+<!-- User Profile Avatar -->
+<div class="w-10 h-10 rounded-full bg-[#7C3AED] flex items-center justify-center text-white font-medium" data-purpose="user-avatar">
+<svg class="w-5 h-5 fill-current text-white" viewBox="0 0 24 24">
+<path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"></path>
+</svg>
+</div>
+</div>
+</header>
+<!-- END: TopNavigationBar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 px-8 pt-7 pb-6 overflow-hidden flex flex-col justify-start">
+<!-- Page Header Section -->
+<div class="mb-6" data-purpose="page-title-block">
+<span class="text-xs font-bold text-[#8B5CF6] tracking-wider uppercase block mb-1">APP ADMIN WORKSPACE</span>
+<h1 class="text-[32px] leading-tight font-extrabold text-white">House admin accounts</h1>
+<p class="text-sm text-[#94A3B8] mt-1">Verify, manage, or suspend house administrator access.</p>
+</div>
+<!-- BEGIN: DataTableCard -->
+<div class="w-full bg-[#141B2D] rounded-[12px] border border-[#1E2A45] overflow-hidden" data-purpose="admin-accounts-table-card">
+<!-- Table Column Headers -->
+<div class="grid grid-cols-12 px-6 py-3.5 bg-[#0A0E1A]/60 border-b border-[#1E2A45] text-xs font-semibold text-[#94A3B8] uppercase tracking-wider">
+<div class="col-span-5">ADMINISTRATOR</div>
+<div class="col-span-4">DETAILS</div>
+<div class="col-span-3 text-right">STATUS AND ACTIONS</div>
+</div>
+<!-- Table Body Rows -->
+<div class="divide-y divide-[#1E2A45]">
+<!-- Row 1: Sarah Kato -->
+<div class="grid grid-cols-12 px-6 py-[18px] items-center hover:bg-[#1E2A45]/20 transition-colors" data-purpose="table-row">
+<!-- Administrator Column -->
+<div class="col-span-5 flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-full bg-[#2A1F4E] flex items-center justify-center text-sm font-semibold text-[#A78BFA] shrink-0">
+                SK
+              </div>
+<span class="text-base font-semibold text-white">Sarah Kato</span>
+</div>
+<!-- Details Column -->
+<div class="col-span-4 text-sm text-[#94A3B8]">
+              12 listings · Verified
+            </div>
+<!-- Status and Actions Column -->
+<div class="col-span-3 flex items-center justify-end gap-3">
+<!-- Active Badge: Solid flat dark green, no border, dot indicator -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#064E3B] text-[#4ADE80]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#4ADE80]"></span>
+                Active
+              </span>
+<!-- Action Button: Solid flat dark purple, no border -->
+<button class="px-5 py-1.5 rounded-full text-xs font-medium bg-[#2A1F4E] text-[#A78BFA] hover:bg-[#382a69] transition-colors cursor-pointer" type="button">
+                Manage
+              </button>
+</div>
+</div>
+<!-- Row 2: David Muwanga -->
+<div class="grid grid-cols-12 px-6 py-[18px] items-center hover:bg-[#1E2A45]/20 transition-colors" data-purpose="table-row">
+<!-- Administrator Column -->
+<div class="col-span-5 flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-full bg-[#1E3A5F] flex items-center justify-center text-sm font-semibold text-[#60A5FA] shrink-0">
+                DM
+              </div>
+<span class="text-base font-semibold text-white">David Muwanga</span>
+</div>
+<!-- Details Column -->
+<div class="col-span-4 text-sm text-[#94A3B8]">
+              4 listings · Verified
+            </div>
+<!-- Status and Actions Column -->
+<div class="col-span-3 flex items-center justify-end gap-3">
+<!-- Active Badge -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#064E3B] text-[#4ADE80]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#4ADE80]"></span>
+                Active
+              </span>
+<!-- Action Button -->
+<button class="px-5 py-1.5 rounded-full text-xs font-medium bg-[#2A1F4E] text-[#A78BFA] hover:bg-[#382a69] transition-colors cursor-pointer" type="button">
+                Manage
+              </button>
+</div>
+</div>
+<!-- Row 3: Talia Namusoke -->
+<div class="grid grid-cols-12 px-6 py-[18px] items-center hover:bg-[#1E2A45]/20 transition-colors" data-purpose="table-row">
+<!-- Administrator Column -->
+<div class="col-span-5 flex items-center gap-3.5">
+<div class="w-10 h-10 rounded-full bg-[#3F2E0A] flex items-center justify-center text-sm font-semibold text-[#FBBF24] shrink-0">
+                TN
+              </div>
+<span class="text-base font-semibold text-white">Talia Namusoke</span>
+</div>
+<!-- Details Column -->
+<div class="col-span-4 text-sm text-[#94A3B8]">
+              3 reports · Review required
+            </div>
+<!-- Status and Actions Column -->
+<div class="col-span-3 flex items-center justify-end gap-3">
+<!-- Review Badge: Solid flat dark purple, no border, dot indicator -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#2A1F4E] text-[#A78BFA]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#A78BFA]"></span>
+                Review
+              </span>
+<!-- Action Button -->
+<button class="px-5 py-1.5 rounded-full text-xs font-medium bg-[#2A1F4E] text-[#A78BFA] hover:bg-[#382a69] transition-colors cursor-pointer" type="button">
+                Manage
+              </button>
+</div>
+</div>
+</div>
+</div>
+<!-- END: DataTableCard -->
+</main>
+<!-- END: MainContent -->
+</div>
+
+
+</body></html>

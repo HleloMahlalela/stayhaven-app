@@ -1,0 +1,169 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><title>Lavender House - StayHaven</title><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-primary-container": "#340080",
+          "surface-dim": "#0f131f",
+          "on-error": "#690005",
+          "surface": "#0f131f",
+          "primary-container": "#a078ff",
+          "on-tertiary-fixed-variant": "#673d00",
+          "outline-variant": "#494454",
+          "surface-container-lowest": "#0a0e1a",
+          "on-secondary-fixed": "#1e1342",
+          "on-secondary-container": "#bbade6",
+          "primary": "#d0bcff",
+          "on-surface-variant": "#cbc3d7",
+          "tertiary-container": "#ca801e",
+          "error-container": "#93000a",
+          "surface-bright": "#353946",
+          "on-tertiary-container": "#3f2300",
+          "on-surface": "#dfe2f3",
+          "secondary": "#ccbef8",
+          "on-background": "#dfe2f3",
+          "on-error-container": "#ffdad6",
+          "on-tertiary": "#482900",
+          "tertiary-fixed-dim": "#ffb869",
+          "surface-tint": "#d0bcff",
+          "on-primary": "#3c0091",
+          "surface-container-low": "#171b28",
+          "secondary-fixed-dim": "#ccbef8",
+          "tertiary-fixed": "#ffdcbb",
+          "tertiary": "#ffb869",
+          "on-primary-fixed-variant": "#5516be",
+          "surface-container-high": "#262a37",
+          "on-tertiary-fixed": "#2c1700",
+          "inverse-surface": "#dfe2f3",
+          "primary-fixed-dim": "#d0bcff",
+          "outline": "#958ea0",
+          "error": "#ffb4ab",
+          "on-secondary": "#342958",
+          "surface-variant": "#313442",
+          "secondary-fixed": "#e7deff",
+          "surface-container": "#1b1f2c",
+          "inverse-primary": "#6d3bd7",
+          "primary-fixed": "#e9ddff",
+          "secondary-container": "#4a3f70",
+          "on-primary-fixed": "#23005c",
+          "background": "#0a0e1a",
+          "surface-container-highest": "#313442",
+          "on-secondary-fixed-variant": "#4a3f70",
+          "inverse-on-surface": "#2c303d"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        fontFamily: {
+          sans: ["Inter", "sans-serif"],
+          "headline-lg": ["Inter"],
+          "label-lg": ["Inter"],
+          "label-sm": ["Inter"],
+          "label-md": ["Inter"],
+          "body-sm": ["Inter"],
+          "headline-sm": ["Inter"],
+          "title-md": ["Inter"],
+          "body-md": ["Inter"],
+          "body-lg": ["Inter"]
+        }
+      }
+    }
+  };</script></head><body class="bg-[#0A0E1A] font-body-md text-[#DFE2F3] antialiased min-h-screen"><!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#0A0E1A]"><div class="h-20 w-full max-w-[1440px] mx-auto px-6 lg:px-16 flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-10 h-10 bg-[#8B5CF6] flex items-center justify-center shadow-lg shadow-[#8B5CF6]/20" style="border-radius: 12px;"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"></path></svg></div><span class="font-headline-sm text-xl text-[#F1F5F9] font-bold tracking-tight">StayHaven</span></div><div class="hidden md:flex items-center bg-[#141B2D] border border-[#1E2A45] rounded-full p-1"><nav class="flex items-center gap-1"><a class="px-5 py-2 rounded-full font-label-lg text-sm bg-[#1E2A45] text-[#C4B5FD] font-semibold transition-all shadow-sm" data-path="explore" href="#">Explore</a><a class="px-5 py-2 rounded-full font-label-lg text-sm text-[#94A3B8] hover:text-white transition-colors" data-path="bookings" href="#">Bookings</a><a class="px-5 py-2 rounded-full font-label-lg text-sm text-[#94A3B8] hover:text-white transition-colors" data-path="reviews" href="#">Reviews</a></nav></div><div class="flex items-center gap-3"><button aria-label="Toggle dark mode" class="w-10 h-10 rounded-full bg-[#141B2D] border border-[#1E2A45] flex items-center justify-center text-[#94A3B8] hover:text-white transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">light_mode</span></button><a class="hidden sm:inline-flex items-center justify-center px-5 py-2 rounded-full bg-[#141B2D] border border-[#1E2A45] text-white font-label-lg text-sm font-semibold hover:bg-[#1E2A45] transition-colors" data-path="sign-in" href="#">Sign in</a><div class="w-8 h-8 rounded-full bg-[#8B5CF6] flex items-center justify-center ring-2 ring-[#8B5CF6]/30"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-[#0A0E1A] min-h-screen"><div class="flex flex-col w-full"><div class="w-full max-w-[1440px] mx-auto px-6 lg:px-16 py-10"><!-- Breadcrumb / Back button -->
+<div class="mb-6"><a class="inline-flex items-center gap-2 text-sm font-medium text-[#94A3B8] hover:text-white transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">arrow_back</span><span class="">Back to explore</span></a></div><!-- Main Two-Column Layout -->
+<div class="flex flex-col lg:flex-row gap-10 items-start"><!-- LEFT COLUMN (~65% / w-2/3) -->
+<div class="w-full lg:w-2/3 space-y-10"><!-- 1. IMAGE GALLERY -->
+<div class="relative bg-[#141B2D] rounded-2xl border border-[#1E2A45] shadow-xl" style="border-radius: 32px; overflow: hidden;"><a aria-label="Return to listing overview" class="absolute top-5 right-5 z-10 w-8 h-8 rounded-full bg-[#141B2D]/80 backdrop-blur-md border border-[#1E2A45] shadow-sm flex items-center justify-center text-[#94A3B8] hover:text-white hover:bg-[#1E2A45] transition-all" href="#" title="Return to listing overview"><span class="material-symbols-outlined text-[18px]">close</span></a><div class="flex flex-row gap-3 h-[200px]"><div class="flex-1 h-full overflow-hidden rounded-xl cursor-pointer group relative" onclick="openLightbox(0)"><img alt="Lavender House Bedroom" class="w-full h-full object-cover group-hover:scale-105 group-hover:opacity-95 transition-all duration-300 block" data-alt="Sunlit boutique guesthouse bedroom with a plush king bed layered with soft lavender throws and natural linen duvets. Clean white walls with Ugandan handcrafted wall hangings, warm oak bedside tables, soft ambient morning light streaming through sheer curtains, evoking an airy, serene, minimalist retreat." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbW3onTBm07iVTNQR1qSaPwCnoLzJYKhFhKOzXfzLyQuPxO9BivrIEiV9ZlI6xGLeWl6u-52mhPLfDdjrgowLT7ksAv6cwHoAcrwa3UPFMji4yBqU8eWJidyBGAGVVLLMKeK1cK6wP7eHhynnHal2a8SGENgCEpEHfT7xeawslTYb9RJYxBz818Lx_-qAmj5lAMhZMrgr21Oz3QmRq3WKu3HXZ0pAaPvGg-OH3l_we1e12pLKOU4cg"><div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center"><span class="opacity-0 group-hover:opacity-100 bg-[#0A0E1A]/90 text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm transition-opacity">View</span></div></div><div class="flex flex-col gap-3 w-[100px] h-full shrink-0"><div class="w-full h-[94px] overflow-hidden rounded-xl cursor-pointer group relative" onclick="openLightbox(1)"><img alt="Lavender House Bathroom" class="w-full h-full object-cover group-hover:scale-105 group-hover:opacity-95 transition-all duration-300 block" data-alt="Modern serene en-suite bathroom with artisan ceramic tiles, matte black fixtures, crisp folded organic towels in lavender hues, and a potted eucalyptus plant beside a sunlit stone vanity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLN7Qd8PnnUWrIA9rC6RBmBgA-EN0o3ppip4vhI6O_zeT3dqprE9bs0w90VmaCH3hEnmQDbaSrdSOk2RNcuSeoOvTf5r8ZStGpY1NUKjyBWI7rZLSDRlgI8BzmuKbD3Un9zwIULLUVlbc_Vi9POmOiBR0Aav9ojHMbSRvwur9tOKXVXIhvxQ9_isgSu8avLv61iP0x49QbyzZUdbnbRdD3gEZfOxVHEmAWppE9WqS6e9r4ucQKrfZS"><div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div></div><div class="w-full h-[94px] overflow-hidden rounded-xl cursor-pointer group relative" onclick="openLightbox(2)"><img alt="Lavender House Veranda" class="w-full h-full object-cover group-hover:scale-105 group-hover:opacity-95 transition-all duration-300 block" data-alt="Private stone courtyard veranda surrounded by lush tropical ferns and flowering lavender plants, featuring a wrought iron bistro chair and tea table under warm gentle sunlight in Kampala." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu70KxE9IMZVzAZYVilAnfYVOBdk9Tp6mD6n3JgF4xqWqq09irtvQj87fLz9Zqgfmo8ctWNW9FK_jfXr795dgqQNDL0zEoxgjgjvaUNGyBxpGF_69Q6EBm5CtRabHlROaig3v7h8tGKWfsgt67ZvtqqU_oEREDE4qSWaI-Qqdj5N1kY-qkHF2uAnUYWatiApSrcvx136iRaVV4CM8LaHw9P5xZCfwkxel9t1efL0H7SkCEjschcvmO"><div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors"></div><div class="absolute bottom-1 right-1 bg-black/70 text-white text-[10px] font-medium px-1.5 py-0.5 rounded backdrop-blur-sm">+3</div></div></div></div></div><!-- 2. LISTING HEADER -->
+<div><h1 class="text-[40px] leading-[48px] font-extrabold text-[#F1F5F9] tracking-tight">Lavender House</h1><div class="inline-flex items-center gap-1.5 text-[#94A3B8] text-sm mt-2"><span class="material-symbols-outlined text-[18px] text-[#8B5CF6]">location_on</span><span class="font-medium text-[#F1F5F9]">Kampala, Uganda</span><span class="">·</span><span class="">Nakasero Hill neighborhood</span></div><div class="flex items-center gap-2 mt-2"><span class="material-symbols-outlined text-[#8B5CF6] text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span><span class="font-bold text-[#F1F5F9] text-sm">4.92</span><span class="text-[#94A3B8] text-sm">· 86 reviews</span><span class="text-[#494454]">·</span><span class="inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#2A1F4E] text-[#C4B5FD] border border-[#8B5CF6]/30">Guest favorite</span></div><div class="border-t border-[#1E2A45] my-5"></div><p class="text-[#94A3B8] text-sm font-medium">4 guests · 2 beds · 1 private bathroom</p></div><!-- 3. ABOUT SECTION -->
+<div><h2 class="text-[22px] font-bold text-[#F1F5F9] mb-3">About this guesthouse</h2><p class="text-[#94A3B8] text-base leading-relaxed">A carefully hosted retreat with warm interiors, peaceful shared spaces, and everything needed for a comfortable stay. Enjoy local recommendations from your host and easy access to the best of Kampala.</p></div><!-- 4. AMENITIES SECTION -->
+<div><h2 class="text-[22px] font-bold text-[#F1F5F9] mb-4">What this place offers</h2><div class="grid grid-cols-2 gap-4"><div class="flex items-center gap-3.5 p-3.5 rounded-xl bg-[#141B2D] border border-[#1E2A45] shadow-sm" style="border-radius: 32px; overflow: hidden;"><div class="w-9 h-9 rounded-lg bg-[#2A1F4E] flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[#A78BFA] text-[20px]">wifi</span></div><span class="font-medium text-[#F1F5F9] text-sm">Fast Wi-Fi</span></div><div class="flex items-center gap-3.5 p-3.5 rounded-xl bg-[#141B2D] border border-[#1E2A45] shadow-sm" style="border-radius: 32px; overflow: hidden;"><div class="w-9 h-9 rounded-lg bg-[#2A1F4E] flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[#A78BFA] text-[20px]">local_parking</span></div><span class="font-medium text-[#F1F5F9] text-sm">Free parking</span></div><div class="flex items-center gap-3.5 p-3.5 rounded-xl bg-[#141B2D] border border-[#1E2A45] shadow-sm" style="border-radius: 32px; overflow: hidden;"><div class="w-9 h-9 rounded-lg bg-[#2A1F4E] flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[#A78BFA] text-[20px]">restaurant</span></div><span class="font-medium text-[#F1F5F9] text-sm">Breakfast included</span></div><div class="flex items-center gap-3.5 p-3.5 rounded-xl bg-[#141B2D] border border-[#1E2A45] shadow-sm" style="border-radius: 32px; overflow: hidden;"><div class="w-9 h-9 rounded-lg bg-[#2A1F4E] flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[#A78BFA] text-[20px]">desk</span></div><span class="font-medium text-[#F1F5F9] text-sm">Private workspace</span></div><div class="flex items-center gap-3.5 p-3.5 rounded-xl bg-[#141B2D] border border-[#1E2A45] shadow-sm" style="border-radius: 32px; overflow: hidden;"><div class="w-9 h-9 rounded-lg bg-[#2A1F4E] flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[#A78BFA] text-[20px]">shield</span></div><span class="font-medium text-[#F1F5F9] text-sm">24-hour security</span></div><div class="flex items-center gap-3.5 p-3.5 rounded-xl bg-[#141B2D] border border-[#1E2A45] shadow-sm" style="border-radius: 32px; overflow: hidden;"><div class="w-9 h-9 rounded-lg bg-[#2A1F4E] flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[#A78BFA] text-[20px]">yard</span></div><span class="font-medium text-[#F1F5F9] text-sm">Private garden</span></div></div></div><!-- 5. HOST CARD -->
+<div class="bg-[#141B2D] border border-[#1E2A45] rounded-2xl p-6 flex items-center gap-4 shadow-md" style="border-radius: 32px; overflow: hidden;"><div class="w-12 h-12 rounded-full bg-[#8B5CF6] text-white font-bold flex items-center justify-center text-lg shrink-0 shadow-md ring-2 ring-[#8B5CF6]/30">AN</div><div class="flex-1"><h3 class="text-lg font-bold text-[#F1F5F9]">Hosted by Amara</h3><p class="text-sm text-[#94A3B8] mt-0.5">Verified host · Responds within an hour</p></div><button class="px-4 py-2 rounded-full border border-[#1E2A45] bg-[#1E2A45]/60 hover:bg-[#1E2A45] text-[#C4B5FD] hover:text-white text-xs font-semibold transition-colors">Contact host</button></div><!-- HOST CTA BANNER -->
+<section class="w-full mt-4" style="border-radius: 32px; overflow: hidden;"></section></div><!-- RIGHT COLUMN — BOOKING SIDEBAR (Sticky, ~30% / w-1/3) -->
+<div class="w-full lg:w-1/3 lg:sticky lg:top-28 self-start"><div class="bg-[#141B2D] rounded-2xl p-6 border border-[#1E2A45] shadow-2xl" style="border-radius: 32px; overflow: hidden;"><!-- Top Price Display -->
+<div class="flex items-baseline justify-between"><div><span class="text-[32px] leading-tight font-extrabold text-[#F1F5F9]">$84</span><span class="text-[#94A3B8] text-base font-normal"> / night</span></div><div class="flex items-center gap-1 text-xs text-[#94A3B8]"><span class="material-symbols-outlined text-[16px] text-[#8B5CF6]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span><span class="font-bold text-[#F1F5F9]">4.92</span><span class="">(86)</span></div></div><!-- Form Inputs -->
+<div class="mt-5 space-y-3.5"><div><label class="text-[12px] font-semibold uppercase tracking-wider text-[#94A3B8] block mb-1">CHECK-IN &amp; CHECK-OUT</label><button class="w-full rounded-lg border border-[#1E2A45] px-3.5 py-2.5 flex items-center justify-between text-sm text-[#F1F5F9] bg-[#0A0E1A] hover:border-[#8B5CF6]/50 transition-colors focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/30" type="button"><span class="text-sm text-[#F1F5F9] font-medium">Nov 14 – Nov 17</span><span class="material-symbols-outlined text-[#8B5CF6] text-[18px]">calendar_today</span></button></div><div><label class="text-[12px] font-semibold uppercase tracking-wider text-[#94A3B8] block mb-1">GUESTS</label><button class="w-full rounded-lg border border-[#1E2A45] px-3.5 py-2.5 flex items-center justify-between text-sm text-[#F1F5F9] bg-[#0A0E1A] hover:border-[#8B5CF6]/50 transition-colors focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/30" type="button"><span class="text-sm text-[#F1F5F9] font-medium">2 guests</span><span class="material-symbols-outlined text-[#94A3B8] text-[20px]">expand_more</span></button></div></div><!-- Primary CTA Button -->
+<button class="w-full mt-5 py-3.5 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white font-semibold text-base transition-all shadow-lg shadow-[#8B5CF6]/25 text-center focus:outline-none focus:ring-2 focus:ring-[#8B5CF6] focus:ring-offset-2 focus:ring-offset-[#141B2D]" type="button">Reserve this stay</button><p class="text-xs text-[#94A3B8] text-center mt-2.5">You won't be charged yet</p><div class="border-t border-[#1E2A45] my-5"></div><!-- Price Breakdown -->
+<div class="space-y-2.5"><div class="flex items-center justify-between text-sm text-[#94A3B8]"><span class="underline decoration-dotted cursor-pointer hover:text-white">$84 × 3 nights</span><span class="text-[#F1F5F9]">$252</span></div><div class="flex items-center justify-between text-sm text-[#94A3B8]"><span class="underline decoration-dotted cursor-pointer hover:text-white">Cleaning fee</span><span class="text-[#F1F5F9]">$12</span></div><div class="flex items-center justify-between text-sm text-[#94A3B8]"><span class="underline decoration-dotted cursor-pointer hover:text-white">Service fee</span><span class="text-[#F1F5F9]">$10</span></div></div><div class="border-t border-[#1E2A45] my-4"></div><!-- Total -->
+<div class="flex items-center justify-between text-lg font-bold text-[#F1F5F9]"><span class="">Total</span><span class="text-[#C4B5FD]">$274</span></div><div class="mt-4 pt-3 text-center border-t border-[#1E2A45]/60"><span class="inline-flex items-center gap-1.5 text-xs text-[#94A3B8]"><span class="material-symbols-outlined text-[16px] text-[#8B5CF6]">verified</span>Free cancellation up to 48h before check-in</span></div></div></div></div></div><!-- LIGHTBOX MODAL -->
+<div class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center hidden" id="lightbox-modal" onclick="handleBackdropClick(event)"><button aria-label="Close lightbox" class="absolute top-6 right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors shadow-lg z-20" onclick="closeLightbox()"><span class="material-symbols-outlined text-[24px]">close</span></button><button aria-label="Previous image" class="absolute left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors shadow-lg z-20" onclick="prevImage(event)"><span class="material-symbols-outlined text-[24px]">chevron_left</span></button><button aria-label="Next image" class="absolute right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors shadow-lg z-20" onclick="nextImage(event)"><span class="material-symbols-outlined text-[24px]">chevron_right</span></button><div class="max-w-4xl w-full mx-6 max-h-[85vh] flex flex-col items-center justify-center relative select-none"><img alt="Gallery preview" class="max-w-full max-h-[75vh] object-contain rounded-xl shadow-2xl" data-alt="High-resolution interior photography of Lavender House retreat in Kampala, capturing spacious airy design, soft lavender textiles, and tranquil tropical morning sunlight." id="lightbox-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB34TPdyhPOxDF56k-sUzZEIOWHH0TcdNJ6t9BftdvNy75vfZPjHf-8__hrpagBHPCLbhZkDuPiUuyiy3ndCw9B0KlINAPmphiG5ztGD6CXW0SjW30FoDd06V1k8y1A_bP6x9KT9m85-EAK5ywgBHQM60PYVjwFxh07D9LYhm66-hxYWqwThBcUGCE0r4PlC5EJHfEELJ2UpwWRFQG5aI3qN639iPCAbnMnhuhcBbkigNo9rI7cVF8n"><div class="mt-4 flex items-center justify-between w-full px-2 text-white/80 text-sm"><span class="font-medium" id="lightbox-caption">Lavender House · Master Bedroom &amp; Living Suite</span><span class="text-xs bg-white/10 border border-white/15 px-3 py-1 rounded-full font-mono" id="lightbox-counter">1 / 3</span></div></div></div></div><script>
+  const galleryItems = [
+    {
+      title: "Master Bedroom & Living Suite",
+      prompt: "Sunlit boutique guesthouse bedroom with a plush king bed layered with soft lavender throws and natural linen duvets. Clean white walls with Ugandan handcrafted wall hangings, warm oak bedside tables, soft ambient morning light streaming through sheer curtains, evoking an airy, serene, minimalist retreat."
+    },
+    {
+      title: "En-suite Bath & Vanity",
+      prompt: "Modern serene en-suite bathroom with artisan ceramic tiles, matte black fixtures, crisp folded organic towels in lavender hues, and a potted eucalyptus plant beside a sunlit stone vanity."
+    },
+    {
+      title: "Private Garden Veranda",
+      prompt: "Private stone courtyard veranda surrounded by lush tropical ferns and flowering lavender plants, featuring a wrought iron bistro chair and tea table under warm gentle sunlight in Kampala."
+    }
+  ];
+
+  let currentImageIndex = 0;
+
+  function openLightbox(index) {
+    currentImageIndex = index;
+    updateLightbox();
+    const modal = document.getElementById('lightbox-modal');
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const modal = document.getElementById('lightbox-modal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  function handleBackdropClick(event) {
+    if (event.target.id === 'lightbox-modal') {
+      closeLightbox();
+    }
+  }
+
+  function prevImage(event) {
+    if (event) event.stopPropagation();
+    currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
+    updateLightbox();
+  }
+
+  function nextImage(event) {
+    if (event) event.stopPropagation();
+    currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    const item = galleryItems[currentImageIndex];
+    const imgEl = document.getElementById('lightbox-image');
+    const captionEl = document.getElementById('lightbox-caption');
+    const counterEl = document.getElementById('lightbox-counter');
+
+    imgEl.setAttribute('data-alt', item.prompt);
+    captionEl.textContent = `Lavender House · ${item.title}`;
+    counterEl.textContent = `${currentImageIndex + 1} / ${galleryItems.length}`;
+  }
+
+  document.addEventListener('keydown', function(e) {
+    const modal = document.getElementById('lightbox-modal');
+    if (!modal.classList.contains('hidden')) {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'ArrowRight') nextImage();
+    }
+  });
+</script></main><!-- Footer -->
+
+
+
+
+
+
+
+
+</body></html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Nestly - House admin accounts</title>
+<!-- Load Tailwind CSS v3 with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              purple: '#7C3AED',
+              purpleLight: '#EDE9FE',
+              purpleAvatar: '#F3E8FF',
+              dark: '#0F172A',
+              muted: '#64748B',
+              bgLight: '#F8F9FA',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Styling Rules -->
+<style data-purpose="custom-layout">
+    body {
+      background-color: #F8F9FA;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-900 antialiased selection:bg-purple-100 selection:text-purple-700">
+<!-- BEGIN: MainNavbar -->
+<!-- Top global navigation header matching the reference design -->
+<header class="w-full pt-4 pb-3 px-6 lg:px-12 bg-[#F8F9FA]" data-purpose="site-navigation">
+<div class="max-w-[1360px] mx-auto flex items-center justify-between">
+<!-- Logo Branding Container -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-[#7C3AED] flex items-center justify-center text-white shadow-sm shadow-purple-200">
+<!-- House outline icon -->
+<svg aria-hidden="true" class="w-5 h-5 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-xl font-bold tracking-tight text-[#2D3748]" style="color: rgb(45, 55, 72);">StayHaven</span>
+</div>
+<!-- Navigation Central Pill Menu -->
+<nav aria-label="Main Navigation" class="hidden md:flex items-center bg-white rounded-full p-1.5 border border-[#E5E7EB] shadow-sm shadow-slate-100">
+<a class="px-5 py-2 text-sm font-medium text-[#64748B] hover:text-slate-900 hover:bg-slate-50 transition-colors rounded-full" href="#overview">
+          Overview
+        </a>
+<a class="px-5 py-2 text-sm font-medium text-[#64748B] hover:text-slate-900 hover:bg-slate-50 transition-colors rounded-full" href="#listings">
+          Listings
+        </a>
+<a class="px-5 py-2 text-sm font-semibold bg-[#EDE9FE] text-[#7C3AED] rounded-full" href="#house-admins">
+          House admins
+        </a>
+</nav>
+<!-- Right Header Actions -->
+<div class="flex items-center gap-3.5">
+<!-- Dark Mode Toggle Button -->
+<button aria-label="Toggle theme" class="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-[#E5E7EB] hover:bg-slate-50 transition-colors shadow-sm text-[#7C3AED]" type="button">
+<svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Sign Out Button -->
+<button class="px-5 py-2 text-sm font-medium text-[#7C3AED] bg-white border border-[#E2E8F0] rounded-full hover:bg-purple-50/50 transition-colors shadow-sm" type="button">
+          Sign out
+        </button>
+<!-- User Profile Avatar -->
+<div class="w-10 h-10 rounded-full flex items-center justify-center text-white cursor-pointer shadow-sm bg-[#7C3AED]">
+<svg aria-hidden="true" class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+<path clip-rule="evenodd" d="M12 2a5 5 0 100 10 5 5 0 000-10zm-7 18a7 7 0 0114 0H5z" fill-rule="evenodd"></path>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<!-- END: MainNavbar -->
+<!-- BEGIN: PageContent -->
+<main class="max-w-[1360px] mx-auto px-6 lg:px-12 pt-10 pb-16">
+<!-- Workspace Title Section -->
+<section class="mb-8" data-purpose="page-header">
+<p class="text-xs font-bold tracking-wider text-[#7C3AED] uppercase mb-2">APP ADMIN WORKSPACE</p>
+<h1 class="text-4xl md:text-[42px] leading-tight font-extrabold text-[#0F172A] tracking-tight mb-2.5">House admin accounts</h1>
+<p class="text-base text-[#64748B]">Verify, manage, or suspend house administrator access.</p>
+</section>
+<!-- Admin Accounts Table Card -->
+<div class="bg-white rounded-[24px] border border-[#E5E7EB] shadow-sm overflow-hidden" data-purpose="admin-table-container">
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left" id="house-admin-table">
+<!-- Table Header -->
+<thead>
+<tr class="border-b border-[#F1F5F9] text-xs font-bold uppercase tracking-wider text-[#94A3B8]">
+<th class="py-4 pl-8 pr-4" scope="col">ADMINISTRATOR</th>
+<th class="py-4 px-4" scope="col">DETAILS</th>
+<th class="py-4 pl-4 pr-8 text-right" scope="col">STATUS AND ACTIONS</th>
+</tr>
+</thead>
+<!-- Table Body -->
+<tbody class="divide-y divide-[#F1F5F9]">
+<!-- Administrator Row 1: Sarah Kato -->
+<tr class="hover:bg-slate-50/60 transition-colors">
+<td class="py-5 pl-8 pr-4 whitespace-nowrap">
+<div class="flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-[12px] bg-[#F3E8FF] flex items-center justify-center text-[#7C3AED] font-bold text-sm select-none">
+                    SK
+                  </div>
+<span class="font-bold text-[#0F172A] text-base">Sarah Kato</span>
+</div>
+</td>
+<td class="py-5 px-4 whitespace-nowrap text-[#64748B] text-[15px]">
+                12 listings · Verified
+              </td>
+<td class="py-5 pl-4 pr-8 whitespace-nowrap text-right"><div class="flex items-center justify-end gap-3"><span class="inline-flex items-center gap-1.5 rounded-full bg-[#4ADE80] px-3 py-1 text-xs font-bold text-[#064E3B] border-0"><span class="w-1.5 h-1.5 rounded-full bg-[#064E3B]"></span>Confirmed</span><button class="inline-flex items-center justify-center rounded-full bg-[#EDE9FE] px-4 py-1.5 text-[13px] font-bold text-[#7C3AED] border-0 cursor-pointer hover:bg-purple-100 transition-colors" type="button">Manage</button></div></td>
+</tr>
+<!-- Administrator Row 2: David Muwanga -->
+<tr class="hover:bg-slate-50/60 transition-colors">
+<td class="py-5 pl-8 pr-4 whitespace-nowrap">
+<div class="flex items-center gap-3.5">
+<div class="w-11 h-11 rounded-[12px] bg-[#DBEAFE] flex items-center justify-center text-[#1E40AF] font-bold text-sm select-none">
+                    DM
+                  </div>
+<span class="font-bold text-[#0F172A] text-base">David Muwanga</span>
+</div>
+</td>
+<td class="py-5 px-4 whitespace-nowrap text-[#64748B] text-[15px]">
+                4 listings · Verified
+              </td>
+<td class="py-5 pl-4 pr-8 whitespace-nowrap text-right"><div class="flex items-center justify-end gap-3"><span class="inline-flex items-center gap-1.5 rounded-full bg-[#4ADE80] px-3 py-1 text-xs font-bold text-[#064E3B] border-0"><span class="w-1.5 h-1.5 rounded-full bg-[#064E3B]"></span>Confirmed</span><button class="inline-flex items-center justify-center rounded-full bg-[#EDE9FE] px-4 py-1.5 text-[13px] font-bold text-[#7C3AED] border-0 cursor-pointer hover:bg-purple-100 transition-colors" type="button">Manage</button></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- END: PageContent -->
+
+
+
+
+</body></html>

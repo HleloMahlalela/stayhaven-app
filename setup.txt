@@ -1,0 +1,37 @@
+The project folders are organized into `/Frontend` and `/Backend`. The web app is located at `/Frontend/web`.
+
+Please configure the web app for Tailwind CSS and React Router, and set up a clean, modular folder structure.
+
+1. SET UP TAILWIND:
+- Open `/Frontend/web/tailwind.config.js`. Update the `content` array to:
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+
+- Open `/Frontend/web/src/index.css`. Replace all the contents with:
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #F8F9FA;
+  }
+
+2. INSTALL REACT ROUTER:
+- Run this command in the terminal: `cd Frontend/web && npm install react-router-dom`
+
+3. CREATE CLEAN FOLDER STRUCTURE:
+Inside `/Frontend/web/src`, create the following empty directories:
+- `assets`
+- `components`
+- `pages`
+- `layouts`
+- `context`
+- `hooks`
+- `utils`
+
+4. SET UP ROUTER:
+- Delete the boilerplate code inside `/Frontend/web/src/App.css`.
+- Replace `/Frontend/web/src/App.jsx` with a basic React Router setup.
+- Create a placeholder file `/Frontend/web/src/pages/Explore.jsx` that returns `<div>Explore Page Placeholder</div>`.
+- Ensure the `App.jsx` routes the root path (`/`) to the `Explore` page.

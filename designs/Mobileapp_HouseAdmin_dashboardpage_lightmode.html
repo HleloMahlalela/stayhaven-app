@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>StayHaven - House Admin Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body class="bg-[#F8F9FA] text-[#111827] max-w-[390px] mx-auto min-h-screen relative pb-24 font-sans antialiased selection:bg-purple-100 selection:text-purple-900">
+<!-- 1. MAIN SCROLLABLE CONTENT CONTAINER -->
+<div style="padding-bottom: 112px;">
+<!-- 2. STICKY MOBILE HEADER -->
+<header class="sticky top-0 z-50 bg-[#F8F9FA]/95 backdrop-blur-sm pt-6 px-4 pb-2 flex items-center justify-between">
+<!-- Left: Purple square logo + StayHaven -->
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-[#7C3AED] flex items-center justify-center text-white font-bold shadow-sm shadow-purple-500/20">
+<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+<path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+</svg>
+</div>
+<span class="text-[18px] font-bold text-black tracking-tight">StayHaven</span>
+</div>
+<!-- Right: Moon icon, Sign out pill, and Profile avatar icon -->
+<div class="flex items-center gap-2">
+<!-- Moon Icon -->
+<button aria-label="Toggle dark mode" class="w-8 h-8 rounded-full bg-white border border-[#E5E7EB] flex items-center justify-center text-gray-600 shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Sign out pill button -->
+<button class="bg-white border border-gray-200 text-xs px-3 py-1.5 rounded-full text-gray-700 font-medium shadow-sm hover:bg-gray-50 active:scale-95 transition-all">
+          Sign out
+        </button>
+<!-- Profile avatar icon -->
+<div class="w-8 h-8 rounded-full bg-[#7C3AED] text-white flex items-center justify-center font-bold text-xs shadow-sm shadow-purple-500/30"><svg class="w-4 h-4 text-white fill-current" fill="currentColor" viewBox="0 0 20 20"><path clip-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" fill-rule="evenodd"></path></svg></div>
+</div>
+</header>
+<!-- 3. PAGE HEADER -->
+<section class="px-4 mt-6">
+<div class="text-[12px] uppercase tracking-wider font-bold text-[#7C3AED]">
+        HOUSE ADMIN WORKSPACE
+      </div>
+<h1 class="text-[28px] font-bold text-[#111827] mt-1 leading-tight">
+        Good morning, Amara.
+      </h1>
+<p class="text-[14px] text-[#6B7280] mt-1">
+        Here's what's happening with your guesthouses.
+      </p>
+<button class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-full mt-4 w-full py-3 text-center font-semibold text-sm shadow-md transition-colors flex items-center justify-center gap-1.5">
+<span class="">+ Request new listing</span>
+</button>
+</section>
+<!-- 4. STAT CARDS -->
+<section class="mx-4 mt-6 grid grid-cols-2 gap-3">
+<!-- Card 1: Active listings -->
+<div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col justify-between">
+<span class="text-[12px] text-gray-500 font-medium">Active listings</span>
+<div class="mt-1">
+<div class="text-[24px] font-bold text-gray-900 leading-tight">4</div>
+<div class="text-[12px] text-green-600 font-medium mt-1 flex items-center gap-1">
+<span class="">▲ +1 this month</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Upcoming stays -->
+<div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col justify-between">
+<span class="text-[12px] text-gray-500 font-medium">Upcoming stays</span>
+<div class="mt-1">
+<div class="text-[24px] font-bold text-gray-900 leading-tight">12</div>
+<div class="text-[12px] text-green-600 font-medium mt-1 flex items-center gap-1">
+<span class="">● Next: tomorrow</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Occupancy -->
+<div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col justify-between">
+<span class="text-[12px] text-gray-500 font-medium">Occupancy</span>
+<div class="mt-1">
+<div class="text-[24px] font-bold text-gray-900 leading-tight">86%</div>
+<div class="text-[12px] text-green-600 font-medium mt-1 flex items-center gap-1">
+<span class="">▲ +8.2%</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Guest rating -->
+<div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex flex-col justify-between">
+<span class="text-[12px] text-gray-500 font-medium">Guest rating</span>
+<div class="mt-1">
+<div class="text-[24px] font-bold text-gray-900 leading-tight flex items-center gap-1">
+<span class="">4.91</span>
+<span class="text-amber-400">★</span>
+</div>
+<div class="text-[12px] text-gray-500 font-medium mt-1">
+            From 128 reviews
+          </div>
+</div>
+</div>
+</section>
+<!-- 5. UPCOMING BOOKINGS CARD -->
+<section class="mx-4 mt-6">
+<div class="bg-white rounded-3xl p-5 border border-gray-200 shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-[16px] font-bold text-[#111827] tracking-tight">Upcoming bookings</h2>
+<a class="text-xs font-semibold text-[#7C3AED] hover:underline" href="#view-all">View all</a>
+</div>
+<!-- Bookings Rows -->
+<div class="flex flex-col">
+<!-- Row 1 -->
+<div class="py-3.5 first:pt-0 border-b border-gray-100 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#F3E8FF] text-[#7C3AED] font-semibold flex items-center justify-center text-sm shrink-0">
+                SC
+              </div>
+<div>
+<p class="text-sm font-bold text-gray-900 leading-snug">Sophie Chen</p>
+<p class="text-xs text-gray-500 leading-snug">Cedar Haven Cottage</p>
+</div>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="text-[12px] text-gray-900 font-medium leading-tight">Oct 18–22</span>
+<span class="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/50">Confirmed</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="py-3.5 border-b border-gray-100 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#FEF3C7] text-[#D97706] font-semibold flex items-center justify-center text-sm shrink-0">
+                MK
+              </div>
+<div>
+<p class="text-sm font-bold text-gray-900 leading-snug">Marcus Kelly</p>
+<p class="text-xs text-gray-500 leading-snug">Hilltop Modern Villa</p>
+</div>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="text-[12px] text-gray-900 font-medium leading-tight">Oct 24–28</span>
+<span class="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-purple-50 text-[#7C3AED] border border-purple-200/50">Checked in</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="py-3.5 last:pb-0 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#DBEAFE] text-[#2563EB] font-semibold flex items-center justify-center text-sm shrink-0">
+                EJ
+              </div>
+<div>
+<p class="text-sm font-bold text-gray-900 leading-snug">Elena &amp; Julian</p>
+<p class="text-xs text-gray-500 leading-snug">Lakeside Pine Retreat</p>
+</div>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="text-[12px] text-gray-900 font-medium leading-tight">Nov 2–7</span>
+<span class="inline-block mt-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/50">Confirmed</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. DARK PANEL -->
+<section class="mx-4 mt-6 mb-8">
+<div class="bg-[#0F172A] rounded-3xl p-6 text-white shadow-lg relative overflow-hidden">
+<!-- Top: Bell icon + status pill -->
+<div class="flex items-center justify-between">
+<div class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-slate-200">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+
+</div>
+<!-- Heading -->
+<h3 class="text-[24px] font-bold text-white mt-4 leading-snug">
+          Stay on top of every arrival.
+        </h3>
+<!-- Paragraph -->
+<p class="text-[14px] text-[#94A3B8] mt-2 leading-relaxed">
+          Guests receive automatic email and SMS confirmations before check-in.
+        </p>
+<!-- Link -->
+<a class="text-[#A78BFA] font-bold text-sm mt-4 inline-flex items-center hover:text-white transition-colors" href="#manage-notifications">
+          Manage notifications →
+        </a>
+</div>
+</section>
+</div>
+<!-- 7. FLOATING BOTTOM NAV -->
+<nav class="fixed bottom-4 left-4 right-4 h-16 rounded-[32px] bg-white border border-gray-200 shadow-xl flex items-center justify-around z-50 max-w-[358px] mx-auto px-2">
+<!-- Tab 1: Dashboard (Active) -->
+<button class="flex items-center justify-center">
+<div class="bg-[#EDE9FE] px-3 py-1 rounded-full flex items-center gap-1.5 text-[#7C3AED] font-medium text-xs transition-all">
+<svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+<path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+</svg>
+<span class="">Dashboard</span>
+</div>
+</button>
+<!-- Tab 2: Listings -->
+<button class="text-gray-500 flex flex-col items-center gap-0.5 text-xs font-medium hover:text-gray-800 transition-colors px-3 py-1">
+<svg class="w-5 h-5 stroke-current fill-none" stroke-width="2" viewBox="0 0 24 24">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="">Listings</span>
+</button>
+<!-- Tab 3: Bookings -->
+<button class="text-gray-500 flex flex-col items-center gap-0.5 text-xs font-medium hover:text-gray-800 transition-colors px-3 py-1">
+<svg class="w-5 h-5 stroke-current fill-none" stroke-width="2" viewBox="0 0 24 24">
+<path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="">Bookings</span>
+</button>
+</nav>
+
+
+</body></html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StayHaven - Find Your Next Luxury Stay</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ["Inter", "sans-serif"]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+</style>
+</head>
+<body class="w-full min-h-screen bg-[#F8F9FA] text-[#0F172A] font-sans antialiased selection:bg-[#EDE9FE] selection:text-[#7C3AED]">
+<!-- 2. TOP NAVBAR -->
+<header class="w-full bg-[#F8F9FA] sticky top-0 z-50">
+<div class="relative flex items-center justify-between w-full py-5 max-w-[1440px] mx-auto px-6 lg:px-12">
+<!-- Left Logo -->
+<a class="flex items-center gap-3 shrink-0 z-10" href="#">
+<div class="w-10 h-10 rounded-[12px] bg-[#7C3AED] flex items-center justify-center shrink-0 shadow-sm text-white">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+</svg>
+</div>
+<span class="font-bold tracking-tight text-xl text-[#0F172A]">StayHaven</span>
+</a>
+<!-- Center Pill Navigation -->
+<nav class="absolute left-1/2 -translate-x-1/2 flex items-center bg-white border border-[#E2E8F0] shadow-sm rounded-full p-1.5 gap-1 z-10">
+<a aria-current="page" class="bg-[#EDE9FE] text-[#7C3AED] font-semibold px-5 py-2 rounded-full whitespace-nowrap transition-colors" data-path="explore" href="#">Explore</a>
+<a class="text-[#64748B] hover:text-[#0F172A] font-medium px-5 py-2 rounded-full whitespace-nowrap transition-colors" data-path="bookings" href="#">Bookings</a>
+<a class="text-[#64748B] hover:text-[#0F172A] font-medium px-5 py-2 rounded-full whitespace-nowrap transition-colors" data-path="reviews" href="#">Reviews</a>
+</nav>
+<!-- Right Actions -->
+<div class="flex items-center gap-4 shrink-0 z-10">
+<button aria-label="Toggle dark mode" class="w-10 h-10 rounded-full flex items-center justify-center text-[#64748B] hover:text-[#0F172A] hover:bg-black/5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">dark_mode</span>
+</button>
+<a class="bg-[#7C3AED] text-white px-5 py-2 rounded-full font-medium hover:bg-[#6D28D9] transition-colors whitespace-nowrap text-sm shadow-sm" data-path="login" href="#">Sign in</a>
+<div class="w-9 h-9 rounded-full bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center text-[#7C3AED] shrink-0">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN WRAPPER (Wide Desktop 1440px) -->
+<main class="w-full max-w-[1440px] mx-auto px-6 lg:px-12 pt-2">
+<!-- 3. HERO SECTION -->
+<section class="w-full relative rounded-[32px] overflow-hidden min-h-[500px] flex flex-col items-center justify-center text-center px-6">
+<img alt="Warm atmospheric guesthouse sanctuary" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEMrNZT2-wRiCxpIgO0RCcbvv-drUclO3JB4f3qagX0p0kLjcdWjWd9F_whGuVfCHEJjU_3aTeJuAqkd2y0wFNjQv-1sOMRXHRD8k4zNone6o6-3SNvu0_kZZjKLdqkhNgDTwvhhR5-fhih9_GVoTR1-vZIYKyaDAM-AzxRq1Jco_f1k7U2kdTGRdzHGqgDC35_-_PLLb75X6GuJa0tTlIohWPJB2NruBQfPwAbpw"/>
+<div class="bg-black/40 absolute inset-0"></div>
+<div class="relative z-10 max-w-3xl flex flex-col items-center">
+<div class="bg-black/30 backdrop-blur-md text-white/90 text-xs tracking-wider uppercase px-4 py-1.5 rounded-full mb-4 border border-white/20 inline-flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-[#7C3AED]"></span>
+<span>Stay somewhere memorable</span>
+</div>
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight max-w-2xl leading-tight mb-4">
+          Find a place that feels like yours.
+        </h1>
+<p class="text-white/80 text-lg max-w-xl mx-auto font-normal">
+          Thoughtful guesthouses, local hosts and stays worth remembering—all in one place.
+        </p>
+</div>
+</section>
+<!-- 4. SEARCH BAR -->
+<div class="w-full max-w-[840px] mx-auto -mt-10 relative z-20 bg-white rounded-full p-2.5 shadow-xl border border-gray-100 flex items-center justify-between">
+<!-- Destination / Location -->
+<div class="flex items-center gap-3 text-left flex-1 min-w-0 px-4 py-1 cursor-pointer group">
+<span class="material-symbols-outlined text-[#7C3AED] text-[22px] shrink-0">location_on</span>
+<div class="flex flex-col min-w-0">
+<span class="text-xs font-bold text-[#0F172A] tracking-wider uppercase truncate">Location</span>
+<span class="text-sm text-[#64748B] truncate font-normal">Where to next? / All destinations</span>
+</div>
+</div>
+<!-- Divider -->
+<div class="w-px h-8 bg-[#E2E8F0] shrink-0"></div>
+<!-- Dates -->
+<div class="flex items-center gap-3 text-left flex-1 min-w-0 px-4 py-1 cursor-pointer group">
+<span class="material-symbols-outlined text-[#7C3AED] text-[22px] shrink-0">calendar_today</span>
+<div class="flex flex-col min-w-0">
+<span class="text-xs font-bold text-[#0F172A] tracking-wider uppercase truncate">Dates</span>
+<span class="text-sm text-[#64748B] truncate font-normal">Add dates / Check-in date</span>
+</div>
+</div>
+<!-- Divider -->
+<div class="w-px h-8 bg-[#E2E8F0] shrink-0"></div>
+<!-- Guests -->
+<div class="flex items-center gap-3 text-left flex-1 min-w-0 px-4 py-1 cursor-pointer group">
+<span class="material-symbols-outlined text-[#7C3AED] text-[22px] shrink-0">group</span>
+<div class="flex flex-col min-w-0">
+<span class="text-xs font-bold text-[#0F172A] tracking-wider uppercase truncate">Guests</span>
+<span class="text-sm text-[#64748B] truncate font-normal">Add guests</span>
+</div>
+</div>
+<!-- Search Button -->
+<button class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white p-3.5 md:px-7 rounded-full font-medium flex items-center gap-2 shadow-md shrink-0 transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">search</span>
+<span class="font-semibold text-sm hidden md:inline">Search</span>
+</button>
+</div>
+<!-- 5. LISTINGS SECTION -->
+<section class="mt-16 w-full">
+<!-- Section Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
+<div>
+<span class="text-xs font-bold text-[#7C3AED] tracking-[1.5px] uppercase">
+            Handpicked for you
+          </span>
+<h2 class="text-3xl font-extrabold text-[#0F172A] tracking-tight mt-1">
+            Stays with a little soul
+          </h2>
+</div>
+<!-- Controls -->
+<div class="inline-flex items-center gap-3">
+<button class="bg-[#EDE9FE] text-[#7C3AED] hover:bg-[#DDD6FE] px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span>Favorites</span>
+</button>
+<span class="text-sm font-medium text-[#64748B]">
+            10 homes
+          </span>
+</div>
+</div>
+<!-- 10 Listing Cards Grid (5 cols x 2 rows on desktop) -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">
+<!-- Card 1 -->
+<article class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
+<img alt="Lavender House" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTbOVml0Q3PnKWpzEWtqxDSJF3Tg4qhJLFYr9KQuRFxn43TXwZeQajXB6W_p6EHTcGBh7k5t9M7gqRznG6xx3KDJsf81kksC8KvRfQ27oKH0pfym-btVqw20meO7dDB9H_wuTskvfgn8io_IOZXFDZWY22sSULf6xufqp6BGARTyF_WwZisgGkzRj2A3_iZHG_2mfQQKotsElJy1UYFqvwlqqyx6-3Ai6Ibm-S8M4"/>
+<span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">Private garden</span>
+<button aria-label="Toggle favorite" class="favorite-toggle absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm cursor-pointer hover:bg-white transition-transform active:scale-95" data-favorited="true" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-bold text-base text-[#0F172A] truncate group-hover:text-[#7C3AED] transition-colors">Lavender House</h3>
+<p class="text-sm text-[#64748B] mt-0.5 truncate">Kampala, Uganda</p>
+</div>
+<div class="flex justify-between items-center mt-3 pt-2">
+<div class="font-bold text-[#0F172A] text-base">$84 <span class="text-xs text-[#64748B] font-normal">/ night</span></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-[#0F172A]">4.92</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
+<img alt="Kigo Hillside Haven" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK-qRUWhENY5SbA00U216Cdwd_5X6b_t6LBNaIAs7wGu8pMNRWHp1tduF__CUBVcLw4xIQRkc9hZX7P0ya6xntF2HVsgxWaU-7E2uwTGQxKt9UMQWvjJGEMZqVLPX0mQ0fFOI_aJLXh-5pMHRu-cmDIf-hMtz6kqmj-wx4MByFie4j7J35x4nNrZWN88YZEvJYK28zKv0RtuykzMfX6XWhzwiX3n1W1_s6UeFhr7s"/>
+<span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">River views</span>
+<button aria-label="Toggle favorite" class="favorite-toggle absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm cursor-pointer hover:bg-white transition-transform active:scale-95" data-favorited="false" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#94A3B8]">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-bold text-base text-[#0F172A] truncate group-hover:text-[#7C3AED] transition-colors">Kigo Hillside Haven</h3>
+<p class="text-sm text-[#64748B] mt-0.5 truncate">Entebbe, Uganda</p>
+</div>
+<div class="flex justify-between items-center mt-3 pt-2">
+<div class="font-bold text-[#0F172A] text-base">$112 <span class="text-xs text-[#64748B] font-normal">/ night</span></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-[#0F172A]">4.98</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
+<img alt="Nalubaale Stone Cottage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlrwX9lu0PnXT6UcQIuNErHSJTNP-1hbWr8rLF_vUNTix2izh2W6QanPP6IaXOIvoXkvBBBL3zui8B7YF6rr97soaJje7OPMhLkTWU9InCUIHSuHT0WFeI8whfEN9ittLzhvLL225IkHYhXVPSGXeLBMOp3AfelGB7peS-eAJjhvf-1m42gOIUx-uRHUrvaJhOFgQrbv7fNna_lxUxHn25__NkjoHkFNgrVjhN7mA"/>
+<span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">Near the lake</span>
+<button aria-label="Toggle favorite" class="favorite-toggle absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm cursor-pointer hover:bg-white transition-transform active:scale-95" data-favorited="false" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#94A3B8]">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-bold text-base text-[#0F172A] truncate group-hover:text-[#7C3AED] transition-colors">Nalubaale Stone Cottage</h3>
+<p class="text-sm text-[#64748B] mt-0.5 truncate">Jinja, Uganda</p>
+</div>
+<div class="flex justify-between items-center mt-3 pt-2">
+<div class="font-bold text-[#0F172A] text-base">$68 <span class="text-xs text-[#64748B] font-normal">/ night</span></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-[#0F172A]">4.89</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
+<img alt="The Olive Studio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2jJj1si7WjlhCQMCvfHrExRqgmfrsYRuXQhfkJOpjq8a4jRy66YFIw87Gn-XxuyE07x4B_F8npN6avZu6LSbSNSj32yvZoZAIgzWZG6SXzv_wCnfahzc2hV86LoxRzhq1ZWkgVgCY7JadpNiVgFLRKHNq_SUJqSqKH9CZbAGcnjN9UvBYCOwfiMjmj4W8J7s9J-SkfzGbYk9q-iOpP4yNfCHXNSD8ItrZrr9okHM"/>
+<span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">Quiet retreat</span>
+<button aria-label="Toggle favorite" class="favorite-toggle absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm cursor-pointer hover:bg-white transition-transform active:scale-95" data-favorited="false" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#94A3B8]">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-bold text-base text-[#0F172A] truncate group-hover:text-[#7C3AED] transition-colors">The Olive Studio</h3>
+<p class="text-sm text-[#64748B] mt-0.5 truncate">Fort Portal, Uganda</p>
+</div>
+<div class="flex justify-between items-center mt-3 pt-2">
+<div class="font-bold text-[#0F172A] text-base">$95 <span class="text-xs text-[#64748B] font-normal">/ night</span></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-[#0F172A]">4.95</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 5 -->
+<article class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
+<img alt="Riverstone Sanctuary" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc0ExdlGxia8qVl0xGixsSAnfflGbGQvUiwubLotoyr01W33f9DRPPwlem9jgiSogcnT_SCNOhGKJ8ZMeHg_LaGojMfktfqcbA0P3wTGq_vXv0NAuNiqNErn22_R_algQcz5Qd897KG05oFFqe1KRuCndhNlj9qDVY4goyRaDS-2QYVZF2-oaIbMNYyHUB6Z_1NrEg3tK6m_wV8M3EI-A77X50OCzC4tFG3XRTreE"/>
+<span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">Guest favorite</span>
+<button aria-label="Toggle favorite" class="favorite-toggle absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm cursor-pointer hover:bg-white transition-transform active:scale-95" data-favorited="false" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#94A3B8]">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-bold text-base text-[#0F172A] truncate group-hover:text-[#7C3AED] transition-colors">Riverstone Sanctuary</h3>
+<p class="text-sm text-[#64748B] mt-0.5 truncate">Jinja, Uganda</p>
+</div>
+<div class="flex justify-between items-center mt-3 pt-2">
+<div class="font-bold text-[#0F172A] text-base">$140 <span class="text-xs text-[#64748B] font-normal">/ night</span></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-[#0F172A]">5.0</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 6 -->
+<article class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
+<img alt="Boma Heritage Loft" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-bDowJb2XBXOof5Y8-Q_EGy4OUtGfYvHSpBKxKroXUojG-u-NvmnjAd94S_ealG5ImVVStkYvYInMZCUWxIc_EzJvxfgqKxrZGISo1ssl9_s3kWHVnUAFrJzeVKwpoDy12YrGGGCbJ2Ge7GI4gjBYoZJUuP2pTBSBCXMhIcqBaH7BTljFeJmz-Za6YAPjAqRQRvtzOFhLDy6CIxGTEFlO8Bb0umNrsefSFOR8qf8"/>
+<span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">Private garden</span>
+<button aria-label="Toggle favorite" class="favorite-toggle absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm cursor-pointer hover:bg-white transition-transform active:scale-95" data-favorited="false" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#94A3B8]">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-bold text-base text-[#0F172A] truncate group-hover:text-[#7C3AED] transition-colors">Boma Heritage Loft</h3>
+<p class="text-sm text-[#64748B] mt-0.5 truncate">Entebbe, Uganda</p>
+</div>
+<div class="flex justify-between items-center mt-3 pt-2">
+<div class="font-bold text-[#0F172A] text-base">$105 <span class="text-xs text-[#64748B] font-normal">/ night</span></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-[#0F172A]">4.91</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 7 -->
+<article class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
+<img alt="Acacia Garden Suite" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr4EwaBNbR_7D4FJ7UNlYSk0JJEcYAlL-Z4FR2lBm1_J_5efnfDev17sCrWbgXcQHFIRqPVj3fvtzKZY-p5Mu2Nj8uHRGvQIADncPBrEDeBkKM9merNnGDVslmXI54s67gQ_G9bEkPHipS9htdP5bYBEorZacOyqz8LkaOyghvAOo-COszyB2r3cKHYjzj_lg_hdXmLzeAeGB6xRSsc-Svp3IDHcDHRNCLC07rhbk"/>
+<span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">River views</span>
+<button aria-label="Toggle favorite" class="favorite-toggle absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm cursor-pointer hover:bg-white transition-transform active:scale-95" data-favorited="false" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#94A3B8]">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-bold text-base text-[#0F172A] truncate group-hover:text-[#7C3AED] transition-colors">Acacia Garden Suite</h3>
+<p class="text-sm text-[#64748B] mt-0.5 truncate">Kampala, Uganda</p>
+</div>
+<div class="flex justify-between items-center mt-3 pt-2">
+<div class="font-bold text-[#0F172A] text-base">$76 <span class="text-xs text-[#64748B] font-normal">/ night</span></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-[#0F172A]">4.87</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 8 -->
+<article class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
+<img alt="Misty Ridge Bungalow" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4CVBgOGzN6QhwTtANShL_pdF8sZQwwvbPeBAdfNVi7nCntagpc2omLUDlp9w0IGM7nib2R1D0-x7JE49YvyUQOFeuU04XAnr1LMmnkMZvEyJwha3FvUiszJP66Jbdf4gPw4oSJrr74Y5UBd6PUEtPKGmoXQ5mCrK7tGVvIq-s9ukHEpSYdQR3inV4bG8cVppfbBOXKRASRF_Vjms-oO-LSfL7dd-TzF0fl3tiu5U"/>
+<span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">Guest favorite</span>
+<button aria-label="Toggle favorite" class="favorite-toggle absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm cursor-pointer hover:bg-white transition-transform active:scale-95" data-favorited="false" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#94A3B8]">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-bold text-base text-[#0F172A] truncate group-hover:text-[#7C3AED] transition-colors">Misty Ridge Bungalow</h3>
+<p class="text-sm text-[#64748B] mt-0.5 truncate">Kabale, Uganda</p>
+</div>
+<div class="flex justify-between items-center mt-3 pt-2">
+<div class="font-bold text-[#0F172A] text-base">$118 <span class="text-xs text-[#64748B] font-normal">/ night</span></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-[#0F172A]">4.96</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 9 -->
+<article class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
+<img alt="Victoria Breeze Cabin" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZaK6so9aGfy9sucnILormjmK_TN4k6GTmEriykQsPkVJujHQnMfnhv0W6pWGvTrWAYVzcrlOazfEI8mMOxxTZSfCuDfFSApbprGywZ2-VX_PJ0mYz3SYXZ_27xs3b_W_M5IGQvCkmXSDnWu02e3gfrPKCHb_zJ5Rv6sokdB14yG2ZUHtMCUTguegxQJFxIfHiQOvkRoX4ki_L_mdqRHdR9vfJPZaIIsU5mDSGHoE"/>
+<span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">Quiet retreat</span>
+<button aria-label="Toggle favorite" class="favorite-toggle absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm cursor-pointer hover:bg-white transition-transform active:scale-95" data-favorited="false" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#94A3B8]">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-bold text-base text-[#0F172A] truncate group-hover:text-[#7C3AED] transition-colors">Victoria Breeze Cabin</h3>
+<p class="text-sm text-[#64748B] mt-0.5 truncate">Entebbe, Uganda</p>
+</div>
+<div class="flex justify-between items-center mt-3 pt-2">
+<div class="font-bold text-[#0F172A] text-base">$89 <span class="text-xs text-[#64748B] font-normal">/ night</span></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-[#0F172A]">4.99</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 10 -->
+<article class="bg-white rounded-[32px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+<div class="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
+<img alt="Sunbird Eco Lodge" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJa55JZVZwP1KtHc4xa1zaFKzUCsMoqGUri5-t_0Cyi_HYOAiigOdt_cK128qiFBNrBSKraYgLOLxaI8LXsbgAk8Fv2Sy5KulEK5xShN1Zq-UE2WAxx1lQ_Opt6ZDcX7cJQjARj3flTNIWmV1VB_eHe59isXxmwIJp62ABRxv3RfmMufW3OMq1neA_HgSEAKepzlyj4vUzutDIKrzRdSocuRMxq2lLzL4Tlqpc3-Q"/>
+<span class="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">Near the lake</span>
+<button aria-label="Toggle favorite" class="favorite-toggle absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm cursor-pointer hover:bg-white transition-transform active:scale-95" data-favorited="false" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#94A3B8]">favorite</span>
+</button>
+</div>
+<div class="p-4 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-bold text-base text-[#0F172A] truncate group-hover:text-[#7C3AED] transition-colors">Sunbird Eco Lodge</h3>
+<p class="text-sm text-[#64748B] mt-0.5 truncate">Fort Portal, Uganda</p>
+</div>
+<div class="flex justify-between items-center mt-3 pt-2">
+<div class="font-bold text-[#0F172A] text-base">$125 <span class="text-xs text-[#64748B] font-normal">/ night</span></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-[#7C3AED]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-xs font-bold text-[#0F172A]">4.88</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- 6. HOST CTA SECTION -->
+<section class="my-16 w-full bg-[#171B28] rounded-[32px] overflow-hidden grid grid-cols-1 md:grid-cols-2 min-h-[380px] shadow-lg text-white">
+<!-- Left Content -->
+<div class="p-8 md:p-12 lg:p-14 flex flex-col justify-center items-start space-y-5">
+<div class="w-12 h-12 bg-[#7C3AED] rounded-2xl flex items-center justify-center text-white shadow-sm">
+<span class="material-symbols-outlined text-[24px]">calendar_today</span>
+</div>
+<h2 class="text-3xl md:text-4xl font-bold leading-tight text-white tracking-tight">
+          Have a place worth sharing?
+        </h2>
+<p class="text-[#94A3B8] text-base leading-relaxed max-w-md">
+          Join thousands of welcoming hosts worldwide. We make listing simple and help you manage every stay.
+        </p>
+<div class="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+<a class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-6 py-3 rounded-full font-medium inline-flex items-center gap-2 transition-colors" href="#">
+<span>Start hosting</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+<a class="text-[#A78BFA] hover:text-white transition-colors text-sm font-medium" href="#">
+            Want to list with us?
+          </a>
+</div>
+</div>
+<!-- Right Image -->
+<div class="overflow-hidden w-full h-full min-h-[300px] md:min-h-full">
+<img alt="Cozy host interior" class="w-full h-full object-cover block" src="https://lh3.googleusercontent.com/aida/AEtjO1WJl9uSjpo4UbXC7uFB9s1W6NP-1864XIc0adh7_pr5Ol7nv54ZCw83bm19DhsTxrbLd2jJnoLXhWDGYUm_FoRZWy-SDJSqa1MB6JiziTRxNGqTBQtK1KFGoKBDMPuK4kPtmOlHBh2Y2cGJzLK0w8N7wu1H-wcazetJYphX1phXAvbM_ML7bD9yRm94YpLx8bLgjHp_pfuBC--tJV6hg5366L0hOptITvvtc11fGtddVCFcwwg_GBL3IHo"/>
+</div>
+</section>
+</main>
+<!-- 7. FOOTER -->
+<footer class="w-full py-8 text-sm text-gray-500 border-t border-gray-200 mt-12 bg-white">
+<div class="max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
+<div>
+        © 2025 StayHaven, Inc. All rights reserved.
+      </div>
+<div class="flex items-center gap-6">
+<a class="hover:text-[#0F172A] transition-colors" href="#">Privacy</a>
+<a class="hover:text-[#0F172A] transition-colors" href="#">Terms</a>
+<a class="hover:text-[#0F172A] transition-colors" href="#">Sitemap</a>
+<a class="hover:text-[#0F172A] transition-colors" href="#">Destinations</a>
+</div>
+</div>
+</footer>
+<!-- Interactive script for favorite toggling -->
+<script>
+    (function () {
+      const favoriteButtons = document.querySelectorAll('.favorite-toggle');
+      favoriteButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const isFavorited = button.getAttribute('data-favorited') === 'true';
+          const nextState = !isFavorited;
+          button.setAttribute('data-favorited', String(nextState));
+
+          const icon = button.querySelector('.material-symbols-outlined');
+          if (icon) {
+            if (nextState) {
+              icon.classList.remove('text-[#94A3B8]');
+              icon.classList.add('text-[#7C3AED]');
+              icon.style.fontVariationSettings = "'FILL' 1";
+            } else {
+              icon.classList.remove('text-[#7C3AED]');
+              icon.classList.add('text-[#94A3B8]');
+              icon.style.fontVariationSettings = "'FILL' 0";
+            }
+          }
+        });
+      });
+    })();
+  </script>
+</body></html>

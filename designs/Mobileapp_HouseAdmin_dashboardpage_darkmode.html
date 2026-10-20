@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>StayHaven - Dark Mode Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background-color: #0A0E1A;
+      margin: 0;
+      padding: 0;
+    }
+    /* Hide scrollbars for slick mobile app feel */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-[#0A0E1A] min-h-screen text-white">
+<!-- 1. MOBILE BODY WRAPPER (390x844 strict mobile viewport) -->
+<div class="bg-[#0A0E1A] text-white max-w-[390px] mx-auto min-h-screen relative pb-24" style="padding-bottom: 112px;">
+<!-- 2. STICKY MOBILE HEADER -->
+<header class="sticky top-0 z-50 bg-[#0A0E1A]/90 backdrop-blur-md pt-6 px-4 pb-2 flex items-center justify-between border-b border-[#1E2A45]/30">
+<!-- Left: Bright purple square logo (#8B5CF6) with home icon + StayHaven -->
+<div class="flex items-center space-x-2.5">
+<div class="w-8 h-8 rounded-lg bg-[#8B5CF6] flex items-center justify-center shadow-lg shadow-purple-500/20">
+<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+</div>
+<span class="text-[18px] font-bold text-white tracking-tight">StayHaven</span>
+</div>
+<!-- Right Actions: Sun icon in dark navy circle, Sign out pill, Profile icon -->
+<div class="flex items-center space-x-2"><!-- Sun Mode Icon -->
+<button class="w-9 h-9 rounded-full bg-[#141B2D] border border-[#1E2A45] flex items-center justify-center text-white transition-colors" title="Toggle theme">
+<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+</button>
+<!-- Sign out pill -->
+<button class="px-3 py-1.5 text-xs font-medium bg-[#141B2D] text-slate-300 border border-[#1E2A45] rounded-full hover:text-white transition-colors">
+Sign out
+</button>
+<!-- Profile Avatar Pill/Circle (#8B5CF6 circle with white user SVG) -->
+<div class="w-9 h-9 rounded-full bg-[#8B5CF6] flex items-center justify-center text-white font-bold text-xs shadow-md shadow-purple-500/20 ring-2 ring-[#8B5CF6]/30"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div></div>
+</header>
+<!-- 3. PAGE HEADER -->
+<section class="px-4 mt-6">
+<div class="text-[12px] uppercase font-bold tracking-wider text-[#8B5CF6]">
+        HOUSE ADMIN WORKSPACE
+      </div>
+<h1 class="text-[28px] font-bold text-white mt-1 leading-tight tracking-tight">
+        Good morning, Amara.
+      </h1>
+<p class="text-[14px] text-[#94A3B8] mt-1 leading-relaxed">
+        Here's what's happening with your guesthouses.
+      </p>
+<!-- CTA Button -->
+<button class="mt-4 w-full py-3 px-6 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] hover:from-[#7C3AED] hover:to-[#6D28D9] text-white text-[15px] font-semibold tracking-wide shadow-lg shadow-purple-900/30 active:scale-[0.98] transition-all flex items-center justify-center space-x-2">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+<span class="">Request new listing</span>
+</button>
+</section>
+<!-- 4. STAT CARDS (Grid 2x2) -->
+<section class="mx-4 mt-6 grid grid-cols-2 gap-3">
+<!-- Card 1 -->
+<div class="bg-[#141B2D] rounded-2xl p-4 shadow-sm border border-[#1E2A45] flex flex-col justify-between">
+<span class="text-[12px] text-[#94A3B8] font-medium">Active listings</span>
+<div class="text-[24px] font-bold text-white mt-1 tracking-tight">4</div>
+<div class="text-[12px] text-[#4ADE80] font-medium mt-1 flex items-center gap-1">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<polyline points="18 15 12 9 6 15"></polyline>
+</svg>
+<span class="">+1 this month</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-[#141B2D] rounded-2xl p-4 shadow-sm border border-[#1E2A45] flex flex-col justify-between">
+<span class="text-[12px] text-[#94A3B8] font-medium">Upcoming stays</span>
+<div class="text-[24px] font-bold text-white mt-1 tracking-tight">12</div>
+<div class="text-[12px] text-[#94A3B8] font-medium mt-1 flex items-center gap-1">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-[#8B5CF6]"></span>
+<span class="">Next: tomorrow</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-[#141B2D] rounded-2xl p-4 shadow-sm border border-[#1E2A45] flex flex-col justify-between">
+<span class="text-[12px] text-[#94A3B8] font-medium">Occupancy</span>
+<div class="text-[24px] font-bold text-white mt-1 tracking-tight">86%</div>
+<div class="text-[12px] text-[#4ADE80] font-medium mt-1 flex items-center gap-1">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24">
+<polyline points="18 15 12 9 6 15"></polyline>
+</svg>
+<span class="">+8.2%</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-[#141B2D] rounded-2xl p-4 shadow-sm border border-[#1E2A45] flex flex-col justify-between">
+<span class="text-[12px] text-[#94A3B8] font-medium">Guest rating</span>
+<div class="text-[24px] font-bold text-white mt-1 tracking-tight flex items-center gap-1">
+<span class="">4.91</span>
+<span class="text-amber-400">★</span>
+</div>
+<div class="text-[12px] text-[#94A3B8] font-medium mt-1 truncate">
+          From 128 reviews
+        </div>
+</div>
+</section>
+<!-- 5. UPCOMING BOOKINGS CARD -->
+<section class="mx-4 mt-6"><div class="bg-[#141B2D] rounded-3xl p-5 border border-[#1E2A45] shadow-sm">
+<!-- Header -->
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-[16px] font-bold text-white tracking-tight">Upcoming bookings</h2>
+<a class="text-xs font-medium text-[#8B5CF6] hover:text-[#A78BFA] transition-colors" href="#">View all</a>
+</div>
+<!-- Rows -->
+<div>
+<!-- Row 1 -->
+<div class="flex items-center justify-between py-3.5 border-b border-[#1E2A45]">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-[#2A1F4E] border border-[#3E2D72] flex items-center justify-center text-[#C4B5FD] font-semibold text-sm shrink-0 mr-3">
+MK
+</div>
+<div>
+<h3 class="text-sm font-bold text-white leading-tight">Maya Kowalski</h3>
+<p class="text-xs text-[#94A3B8] mt-0.5">Alpine Meadow Villa</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xs text-[#94A3B8]">Tomorrow</span>
+<span class="bg-[#064E3B] text-[#4ADE80] text-[11px] font-semibold px-2.5 py-0.5 rounded-full mt-1 inline-block block">3 nights</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center justify-between py-3.5 border-b border-[#1E2A45]">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-[#3F2E0A] border border-[#6B4E12] flex items-center justify-center text-[#FDE68A] font-semibold text-sm shrink-0 mr-3">
+DL
+</div>
+<div>
+<h3 class="text-sm font-bold text-white leading-tight">Devon Lane</h3>
+<p class="text-xs text-[#94A3B8] mt-0.5">Cedar Creek Cabin</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xs text-[#94A3B8]">Oct 18</span>
+<span class="text-[11px] text-[#94A3B8] mt-1 block">5 nights • Confirmed</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="flex items-center justify-between py-3.5">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-[#1E3A5F] border border-[#2B5488] flex items-center justify-center text-[#93C5FD] font-semibold text-sm shrink-0 mr-3">
+SL
+</div>
+<div>
+<h3 class="text-sm font-bold text-white leading-tight">Sarah Lin</h3>
+<p class="text-xs text-[#94A3B8] mt-0.5">Sunburst Loft #4</p>
+</div>
+</div>
+<div class="text-right">
+<span class="text-xs text-[#94A3B8]">Oct 22</span>
+<span class="text-[11px] text-[#94A3B8] mt-1 block">2 nights • Confirmed</span>
+</div>
+</div>
+</div>
+</div></section>
+<!-- 6. DARK PANEL -->
+<section class="mx-4 mt-6 mb-8">
+<div class="bg-[#0F172A] rounded-3xl p-6 border border-[#1E2A45] text-white shadow-lg relative overflow-hidden">
+<!-- Top Status Row -->
+<div class="flex items-center justify-between"><div class="w-8 h-8 rounded-full bg-[#1E293B] border border-[#334155] flex items-center justify-center text-white">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+</svg>
+</div>
+</div>
+<!-- Heading -->
+<h3 class="text-[24px] font-bold text-white mt-4 leading-tight tracking-tight">
+          Stay on top of every arrival.
+        </h3>
+<!-- Paragraph -->
+<p class="text-[14px] text-[#94A3B8] mt-2 leading-relaxed">
+          Guests receive automatic email and SMS confirmations before check-in.
+        </p>
+<!-- Link -->
+<div class="mt-4">
+<a class="inline-flex items-center gap-1 text-sm font-bold text-[#A78BFA] hover:underline transition-colors" href="#">
+<span class="">Manage notifications</span>
+<span class="">→</span>
+</a>
+</div>
+</div>
+</section>
+<!-- 7. FLOATING BOTTOM NAV -->
+<nav class="fixed bottom-4 left-4 right-4 h-16 rounded-[32px] bg-[#141B2D] border border-[#1E2A45] shadow-2xl flex items-center justify-around z-50 max-w-[358px] mx-auto px-2 backdrop-blur-lg">
+<!-- Tab 1: Dashboard (Active) -->
+<a class="text-[#8B5CF6] flex items-center gap-2 bg-[#1E2A45] px-3.5 py-1.5 rounded-full transition-all" href="#">
+<!-- House/Home Icon -->
+<svg class="w-4 h-4 text-[#8B5CF6]" fill="currentColor" viewBox="0 0 24 24">
+<path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+</svg>
+<span class="text-xs font-bold tracking-tight text-[#C4B5FD]">Dashboard</span>
+</a>
+<!-- Tab 2: Listings -->
+<a class="text-[#94A3B8] hover:text-white flex flex-col items-center justify-center gap-1 px-3 py-1.5 transition-colors" href="#"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg><span class="text-xs font-medium">Listings</span></a>
+<!-- Tab 3: Bookings -->
+<a class="text-[#94A3B8] hover:text-white flex flex-col items-center justify-center gap-1 px-3 py-1.5 transition-colors" href="#"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg><span class="text-xs font-medium">Bookings</span></a>
+</nav>
+</div>
+
+
+</body></html>
