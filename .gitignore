@@ -25,3 +25,7 @@ Thumbs.db
 
 # Expo
 .expo/
+
+# AI Prompt Files (Temporary)
+*.txt
+!designs/*.txt 
