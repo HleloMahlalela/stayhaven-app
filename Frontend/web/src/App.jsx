@@ -7,6 +7,7 @@ import Bookings from './guest/pages/Bookings';
 import Reviews from './guest/pages/Reviews';
 import Details from './guest/pages/Details';
 import Dashboard from './houseadmin/pages/Dashboard';
+import HouseAdminBookings from './houseadmin/pages/Bookings';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/details" element={<Details />} />
           <Route path="/houseadmin/dashboard" element={<Dashboard />} />
+          <Route path="/houseadmin/bookings" element={<HouseAdminBookings />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
