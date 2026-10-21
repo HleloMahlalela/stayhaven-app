@@ -3,6 +3,7 @@ import Explore from './guest/pages/Explore'
 import Login from './guest/pages/Login'
 import Bookings from './guest/pages/Bookings'
 import Reviews from './guest/pages/Reviews'
+import Dashboard from './houseadmin/pages/Dashboard'
 import { ThemeProvider } from './context/ThemeContext'
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/houseadmin/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Navigate to="/explore" replace />} />
         </Routes>
       </BrowserRouter>
