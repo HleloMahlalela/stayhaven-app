@@ -20,7 +20,7 @@ export default function ListingGrid() {
         <div><span className="text-xs font-bold text-[#7C3AED] tracking-[1.5px] uppercase">Handpicked for you</span><h2 className="text-3xl font-extrabold text-[#0F172A] dark:text-white tracking-tight mt-1">Stays with a little soul</h2></div>
         <div className="inline-flex items-center gap-3"><button className="bg-[#EDE9FE] dark:bg-[#302452] text-[#7C3AED] hover:bg-[#DDD6FE] px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 transition-colors cursor-pointer shadow-sm" type="button"><span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span><span>Favorites</span></button><span className="text-sm font-medium text-[#64748B] dark:text-[#A6AEC0]">10 homes</span></div>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full">{listings.map((listing) => <ListingCard key={listing.name} listing={listing} />)}</div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">{listings.map((listing) => <ListingCard key={listing.name} listing={listing} />)}</div>
     </section>
   )
 }
