@@ -1,0 +1,18 @@
+export default function BookingSidebar() {
+  return <aside className="w-full self-start lg:sticky lg:top-28 lg:w-[34%]">
+    <section className="rounded-[32px] border border-[#E5E7EB] bg-white p-6 shadow-[0_4px_20px_-2px_rgba(15,23,42,0.05)] dark:border-[#1E2A45] dark:bg-[#141B2D] dark:shadow-2xl">
+      <div className="flex items-baseline justify-between"><div><span className="text-[32px] font-extrabold leading-tight text-[#0F172A] dark:text-[#F1F5F9]">$84</span><span className="text-base text-[#64748B] dark:text-[#94A3B8]"> / night</span></div><div className="flex items-center gap-1 text-xs text-[#64748B] dark:text-[#94A3B8]"><span className="material-symbols-outlined text-[16px] text-[#7C3AED] dark:text-[#8B5CF6]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span><b className="text-[#0F172A] dark:text-[#F1F5F9]">4.92</b><span>(86)</span></div></div>
+      <div className="mt-5 space-y-3.5">
+        <label className="block"><span className="mb-1 block text-[12px] font-semibold tracking-wider text-[#64748B] dark:text-[#94A3B8]">CHECK-IN &amp; CHECK-OUT</span><button type="button" className="flex w-full items-center justify-between rounded-lg border border-[#E5E7EB] bg-[#F5F3FF]/30 px-3.5 py-2.5 text-sm font-medium text-[#0F172A] hover:border-[#7C3AED]/50 dark:border-[#1E2A45] dark:bg-[#0A0E1A] dark:text-[#F1F5F9]"><span>Nov 14 – Nov 17</span><span className="material-symbols-outlined text-[18px] text-[#7C3AED] dark:text-[#8B5CF6]">calendar_today</span></button></label>
+        <label className="block"><span className="mb-1 block text-[12px] font-semibold tracking-wider text-[#64748B] dark:text-[#94A3B8]">GUESTS</span><button type="button" className="flex w-full items-center justify-between rounded-lg border border-[#E5E7EB] bg-[#F5F3FF]/30 px-3.5 py-2.5 text-sm font-medium text-[#0F172A] hover:border-[#7C3AED]/50 dark:border-[#1E2A45] dark:bg-[#0A0E1A] dark:text-[#F1F5F9]"><span>2 guests</span><span className="material-symbols-outlined text-[20px] text-[#64748B] dark:text-[#94A3B8]">expand_more</span></button></label>
+      </div>
+      <button type="button" className="mt-5 w-full rounded-full bg-[#7C3AED] py-3.5 text-center text-base font-semibold text-white shadow-sm transition-colors hover:bg-[#6D28D9] dark:bg-[#8B5CF6] dark:hover:bg-[#7C3AED]">Reserve this stay</button>
+      <p className="mt-2.5 text-center text-xs text-[#64748B] dark:text-[#94A3B8]">You won't be charged yet</p>
+      <div className="my-5 border-t border-[#E5E7EB] dark:border-[#1E2A45]" />
+      <div className="space-y-2.5 text-sm text-[#64748B] dark:text-[#94A3B8]"><div className="flex justify-between"><span className="underline decoration-dotted">$84 × 3 nights</span><span className="text-[#0F172A] dark:text-[#F1F5F9]">$252</span></div><div className="flex justify-between"><span className="underline decoration-dotted">Cleaning fee</span><span className="text-[#0F172A] dark:text-[#F1F5F9]">$12</span></div><div className="flex justify-between"><span className="underline decoration-dotted">Service fee</span><span className="text-[#0F172A] dark:text-[#F1F5F9]">$10</span></div></div>
+      <div className="my-4 border-t border-[#E5E7EB] dark:border-[#1E2A45]" />
+      <div className="flex justify-between text-lg font-bold text-[#0F172A] dark:text-[#F1F5F9]"><span>Total</span><span className="text-[#7C3AED] dark:text-[#C4B5FD]">$274</span></div>
+      <div className="mt-4 border-t border-[#F1F5F9] pt-3 text-center dark:border-[#1E2A45]"><span className="inline-flex items-center gap-1.5 text-xs text-[#64748B] dark:text-[#94A3B8]"><span className="material-symbols-outlined text-[16px] text-[#7C3AED] dark:text-[#8B5CF6]">verified</span>Free cancellation up to 48h before check-in</span></div>
+    </section>
+  </aside>
+}

@@ -1,25 +1,26 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import Explore from './guest/pages/Explore'
-import Login from './guest/pages/Login'
-import Bookings from './guest/pages/Bookings'
-import Reviews from './guest/pages/Reviews'
-import Dashboard from './houseadmin/pages/Dashboard'
-import { ThemeProvider } from './context/ThemeContext'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
+import Navbar from './components/Navbar';
+import Explore from './guest/pages/Explore';
+import Login from './guest/pages/Login';
+import Bookings from './guest/pages/Bookings';
+import Reviews from './guest/pages/Reviews';
+import Details from './guest/pages/Details';
 
 export default function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
+      <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Explore />} />
-          <Route path="/explore" element={<Explore />} />
           <Route path="/login" element={<Login />} />
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/reviews" element={<Reviews />} />
-          <Route path="/houseadmin/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<Navigate to="/explore" replace />} />
+          <Route path="/details" element={<Details />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </ThemeProvider>
-  )
+  );
 }
