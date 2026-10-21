@@ -1,4 +1,3 @@
-import Navbar from '../../../components/Navbar'
 import Footer from '../../../components/Footer'
 import ReviewCard from './components/ReviewCard'
 
@@ -31,7 +30,6 @@ function InfoPanel() {
 export default function Reviews() {
   return (
     <div className="min-h-screen bg-[#F8F9FA] pb-24 text-[#0F172A] dark:bg-[#0A0E1A] dark:text-[#DFE2F3] md:pb-0">
-      <Navbar />
       <main className="mx-auto min-h-[calc(100vh-80px)] w-full max-w-[1440px] px-5 py-10 pb-24 sm:px-8 lg:px-16 lg:py-12 md:pb-0">
         <header className="flex flex-col items-start">
           <span className="mb-2 text-xs font-bold uppercase tracking-[1.5px] text-[#7C3AED] dark:text-[#D0BCFF]">YOUR EXPERIENCES</span>

@@ -1,11 +1,9 @@
-import AdminNavbar from '../../../components/AdminNavbar'
 import DarkInfoPanel from './components/DarkInfoPanel'
 import StatCard, { stats } from './components/StatCard'
 import UpcomingBookings from './components/UpcomingBookings'
 
 export default function Dashboard() {
   return <div className="min-h-screen bg-[#F8F9FA] dark:bg-[#0C1324] text-[#0F172A] dark:text-[#DBE2FB] pb-24 md:pb-0 transition-colors">
-    <AdminNavbar />
     <main className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 pt-8 lg:pt-10 pb-12 md:pb-16">
       <header className="w-full px-0 sm:px-4 lg:px-4 pt-2 pb-8 lg:pb-10">
         <div className="flex flex-col gap-2">

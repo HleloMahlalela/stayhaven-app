@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import Navbar from '../../../components/Navbar'
 import Footer from '../../../components/Footer'
 import BookingCard from './components/BookingCard'
 
@@ -23,7 +22,6 @@ export default function Bookings() {
 
   return (
     <div className="min-h-screen pb-24 md:pb-0 bg-[#f8f9fa] text-[#131b2e] dark:bg-[#0a0e1a] dark:text-[#dfe2f3]">
-      <Navbar />
       <main className="min-h-[calc(100vh-80px)] w-full bg-[#f8f9fa] dark:bg-[#0a0e1a] pb-24 md:pb-0">
         <div className="mx-auto w-full max-w-7xl px-5 py-10 sm:px-8 lg:px-16 lg:py-12">
           <header className="flex flex-col items-start">
