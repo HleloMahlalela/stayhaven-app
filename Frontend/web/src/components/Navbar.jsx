@@ -29,12 +29,16 @@ export default function Navbar() {
             ))}
           </nav>
           
-          <div className="flex items-center gap-4 shrink-0 z-10">
+          <div className="flex items-center gap-3 md:gap-4 shrink-0 z-10">
             <button aria-label="Toggle dark mode" onClick={toggleTheme} className="flex w-9 h-9 rounded-full items-center justify-center text-[#64748B] dark:text-[#A6AEC0] hover:text-[#0F172A] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors" type="button">
               <span className="material-symbols-outlined text-[20px]">{theme === 'dark' ? 'light_mode' : 'dark_mode'}</span>
             </button>
-            <Link className="hidden md:block bg-[#7C3AED] text-white px-4 py-2 rounded-full font-medium hover:bg-[#6D28D9] transition-colors whitespace-nowrap text-sm shadow-sm" to="/login">Sign in</Link>
-            <div className="w-9 h-9 rounded-full bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center text-[#7C3AED] shrink-0">
+            {isAdmin ? (
+              <button className="hidden md:block bg-white dark:bg-[#141B2D] border border-[#7C3AED] dark:border-[#1E2A45] text-[#7C3AED] dark:text-white px-5 py-2 rounded-full font-semibold hover:bg-[#F8FAFC] dark:hover:border-[#8B5CF6] transition-colors whitespace-nowrap text-sm" type="button">Sign out</button>
+            ) : (
+              <Link className="hidden md:block bg-[#7C3AED] text-white px-4 py-2 rounded-full font-medium hover:bg-[#6D28D9] transition-colors whitespace-nowrap text-sm shadow-sm" to="/login">Sign in</Link>
+            )}
+            <div className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${isAdmin ? 'bg-[#7C3AED] text-white' : 'bg-[#7C3AED]/10 border border-[#7C3AED]/20 text-[#7C3AED]'}`}>
               <span className="material-symbols-outlined text-[20px]">person</span>
             </div>
           </div>
