@@ -1,9 +1,0 @@
-I am building a full-stack application called StayHaven with three parts: a React web app, a React Native (Expo) mobile app, and a Node.js/Express backend with MongoDB.
-
-Please scaffold the project in this current directory. Run the necessary terminal commands to set up:
-
-1. A Vite + React web app in a folder named `/web`. Install Tailwind CSS and configure it.
-2. A React Native Expo app in a folder named `/mobile`.
-3. A Node.js backend in a folder named `/server`. Initialize it with Express, Mongoose, JWT, bcryptjs, cors, and dotenv. Install nodemon as a dev dependency.
-
-Do not write any application logic yet. Just run the scaffolding commands and set up the folder structure.
