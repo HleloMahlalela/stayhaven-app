@@ -1,4 +1,5 @@
 import { useTheme } from '../context/ThemeContext'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
@@ -18,7 +19,7 @@ export default function Navbar() {
         </nav>
         <div className="flex items-center gap-4 shrink-0 z-10">
           <button aria-label="Toggle dark mode" onClick={toggleTheme} className="w-9 h-9 rounded-full flex items-center justify-center text-[#64748B] dark:text-[#A6AEC0] hover:text-[#0F172A] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors" type="button"><span className="material-symbols-outlined text-[20px]">{theme === 'dark' ? 'light_mode' : 'dark_mode'}</span></button>
-          <a className="bg-[#7C3AED] text-white px-4 py-2 rounded-full font-medium hover:bg-[#6D28D9] transition-colors whitespace-nowrap text-sm shadow-sm" href="#">Sign in</a>
+          <Link className="bg-[#7C3AED] text-white px-4 py-2 rounded-full font-medium hover:bg-[#6D28D9] transition-colors whitespace-nowrap text-sm shadow-sm" to="/login">Sign in</Link>
           <div className="w-9 h-9 rounded-full bg-[#7C3AED]/10 border border-[#7C3AED]/20 flex items-center justify-center text-[#7C3AED] shrink-0"><span className="material-symbols-outlined text-[20px]">person</span></div>
         </div>
       </div>
