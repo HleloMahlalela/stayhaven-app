@@ -39,7 +39,7 @@ function Header({ isDark, toggleTheme }) {
 
 function ListingCard({ item, onToggleFavorite }) {
   return (
-    <TouchableOpacity activeOpacity={0.92} className="mb-6 flex-1">
+    <TouchableOpacity activeOpacity={0.92} onPress={() => router.push('/details')} className="mb-6 flex-1">
       <View className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900">
         <Image source={{ uri: item.image }} accessibilityLabel={item.name} resizeMode="cover" className="w-full aspect-[4/3] rounded-2xl" />
         <View className="absolute bottom-2.5 left-2.5 rounded-full bg-black/60 px-2.5 py-1"><Text className="text-xs font-medium text-white">{item.label}</Text></View>
