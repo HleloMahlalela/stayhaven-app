@@ -6,10 +6,10 @@ export default function Navbar() {
   const location = useLocation()
   
   // Check if we are on an admin page
-  const isAdmin = location.pathname.startsWith('/houseadmin')
+  const isAdmin = location.pathname.startsWith('/houseadmin') || location.pathname === '/listings'
   
   const links = isAdmin
-    ? [['/houseadmin/dashboard', 'Dashboard', 'dashboard'], ['/houseadmin/listings', 'Listings', 'view_list'], ['/houseadmin/bookings', 'Bookings', 'event']]
+    ? [['/houseadmin/dashboard', 'Dashboard', 'dashboard'], ['/listings', 'Listings', 'view_list'], ['/houseadmin/bookings', 'Bookings', 'event']]
     : [['/', 'Explore', 'explore'], ['/bookings', 'Bookings', 'event'], ['/reviews', 'Reviews', 'star']]
 
   return (
