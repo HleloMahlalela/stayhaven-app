@@ -2,8 +2,8 @@ import ListingsTable from './components/ListingsTable'
 
 export default function Listings() {
   return (
-    <main className="min-h-[calc(100vh-80px)] w-full bg-[#F8F9FA] text-[#0F172A] transition-colors dark:bg-[#0A0E1A] dark:text-[#F1F5F9]">
-      <div className="mx-auto w-full max-w-[1440px] px-4 pb-12 pt-8 sm:px-8 sm:pt-10 lg:px-16">
+    <main className="min-h-screen w-full bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-[#F1F5F9] transition-colors pb-24 md:pb-0">
+      <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12 pt-10 pb-12 md:pb-16">
         <header className="mb-7 flex flex-col gap-5 sm:mb-8">
           <div>
             <span className="text-xs font-bold uppercase tracking-[1.5px] text-[#7C3AED] dark:text-[#8B5CF6]">HOUSE ADMIN WORKSPACE</span>
