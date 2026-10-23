@@ -4,13 +4,13 @@ import TrustPanel from './components/TrustPanel'
 
 export default function Overview() {
   return (
-    <div className="min-h-screen bg-[#F8F9FA] text-[#0F172A] transition-colors dark:bg-[#0A0E1A] dark:text-[#F1F5F9]">
-      <main className="mx-auto w-full max-w-[1360px] px-6 pb-16 pt-10 sm:px-8 lg:px-12">
+    <main className="min-h-screen w-full bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-[#F1F5F9] transition-colors">
+      <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12 pt-10 pb-24 md:pb-12">
         <header className="mb-8 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
-            <div className="mb-1.5 text-[12px] font-bold uppercase tracking-wider text-[#7C3AED] dark:text-[#8B5CF6]">APP ADMIN WORKSPACE</div>
-            <h1 className="mb-2 text-[36px] font-extrabold leading-tight tracking-tight text-[#0F172A] dark:text-[#F1F5F9] sm:text-[42px]">Platform overview</h1>
-            <p className="text-[16px] text-[#64748B] dark:text-[#94A3B8]">Manage listings, hosts, and the health of StayHaven.</p>
+            <div className="text-[12px] font-bold uppercase tracking-[1.5px] text-[#7C3AED] dark:text-[#8B5CF6]">APP ADMIN WORKSPACE</div>
+            <h1 className="text-[32px] sm:text-[40px] font-extrabold leading-tight tracking-tight mt-2 text-[#0F172A] dark:text-[#F1F5F9]">Platform overview</h1>
+            <p className="text-base text-[#64748B] dark:text-[#94A3B8] mt-2">Manage listings, hosts, and the health of StayHaven.</p>
           </div>
           <button className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-95" type="button">
             <PlusIcon />
@@ -22,8 +22,8 @@ export default function Overview() {
           <AwaitingListings />
           <TrustPanel />
         </section>
-      </main>
-    </div>
+      </div>
+    </main>
   )
 }
 
