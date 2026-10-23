@@ -4,6 +4,10 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
   const location = useLocation()
+
+  if (location.pathname.startsWith('/appadmin/')) {
+    return <AppAdminNavbar theme={theme} toggleTheme={toggleTheme} pathname={location.pathname} />
+  }
   
   // Check if we are on an admin page
   const isAdmin = location.pathname.startsWith('/houseadmin') || location.pathname === '/listings'
@@ -57,4 +61,51 @@ export default function Navbar() {
       </nav>
     </>
   )
+}
+
+function AppAdminNavbar({ theme, toggleTheme, pathname }) {
+  const navLinkClass = (active) => `rounded-full px-4 py-2 text-sm transition-colors ${active
+    ? 'bg-[#EDE9FE] font-semibold text-[#7C3AED] dark:bg-[#1E2A45] dark:text-[#8B5CF6]'
+    : 'font-medium text-[#64748B] hover:bg-[#F8FAFC] dark:text-[#94A3B8] dark:hover:bg-[#1E2A45] dark:hover:text-[#F1F5F9]'}`
+
+  return (
+    <header className="flex h-[80px] w-full shrink-0 items-center justify-between bg-[#F8F9FA] px-6 dark:bg-[#0A0E1A] sm:px-8 lg:px-12">
+      <a href="/appadmin/overview" className="flex items-center gap-3">
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#7C3AED] text-white shadow-sm dark:bg-[#8B5CF6]">
+          <HouseIcon className="h-5 w-5" />
+        </span>
+        <span className="text-xl font-bold tracking-tight text-[#0F172A] dark:text-white">StayHaven</span>
+      </a>
+      <nav aria-label="App admin navigation" className="hidden items-center gap-1 rounded-full border border-[#E5E7EB] bg-white p-1.5 shadow-sm dark:border-[#1E2A45] dark:bg-[#141B2D] md:flex">
+        <Link className={navLinkClass(pathname === '/appadmin/overview')} to="/appadmin/overview">Overview</Link>
+        <Link className={navLinkClass(pathname === '/appadmin/listings')} to="/appadmin/listings">Listings</Link>
+        <Link className={navLinkClass(pathname === '/appadmin/houseadmins')} to="/appadmin/houseadmins">House admins</Link>
+      </nav>
+      <div className="flex items-center gap-3">
+        <button aria-label="Toggle dark mode" onClick={toggleTheme} className="flex h-10 w-10 items-center justify-center rounded-full border border-[#E5E7EB] bg-white text-[#7C3AED] shadow-sm transition-colors hover:bg-[#F8FAFC] dark:border-[#1E2A45] dark:bg-[#141B2D] dark:text-[#F1F5F9] dark:hover:bg-[#1E2A45]" type="button">
+          {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+        </button>
+        <button type="button" className="hidden rounded-full border border-[#E5E7EB] bg-white px-5 py-2 text-sm font-semibold text-[#7C3AED] shadow-sm transition-colors hover:bg-[#F8FAFC] dark:border-[#1E2A45] dark:bg-[#141B2D] dark:text-[#F1F5F9] dark:hover:bg-[#1E2A45] sm:block">Sign out</button>
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#7C3AED] text-white shadow-sm dark:bg-[#8B5CF6]">
+          <UserIcon className="h-5 w-5" />
+        </span>
+      </div>
+    </header>
+  )
+}
+
+function HouseIcon({ className }) {
+  return <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5Z" /></svg>
+}
+
+function UserIcon({ className }) {
+  return <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Z" /></svg>
+}
+
+function MoonIcon() {
+  return <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" /></svg>
+}
+
+function SunIcon() {
+  return <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5" /><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" /></svg>
 }
