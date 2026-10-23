@@ -5,8 +5,8 @@ import BookingSidebar from './components/BookingSidebar'
 import ImageGallery from './components/ImageGallery'
 
 export default function Details() {
-  return <div className="min-h-screen pb-24 bg-[#F8F9FA] font-sans text-[#0F172A] antialiased dark:bg-[#0A0E1A] dark:text-[#F1F5F9] md:pb-0">
-    <main className="mx-auto w-full max-w-[1440px] px-5 pb-24 pt-4 sm:px-8 lg:px-16 lg:py-10 md:pb-0">
+  return <main className="min-h-screen w-full bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-[#F1F5F9] transition-colors pb-24 md:pb-0">
+    <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12 pt-10 pb-12 md:pb-16">
       <div className="mb-6"><Link to="/explore" className="inline-flex items-center gap-2 text-sm font-medium text-[#64748B] transition-colors hover:text-[#0F172A] dark:text-[#94A3B8] dark:hover:text-white"><span className="material-symbols-outlined text-[18px]">arrow_back</span>Back to explore</Link></div>
       <div className="flex flex-col items-start gap-10 lg:flex-row">
         <div className="w-full space-y-10 lg:w-[66%]">
@@ -23,7 +23,7 @@ export default function Details() {
         </div>
         <BookingSidebar />
       </div>
-    </main>
+    </div>
     <Footer />
-  </div>
+  </main>
 }

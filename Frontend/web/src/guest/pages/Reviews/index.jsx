@@ -29,8 +29,8 @@ function InfoPanel() {
 
 export default function Reviews() {
   return (
-    <div className="min-h-screen bg-[#F8F9FA] pb-24 text-[#0F172A] dark:bg-[#0A0E1A] dark:text-[#DFE2F3] md:pb-0">
-      <main className="mx-auto min-h-[calc(100vh-80px)] w-full max-w-[1440px] px-5 py-10 pb-24 sm:px-8 lg:px-16 lg:py-12 md:pb-0">
+    <main className="min-h-screen w-full bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-[#F1F5F9] transition-colors pb-24 md:pb-0">
+      <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12 pt-10 pb-12 md:pb-16">
         <header className="flex flex-col items-start">
           <span className="mb-2 text-xs font-bold uppercase tracking-[1.5px] text-[#7C3AED] dark:text-[#D0BCFF]">YOUR EXPERIENCES</span>
           <h1 className="text-3xl font-bold tracking-tight text-[#131B2E] dark:text-[#DFE2F3]">Reviews</h1>
@@ -52,8 +52,8 @@ export default function Reviews() {
           </section>
           <InfoPanel />
         </div>
-      </main>
+      </div>
       <Footer />
-    </div>
+    </main>
   )
 }

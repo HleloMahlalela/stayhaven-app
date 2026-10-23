@@ -21,9 +21,8 @@ export default function Bookings() {
   const visiblePast = useMemo(() => pastBookings.filter((booking) => `${booking.name} ${booking.location}`.toLowerCase().includes(search.toLowerCase())), [search])
 
   return (
-    <div className="min-h-screen pb-24 md:pb-0 bg-[#f8f9fa] text-[#131b2e] dark:bg-[#0a0e1a] dark:text-[#dfe2f3]">
-      <main className="min-h-[calc(100vh-80px)] w-full bg-[#f8f9fa] dark:bg-[#0a0e1a] pb-24 md:pb-0">
-        <div className="mx-auto w-full max-w-7xl px-5 py-10 sm:px-8 lg:px-16 lg:py-12">
+    <main className="min-h-screen w-full bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-[#F1F5F9] transition-colors pb-24 md:pb-0">
+        <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12 pt-10 pb-12 md:pb-16">
           <header className="flex flex-col items-start">
             <span className="mb-2 text-xs font-bold uppercase tracking-[1.5px] text-[#7c3aed] dark:text-[#d0bcff]">YOUR stays</span>
             <h1 className="text-3xl font-bold tracking-tight text-[#131b2e] dark:text-[#dfe2f3]">Bookings</h1>
@@ -61,8 +60,7 @@ export default function Bookings() {
             </div>
           )}
         </div>
-      </main>
       <Footer />
-    </div>
+    </main>
   )
 }
