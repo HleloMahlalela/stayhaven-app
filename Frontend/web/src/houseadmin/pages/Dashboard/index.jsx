@@ -3,8 +3,8 @@ import StatCard, { stats } from './components/StatCard'
 import UpcomingBookings from './components/UpcomingBookings'
 
 export default function Dashboard() {
-  return <div className="min-h-screen bg-[#F8F9FA] dark:bg-[#0C1324] text-[#0F172A] dark:text-[#DBE2FB] pb-24 md:pb-0 transition-colors">
-    <main className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 pt-8 lg:pt-10 pb-12 md:pb-16">
+  return <main className="min-h-screen w-full bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-[#F1F5F9] transition-colors pb-24 md:pb-0">
+    <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12 pt-10 pb-12 md:pb-16">
       <header className="w-full px-0 sm:px-4 lg:px-4 pt-2 pb-8 lg:pb-10">
         <div className="flex flex-col gap-2">
           <span className="text-xs font-bold uppercase tracking-[1.5px] text-[#7C3AED] dark:text-[#8B5CF6]">HOUSE ADMIN WORKSPACE</span>
@@ -21,6 +21,6 @@ export default function Dashboard() {
       <section aria-label="Upcoming bookings and notifications" className="w-full px-0 sm:px-4 lg:px-4 pb-8 lg:pb-12">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start"><UpcomingBookings /><DarkInfoPanel /></div>
       </section>
-    </main>
-  </div>
+    </div>
+  </main>
 }

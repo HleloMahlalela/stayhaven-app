@@ -6,7 +6,8 @@ export default function Login() {
   const navigate = useNavigate()
 
   return (
-    <>
+    <main className="min-h-screen w-full bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-[#F1F5F9] transition-colors pb-24 md:pb-0">
+      <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12 pt-10 pb-12 md:pb-16">
       <div className="pointer-events-none select-none blur-[2px] opacity-40" aria-hidden="true">
         <Explore />
       </div>
@@ -58,6 +59,7 @@ export default function Login() {
           </div>
         </section>
       </div>
-    </>
+      </div>
+    </main>
   )
 }
