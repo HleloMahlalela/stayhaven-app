@@ -6,14 +6,14 @@ import SearchBar from './components/SearchBar'
 
 export default function Explore() {
   return (
-    <div className="w-full min-h-screen pb-24 md:pb-0 bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-white font-sans antialiased selection:bg-[#EDE9FE] selection:text-[#7C3AED]">
-      <main className="w-full max-w-[1440px] mx-auto px-6 lg:px-16 pt-2 pb-24 md:pb-0">
+    <main className="min-h-screen w-full bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-[#F1F5F9] transition-colors pb-24 md:pb-0">
+      <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12 pt-10 pb-12 md:pb-16">
         <Hero />
         <SearchBar />
         <ListingGrid />
         <HostCTA />
-      </main>
+      </div>
       <Footer />
-    </div>
+    </main>
   )
 }
