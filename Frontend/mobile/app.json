@@ -19,9 +19,9 @@
       },
       "predictiveBackGestureEnabled": false
     },
-    "web": {
+       "web": {
       "bundler": "metro",
-      "output": "server",
+      "output": "single",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
