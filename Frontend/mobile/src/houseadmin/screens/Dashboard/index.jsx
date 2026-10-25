@@ -2,23 +2,14 @@ import { ScrollView, StatusBar, Text, View, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useGuestTheme } from '@/guest/theme/ThemeContext';
+import HouseAdminHeader from '../Listings/components/HouseAdminHeader';
+import AdminTabNavigator from '@/navigation/AdminTabNavigator';
 
 const bookings = [
   { initials: 'SC', name: 'Sophie Chen', home: 'Cedar Haven Cottage', dates: 'Oct 18–22', status: 'Confirmed', avatar: 'bg-purple-100 dark:bg-[#2A1F4E]', avatarText: 'text-[#7C3AED] dark:text-[#C4B5FD]' },
   { initials: 'MK', name: 'Marcus Kelly', home: 'Hilltop Modern Villa', dates: 'Oct 24–28', status: 'Checked in', avatar: 'bg-amber-100 dark:bg-[#3F2E0A]', avatarText: 'text-amber-700 dark:text-[#FDE68A]' },
   { initials: 'EJ', name: 'Elena & Julian', home: 'Lakeside Pine Retreat', dates: 'Nov 2–7', status: 'Confirmed', avatar: 'bg-blue-100 dark:bg-[#1E3A5F]', avatarText: 'text-blue-700 dark:text-[#93C5FD]' },
 ];
-
-function Header({ dark, toggleTheme }) {
-  return <View className="px-4 pt-3 pb-2 flex-row items-center justify-between bg-[#F8F9FA] dark:bg-[#0A0E1A] border-b border-transparent dark:border-[#1E2A45]/30">
-    <View className="flex-row items-center gap-2.5"><View className="w-8 h-8 rounded-lg bg-[#7C3AED] dark:bg-[#8B5CF6] items-center justify-center"><Feather name="home" size={17} color="white" /></View><Text className="text-[18px] font-bold tracking-tight text-black dark:text-white">StayHaven</Text></View>
-    <View className="flex-row items-center gap-2">
-      <Pressable accessibilityLabel="Toggle dark mode" onPress={toggleTheme} className="w-9 h-9 rounded-full bg-white dark:bg-[#141B2D] border border-[#E5E7EB] dark:border-[#1E2A45] items-center justify-center"><Feather name={dark ? 'sun' : 'moon'} size={16} color={dark ? '#F1F5F9' : '#4B5563'} /></Pressable>
-      <Pressable className="bg-white dark:bg-[#141B2D] border border-[#E5E7EB] dark:border-[#1E2A45] rounded-full px-3 py-1.5"><Text className="text-xs font-medium text-gray-700 dark:text-slate-300">Sign out</Text></Pressable>
-      <View className="w-8 h-8 rounded-full bg-[#7C3AED] dark:bg-[#8B5CF6] items-center justify-center"><Feather name="user" size={16} color="white" /></View>
-    </View>
-  </View>;
-}
 
 function StatCard({ label, value, detail, positive, star, dot }) {
   return <View className="w-[48%] min-h-[108px] bg-white dark:bg-[#141B2D] rounded-2xl p-4 border border-gray-100 dark:border-[#1E2A45]">
@@ -32,7 +23,7 @@ export default function DashboardScreen() {
   const { isDark, toggleTheme } = useGuestTheme();
   return <SafeAreaView edges={['top']} className="flex-1 bg-[#F8F9FA] dark:bg-[#0A0E1A] max-w-[390px] w-full self-center">
     <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
-    <Header dark={isDark} toggleTheme={toggleTheme} />
+    <HouseAdminHeader dark={isDark} toggleTheme={toggleTheme} />
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 112 }}>
       <View className="mx-4 mt-6">
         <Text className="text-xs uppercase tracking-wider font-bold text-[#7C3AED] dark:text-[#8B5CF6]">HOUSE ADMIN WORKSPACE</Text>
@@ -60,10 +51,6 @@ export default function DashboardScreen() {
         <Text className="text-sm font-bold text-[#A78BFA] mt-4">Manage notifications →</Text>
       </View>
     </ScrollView>
-    <View className="absolute bottom-4 self-center w-[calc(100%-32px)] max-w-[358px] h-16 rounded-[32px] bg-white dark:bg-[#141B2D] border border-gray-200 dark:border-[#1E2A45] shadow-lg flex-row items-center justify-around px-2">
-      <View className="flex-row items-center gap-1.5 bg-[#EDE9FE] dark:bg-[#1E2A45] px-3 py-1.5 rounded-full"><Feather name="home" size={16} color={isDark ? '#8B5CF6' : '#7C3AED'} /><Text className="text-xs font-bold text-[#7C3AED] dark:text-[#C4B5FD]">Dashboard</Text></View>
-      <View className="items-center justify-center gap-0.5 px-3 py-1.5"><Feather name="file-text" size={18} color={isDark ? '#94A3B8' : '#6B7280'} /><Text className="text-xs font-medium text-gray-500 dark:text-[#94A3B8]">Listings</Text></View>
-      <View className="items-center justify-center gap-0.5 px-3 py-1.5"><Feather name="calendar" size={18} color={isDark ? '#94A3B8' : '#6B7280'} /><Text className="text-xs font-medium text-gray-500 dark:text-[#94A3B8]">Bookings</Text></View>
-    </View>
+    <AdminTabNavigator />
   </SafeAreaView>;
 }
