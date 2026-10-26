@@ -2,8 +2,8 @@ import { ScrollView, StatusBar, Text, View, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useGuestTheme } from '@/guest/theme/ThemeContext';
-import HouseAdminHeader from '../../components/HouseAdminHeader';
-import HouseAdminBottomNav from '../../components/HouseAdminBottomNav';
+import HouseAdminHeader from '../Listings/components/HouseAdminHeader';
+import AdminTabNavigator from '@/navigation/AdminTabNavigator';
 
 const bookings = [
   { initials: 'SC', name: 'Sophie Chen', home: 'Cedar Haven Cottage', dates: 'Oct 18–22', status: 'Confirmed', avatar: 'bg-purple-100 dark:bg-[#2A1F4E]', avatarText: 'text-[#7C3AED] dark:text-[#C4B5FD]' },
@@ -51,6 +51,6 @@ export default function DashboardScreen() {
         <Text className="text-sm font-bold text-[#A78BFA] mt-4">Manage notifications →</Text>
       </View>
     </ScrollView>
-    <HouseAdminBottomNav dark={isDark} active="Dashboard" />
+    <AdminTabNavigator />
   </SafeAreaView>;
 }
