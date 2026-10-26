@@ -1,0 +1,32 @@
+We are starting the React UI build. The first page is the Web Guest Explore (Light Mode).
+
+1. READ THE DESIGN:
+- Read the HTML file located at `designs/Webapp_Guest_Explorepage_lightmode.html`. 
+- This is a massive HTML file that uses Tailwind CSS.
+
+2. USE THE EXISTING FOLDER STRUCTURE:
+- The project already has the folders `Frontend/web/src/guest/pages/Explore/` and `Frontend/web/src/guest/pages/Explore/components/`. Use them.
+- The global components folder is `Frontend/web/src/components/`.
+
+3. BREAK IT DOWN INTO COMPONENTS:
+- Extract the Explore-specific sections into `Frontend/web/src/guest/pages/Explore/components/`:
+  - `Hero.jsx` (The large image with the "Find a place that feels like yours" text)
+  - `SearchBar.jsx` (The overlapping white search pill)
+  - `ListingGrid.jsx` (The section holding the cards)
+  - `ListingCard.jsx` (The individual property cards)
+  - `HostCTA.jsx` (The "Have a place worth sharing?" section)
+- Extract the GLOBAL sections into `Frontend/web/src/components/`:
+  - `Navbar.jsx` (The top navigation)
+  - `Footer.jsx` (The bottom links)
+
+4. BUILD THE EXPLORE PAGE:
+- Build `Frontend/web/src/guest/pages/Explore/index.jsx` by importing all the components you just created and assembling them in the exact order they appear in the HTML.
+
+5. UPDATE THE ROUTER:
+- Update `Frontend/web/src/App.jsx` to import Explore from `./guest/pages/Explore`.
+
+6. CRITICAL INSTRUCTIONS:
+- Convert all HTML `class=""` attributes to React `className=""`.
+- Convert self-closing tags like `<img>` and `<input>` to `<img />` and `<input />`.
+- Preserve the exact Tailwind classes. 
+- Use standard placeholder URLs (like Unsplash) if the original Stitch links are broken.
