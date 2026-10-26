@@ -2,7 +2,7 @@ import { ScrollView, StatusBar, Text, View, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import { useGuestTheme } from '@/guest/theme/ThemeContext';
-import HouseAdminHeader from '../Listings/components/HouseAdminHeader';
+import HouseAdminHeader from '../../components/HouseAdminHeader';
 import AdminTabNavigator from '@/navigation/AdminTabNavigator';
 
 const bookings = [

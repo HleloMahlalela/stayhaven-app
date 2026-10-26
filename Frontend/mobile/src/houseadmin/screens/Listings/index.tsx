@@ -2,8 +2,8 @@ import { Feather } from '@expo/vector-icons';
 import { Pressable, ScrollView, StatusBar, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useGuestTheme } from '@/guest/theme/ThemeContext';
-import HouseAdminBottomNav from './components/HouseAdminBottomNav';
-import HouseAdminHeader from './components/HouseAdminHeader';
+import HouseAdminBottomNav from '../../components/HouseAdminBottomNav';
+import HouseAdminHeader from '../../components/HouseAdminHeader';
 import ListingCard, { type Listing } from './components/ListingCard';
 
 const listings: Listing[] = [
@@ -42,7 +42,7 @@ export default function ListingsScreen() {
           {listings.map((listing) => <ListingCard key={listing.title} listing={listing} />)}
         </View>
       </ScrollView>
-      <HouseAdminBottomNav dark={isDark} />
+      <HouseAdminBottomNav dark={isDark} active="Listings" />
     </SafeAreaView>
   );
 }
