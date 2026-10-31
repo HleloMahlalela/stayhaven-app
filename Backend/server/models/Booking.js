@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const bookingSchema = new mongoose.Schema({
         listing: {
             type: mongoose.Schema.Types.ObjectId,
@@ -33,3 +33,5 @@ const bookingSchema = new mongoose.Schema({
         timestamps: true
     }
 );
+
+export default mongoose.model('Booking', bookingSchema);

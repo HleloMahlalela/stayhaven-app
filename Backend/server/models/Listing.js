@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const listingSchema = new mongoose.Schema(
   {
@@ -18,7 +18,15 @@ const listingSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    host: {
+    currency: {
+      type: String,
+      default: 'BWP',
+    },
+    discount: {
+      type: Number,
+      default: 0,
+    },
+    hostId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
@@ -40,4 +48,4 @@ const listingSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Listing', listingSchema);
+export default mongoose.model('Listing', listingSchema);

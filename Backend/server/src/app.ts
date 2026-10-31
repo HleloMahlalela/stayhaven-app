@@ -6,6 +6,7 @@ import { env } from "./config/env.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { notFound } from "./middleware/notFound.js";
 import { authRouter } from "./modules/auth/auth.routes.js";
+import { listingsRouter } from "./modules/listings/listings.routes.js";
 
 export function createApp() {
   const app = express();
@@ -21,6 +22,7 @@ export function createApp() {
 
   app.get("/health", (_req, res) => res.json({ ok: true }));
   app.use("/api/v1/auth", authRouter);
+  app.use("/api/listings", listingsRouter);
   app.use(notFound);
   app.use(errorHandler);
 

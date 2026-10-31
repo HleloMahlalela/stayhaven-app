@@ -50,9 +50,11 @@ const createListing = async (req, res, next) => {
       description: req.body.description,
       location: req.body.location,
       price: req.body.price,
+      currency: req.body.currency || 'BWP',
+      discount: req.body.discount ?? 0,
       images: req.body.images,
       amenities: req.body.amenities,
-      host: hostId,
+      hostId,
       status: 'pending',
     });
 
@@ -69,7 +71,7 @@ const getHostListings = async (req, res, next) => {
       return res.status(401).json({ message: 'Authentication required' });
     }
 
-    const listings = await Listing.find({ host: hostId }).sort({ createdAt: -1 });
+    const listings = await Listing.find({ hostId }).sort({ createdAt: -1 });
     return res.status(200).json(listings);
   } catch (error) {
     return next(error);
