@@ -1,0 +1,11 @@
+export enum Role {
+  GUEST = "GUEST",
+  HOUSE_ADMIN = "HOUSE_ADMIN",
+  APP_ADMIN = "APP_ADMIN",
+}
+
+export enum UserStatus {
+  ACTIVE = "ACTIVE",
+  SUSPENDED = "SUSPENDED",
+  PENDING_VERIFICATION = "PENDING_VERIFICATION",
+}

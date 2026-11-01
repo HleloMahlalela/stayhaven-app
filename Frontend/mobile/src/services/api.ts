@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 
-const API_BASE_URL = (process.env.EXPO_PUBLIC_API_URL || 'http://localhost:4000/api').replace(/\/$/, '');
+const API_BASE_URL = (process.env.EXPO_PUBLIC_API_URL || 'http://localhost:4000/api/v1').replace(/\/$/, '');
 const TOKEN_KEY = 'token';
 
 type ApiResult<T> = { data: T };
@@ -32,7 +32,7 @@ export async function clearAccessToken() {
   await SecureStore.deleteItemAsync(TOKEN_KEY);
 }
 
-async function request<T>(path: string, method: 'GET' | 'POST' | 'PUT', body?: unknown): Promise<ApiResult<T>> {
+async function request<T>(path: string, method: 'GET' | 'POST' | 'PUT' | 'PATCH', body?: unknown): Promise<ApiResult<T>> {
   const token = await readToken();
   const response = await fetch(`${API_BASE_URL}${path.startsWith('/') ? path : `/${path}`}`, {
     method,
@@ -57,6 +57,7 @@ const api = {
   get: <T = unknown>(path: string) => request<T>(path, 'GET'),
   post: <T = unknown>(path: string, body?: unknown) => request<T>(path, 'POST', body),
   put: <T = unknown>(path: string, body?: unknown) => request<T>(path, 'PUT', body),
+  patch: <T = unknown>(path: string, body?: unknown) => request<T>(path, 'PATCH', body),
 };
 
 export default api;

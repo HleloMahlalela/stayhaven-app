@@ -1,4 +1,4 @@
-import type { Role } from "@prisma/client";
+import type { Role } from "../db/models/enums.js";
 import type { RequestHandler } from "express";
 
 export function requireRole(...roles: Role[]): RequestHandler {
