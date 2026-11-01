@@ -4,14 +4,15 @@ const images = [
   { alt: 'Private garden veranda surrounded by tropical plants', src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCu70KxE9IMZVzAZYVilAnfYVOBdk9Tp6mD6n3JgF4xqWqq09irtvQj87fLz9Zqgfmo8ctWNW9FK_jfXr795dgqQNDL0zEoxgjgjvaUNGyBxpGF_69Q6EBm5CtRabHlROaig3v7h8tGKWfsgt67ZvtqqU_oEREDE4qSWaI-Qqdj5N1kY-qkHF2uAnUYWatiApSrcvx136iRaVV4CM8LaHw9P5xZCfwkxel9t1efL0H7SkCEjschcvmO' },
 ]
 
-export default function ImageGallery() {
+export default function ImageGallery({ listing }) {
+  const galleryImages = listing?.image ? [{ ...images[0], src: listing.image, alt: listing.name || listing.title || images[0].alt }, ...images.slice(1)] : images
   return (
     <section aria-label="Property photos" className="relative flex h-[200px] gap-3 overflow-hidden rounded-[32px] border border-[#E5E7EB] bg-white p-3 shadow-sm dark:border-[#1E2A45] dark:bg-[#141B2D] sm:h-[280px]">
       <div className="group relative min-w-0 flex-1 overflow-hidden rounded-xl">
-        <img src={images[0].src} alt={images[0].alt} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
+        <img src={galleryImages[0].src} alt={galleryImages[0].alt} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
       </div>
       <div className="flex w-[28%] min-w-[78px] flex-col gap-3 sm:w-[30%]">
-        {images.slice(1).map((image, index) => <div className="group relative min-h-0 flex-1 overflow-hidden rounded-xl" key={image.src}><img src={image.src} alt={image.alt} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />{index === 1 && <span className="absolute bottom-2 right-2 rounded bg-black/60 px-2 py-1 text-xs font-medium text-white">+3</span>}</div>)}
+        {galleryImages.slice(1).map((image, index) => <div className="group relative min-h-0 flex-1 overflow-hidden rounded-xl" key={image.src}><img src={image.src} alt={image.alt} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />{index === 1 && <span className="absolute bottom-2 right-2 rounded bg-black/60 px-2 py-1 text-xs font-medium text-white">+3</span>}</div>)}
       </div>
     </section>
   )

@@ -8,10 +8,10 @@ export const listingImages = [
   'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=700&q=85',
 ];
 
-export default function ImageGallery({ onOpen }: { onOpen: () => void }) {
+export default function ImageGallery({ onOpen, heroImage }: { onOpen: () => void; heroImage?: string }) {
   return (
-    <View className="mx-4 h-[240px] flex-row gap-2">
-      <TouchableOpacity onPress={onOpen} activeOpacity={0.9} className="h-full flex-[2]"><Image source={{ uri: listingImages[0] }} accessibilityLabel="Lavender House bedroom" resizeMode="cover" className="h-full w-full rounded-2xl" /></TouchableOpacity>
+    <View className="mx-4 h-[250px] flex-row gap-2">
+      <TouchableOpacity onPress={onOpen} activeOpacity={0.9} className="h-full flex-[2]"><Image source={{ uri: heroImage || listingImages[0] }} accessibilityLabel="Property bedroom" resizeMode="cover" className="h-[250px] w-full rounded-2xl" /></TouchableOpacity>
       <View className="flex-1 gap-2">
         <TouchableOpacity onPress={onOpen} activeOpacity={0.9}><Image source={{ uri: listingImages[1] }} accessibilityLabel="Bathroom interior" resizeMode="cover" className="h-[116px] w-full rounded-2xl" /></TouchableOpacity>
         <View className="relative h-[116px] overflow-hidden rounded-2xl">

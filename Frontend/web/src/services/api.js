@@ -1,21 +1,20 @@
-const API_BASE_URL = 'http://localhost:4000/api/v1'
+import axios from 'axios'
 
-const api = {
-  async post(path, body) {
-    const response = await fetch(`${API_BASE_URL}${path}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify(body),
-    })
+const api = axios.create({
+  // Updated to /api/v1 to match the backend team's new API
+  baseURL: 'http://localhost:4000/api/v1',
+  // Added withCredentials to support cookies (if they are using them)
+  withCredentials: true,
+})
 
-    const data = await response.json().catch(() => ({}))
-    if (!response.ok) {
-      throw new Error(data.message || data.error || `Request failed (${response.status})`)
-    }
+api.interceptors.request.use((config) => {
+  const token = window.localStorage.getItem('token')
 
-    return { data }
-  },
-}
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
+  return config
+})
 
 export default api

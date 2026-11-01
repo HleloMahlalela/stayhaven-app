@@ -1,11 +1,6 @@
-import Footer from '../../../components/Footer'
 import ReviewCard from './components/ReviewCard'
-
-const reviews = [
-  { name: 'Maya Thompson', property: 'Casa Sol', date: 'September 2025', rating: 5, avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=96&h=96&q=80', body: 'A beautiful, peaceful stay from start to finish. The space was spotless, thoughtfully designed, and just a short walk from everything we wanted to see. Our host made us feel right at home.' },
-  { name: 'Daniel Kim', property: 'The Olive House', date: 'August 2025', rating: 4, avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=96&h=96&q=80', body: 'Wonderful location and a lovely home with everything we needed. Check-in was easy and the host was quick to answer our questions. I would happily stay here again.' },
-  { name: 'Amara Okafor', property: 'Harbour Light Loft', date: 'July 2025', rating: 5, avatar: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=96&h=96&q=80', body: 'The views were even better than the photos. We loved the comfortable space and the thoughtful local recommendations. It made our weekend feel special.' },
-]
+import { useState } from 'react'
+import { initialListings } from '../../data/listings'
 
 function InfoPanel() {
   return (
@@ -22,12 +17,33 @@ function InfoPanel() {
         <li className="flex gap-3"><span className="material-symbols-outlined text-lg text-[#A78BFA]">edit</span><span>You can edit your review at any time.</span></li>
         <li className="flex gap-3"><span className="material-symbols-outlined text-lg text-[#A78BFA]">favorite</span><span>Kind, specific feedback helps hosts grow.</span></li>
       </ul>
-      <a href="#reviews" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#C4B5FD] hover:text-white">Review guidelines <span className="material-symbols-outlined text-lg">arrow_forward</span></a>
     </aside>
   )
 }
 
 export default function Reviews() {
+  const [reviews, setReviews] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [property, setProperty] = useState(initialListings[0].name)
+  const [rating, setRating] = useState(5)
+  const [comment, setComment] = useState('')
+  const submitReview = (event) => {
+    event.preventDefault()
+    const listing = initialListings.find((item) => item.name === property) || initialListings[0]
+    const review = {
+      id: `review-${Date.now()}`,
+      name: 'You',
+      property: listing.name,
+      location: listing.location,
+      image: listing.image,
+      date: new Date().toLocaleDateString(undefined, { month: 'long', year: 'numeric' }),
+      rating,
+      body: comment.trim(),
+    }
+    setReviews((currentReviews) => [review, ...currentReviews])
+    setIsModalOpen(false)
+    setComment('')
+  }
   return (
     <main className="min-h-screen w-full bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-[#F1F5F9] transition-colors pb-24 md:pb-0">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12 pt-10 pb-12 md:pb-16">
@@ -44,16 +60,24 @@ export default function Reviews() {
                 <h2 id="your-reviews-heading" className="text-xl font-bold text-[#131B2E] dark:text-[#DFE2F3]">Your Reviews <span className="ml-1 text-sm font-medium text-[#7B7487] dark:text-[#958EA0]">({reviews.length})</span></h2>
                 <p className="mt-1 text-sm text-[#64748B] dark:text-[#A6AEC0]">Your past stays and the stories you shared.</p>
               </div>
-              <button type="button" className="inline-flex items-center gap-2 rounded-full bg-[#7C3AED] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#6D28D9] focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/40 focus:ring-offset-2 dark:focus:ring-offset-[#0A0E1A]"><span className="material-symbols-outlined text-lg">edit</span>Write a review</button>
+              <button type="button" onClick={() => setIsModalOpen(true)} className="inline-flex items-center gap-2 rounded-full bg-[#7C3AED] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#6D28D9] focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/40 focus:ring-offset-2 dark:focus:ring-offset-[#0A0E1A]"><span className="material-symbols-outlined text-lg">edit</span>Write a review</button>
             </div>
-            <div className="space-y-4">
-              {reviews.map((review) => <ReviewCard key={`${review.name}-${review.property}`} review={review} />)}
-            </div>
+            <div className="space-y-4">{reviews.length ? reviews.map((review) => <ReviewCard key={review.id || `${review.name}-${review.property}`} review={review} />) : <p className="rounded-2xl border border-dashed p-8 text-center text-[#64748B] dark:border-[#2A3040] dark:text-[#A6AEC0]">No reviews yet. Write your first review!</p>}</div>
           </section>
           <InfoPanel />
         </div>
       </div>
-      <Footer />
+      {isModalOpen && <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsModalOpen(false) }}>
+        <section role="dialog" aria-modal="true" aria-labelledby="write-review-title" className="w-full max-w-lg rounded-3xl bg-white p-6 text-[#0F172A] shadow-2xl dark:bg-[#171B28] dark:text-[#F1F5F9]">
+          <div className="mb-5 flex items-center justify-between"><h2 id="write-review-title" className="text-xl font-bold">Write a review</h2><button type="button" aria-label="Close" onClick={() => setIsModalOpen(false)} className="rounded-full p-2 hover:bg-black/5 dark:hover:bg-white/10"><span className="material-symbols-outlined">close</span></button></div>
+          <form onSubmit={submitReview} className="space-y-4">
+            <label className="block text-sm font-semibold">Past stay<select required value={property} onChange={(event) => setProperty(event.target.value)} className="mt-1.5 w-full rounded-xl border border-[#E2E8F0] bg-transparent px-3 py-2.5 font-normal dark:border-[#343A4A]">{initialListings.map((listing) => <option key={listing.id} value={listing.name}>{listing.name} · {listing.location}</option>)}</select></label>
+            <fieldset><legend className="text-sm font-semibold">Rating</legend><div className="mt-1 flex gap-1" aria-label={`${rating} out of 5 stars`}>{[1, 2, 3, 4, 5].map((star) => <button key={star} type="button" aria-label={`${star} star${star === 1 ? '' : 's'}`} aria-pressed={rating === star} onClick={() => setRating(star)} className={`text-3xl ${star <= rating ? 'text-amber-400' : 'text-slate-300 dark:text-slate-600'}`}>★</button>)}</div></fieldset>
+            <label className="block text-sm font-semibold">Comment<textarea required rows="4" value={comment} onChange={(event) => setComment(event.target.value)} className="mt-1.5 w-full resize-y rounded-xl border border-[#E2E8F0] bg-transparent px-3 py-2.5 font-normal dark:border-[#343A4A]" placeholder="Share what made your stay memorable..." /></label>
+            <button type="submit" className="w-full rounded-full bg-[#7C3AED] px-5 py-3 text-sm font-semibold text-white hover:bg-[#6D28D9]">Post review</button>
+          </form>
+        </section>
+      </div>}
     </main>
   )
 }

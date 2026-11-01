@@ -1,19 +1,18 @@
+import { Link } from 'react-router-dom'
+
 const surfaceClasses = 'bg-white dark:bg-[#171b28]'
 
-export default function BookingCard({ booking, past = false }) {
+export default function BookingCard({ booking, past = false, onDelete }) {
   if (past) {
     return (
       <article className="flex items-center justify-between gap-4 overflow-hidden rounded-[32px] bg-[#f2f3ff]/60 p-6 dark:bg-[#171b28]/60">
         <div className="flex min-w-0 items-center gap-4">
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-[#e2e7ff] text-[#7b7487] dark:bg-[#262a37] dark:text-[#958ea0]">
-            <span className="material-symbols-outlined text-3xl">hotel</span>
-          </div>
+          <img src={booking.image} alt={booking.imageAlt} className="h-16 w-16 shrink-0 rounded-xl object-cover" />
           <div className="min-w-0">
             <h2 className="truncate text-xl font-semibold text-[#131b2e] dark:text-[#dfe2f3]">{booking.name}</h2>
             <p className="text-sm text-[#7b7487] dark:text-[#958ea0]">{booking.location} · Stayed {booking.dates}</p>
           </div>
         </div>
-        <button type="button" className="shrink-0 text-sm font-medium text-[#630ed4] hover:underline dark:text-[#d0bcff]">View Receipt</button>
       </article>
     )
   }
@@ -28,12 +27,7 @@ export default function BookingCard({ booking, past = false }) {
       </div>
       <div className="flex min-w-0 flex-1 flex-col justify-between p-6">
         <div>
-          <div className="flex items-start justify-between gap-2">
-            <h2 className="truncate text-xl font-bold tracking-tight text-[#131b2e] dark:text-[#dfe2f3]">{booking.name}</h2>
-            <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#dcfce7] px-3 py-1 text-xs font-semibold text-[#166534] dark:bg-[#0f3d24] dark:text-[#4ade80]">
-              <span className="h-1.5 w-1.5 rounded-full bg-current" />{booking.status}
-            </span>
-          </div>
+          <h2 className="truncate text-xl font-bold tracking-tight text-[#131b2e] dark:text-[#dfe2f3]">{booking.name}</h2>
           <p className="mt-1.5 flex items-center gap-1.5 text-sm text-[#5e5c6e] dark:text-[#cbc3d7]">
             <span className="material-symbols-outlined text-lg text-[#7b7487] dark:text-[#958ea0]">location_on</span>{booking.location}
           </p>
@@ -46,7 +40,7 @@ export default function BookingCard({ booking, past = false }) {
               <span className="truncate text-xs text-[#7b7487] dark:text-[#958ea0]">{booking.nights} nights · Check-in after {booking.checkIn}</span>
             </div>
           </div>
-          <a href="#" className="inline-flex shrink-0 items-center gap-1 pl-2 text-sm font-semibold text-[#630ed4] transition-colors hover:text-[#5e5c6e] dark:text-[#d0bcff] dark:hover:text-[#ccbef8]">Details <span className="material-symbols-outlined text-lg">arrow_forward</span></a>
+          <div className="flex shrink-0 items-center gap-3 pl-2"><Link to="/details" state={{ listing: booking }} className="inline-flex items-center gap-1 text-sm font-semibold text-[#630ed4] transition-colors hover:text-[#5e5c6e] dark:text-[#d0bcff] dark:hover:text-[#ccbef8]">Details <span className="material-symbols-outlined text-lg">arrow_forward</span></Link><button type="button" onClick={onDelete} className="text-sm font-semibold text-[#7C3AED] hover:underline dark:text-[#A78BFA]">Cancel</button></div>
         </div>
       </div>
     </article>

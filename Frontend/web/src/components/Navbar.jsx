@@ -6,7 +6,6 @@ export default function Navbar() {
   const { pathname } = useLocation()
   const appAdmin = pathname.startsWith('/appadmin/')
   const houseAdmin = pathname.startsWith('/houseadmin/')
-  const admin = appAdmin || houseAdmin
   const home = appAdmin ? '/appadmin/overview' : houseAdmin ? '/houseadmin/dashboard' : '/'
   const links = appAdmin
     ? [['/appadmin/overview', 'Overview', 'dashboard'], ['/appadmin/listings', 'Listings', 'view_list'], ['/appadmin/houseadmins', 'House admins', 'group']]
@@ -29,8 +28,8 @@ export default function Navbar() {
           </nav>
           <div className="flex items-center gap-3 md:gap-4 shrink-0 z-10">
             <button aria-label="Toggle dark mode" onClick={toggleTheme} className="flex w-9 h-9 rounded-full items-center justify-center text-[#64748B] dark:text-[#A6AEC0] hover:text-[#0F172A] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 transition-colors" type="button"><span className="material-symbols-outlined text-[20px]">{theme === 'dark' ? 'light_mode' : 'dark_mode'}</span></button>
-            {admin ? <button className="hidden md:block bg-white dark:bg-[#141B2D] border border-[#7C3AED] dark:border-[#1E2A45] text-[#7C3AED] dark:text-white px-5 py-2 rounded-full font-semibold hover:bg-[#F8FAFC] dark:hover:border-[#8B5CF6] transition-colors whitespace-nowrap text-sm" type="button">Sign out</button> : <Link className="hidden md:block bg-[#7C3AED] text-white px-4 py-2 rounded-full font-medium hover:bg-[#6D28D9] transition-colors whitespace-nowrap text-sm shadow-sm" to="/login">Sign in</Link>}
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${admin ? 'bg-[#7C3AED] text-white' : 'bg-[#7C3AED]/10 border border-[#7C3AED]/20 text-[#7C3AED]'}`}><span className="material-symbols-outlined text-[20px]">person</span></div>
+            <Link className="hidden md:block bg-[#7C3AED] text-white px-4 py-2 rounded-full font-medium hover:bg-[#6D28D9] transition-colors whitespace-nowrap text-sm shadow-sm" to="/login">Sign in</Link>
+            <Link aria-label="Profile" to="/profile" className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 bg-[#7C3AED]/10 border border-[#7C3AED]/20 text-[#7C3AED]"><span className="material-symbols-outlined text-[20px]">person</span></Link>
           </div>
         </div>
       </header>

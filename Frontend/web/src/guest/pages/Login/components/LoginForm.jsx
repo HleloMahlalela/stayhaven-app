@@ -1,24 +1,38 @@
 import { useState } from 'react'
-import api from '../../../../services/api'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../../../context/AuthContext'
 
 export default function LoginForm() {
+  const navigate = useNavigate()
+  const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   async function handleSubmit(event) {
     event.preventDefault()
     setError('')
-    setIsSubmitting(true)
+    setSubmitting(true)
 
     try {
-      await api.post('/auth/login', { email, password })
-    } catch (requestError) {
-      setError(requestError.message || 'Unable to sign in. Please try again.')
+      const user = await login(email, password)
+      const destination = {
+        GUEST: '/',
+        HOUSE_ADMIN: '/houseadmin/dashboard',
+        APP_ADMIN: '/appadmin/overview',
+      }[user?.role]
+
+      if (!destination) {
+        throw new Error('The login response did not include a valid user role.')
+      }
+
+      navigate(destination)
+    } catch {
+      setError('Invalid credentials')
     } finally {
-      setIsSubmitting(false)
+      setSubmitting(false)
     }
   }
 
@@ -79,10 +93,14 @@ export default function LoginForm() {
 
       <button
         className="mt-6 flex h-[52px] w-full cursor-pointer items-center justify-center rounded-full border-0 bg-[#7C3AED] text-[16px] font-semibold text-white shadow-sm transition-colors hover:bg-[#6D28D9] active:scale-[0.98] dark:bg-gradient-to-r dark:from-[#8B5CF6] dark:to-[#7C3AED] dark:font-bold dark:tracking-wide dark:shadow-[0_4px_20px_rgba(139,92,246,0.4)] dark:hover:shadow-[0_0_28px_rgba(139,92,246,0.6)]"
+        disabled={submitting}
         type="submit"
       >
-        {isSubmitting ? 'Signing in…' : 'Sign in'}
+        {submitting ? 'Signing in…' : 'Sign in'}
       </button>
+      <p className="mt-5 text-center text-sm text-[#64748B] dark:text-[#94A3B8]">
+        New to StayHaven? <Link className="font-semibold text-[#7C3AED] hover:underline dark:text-[#A78BFA]" to="/guest-registration">Create a guest account</Link>
+      </p>
     </form>
   )
 }
