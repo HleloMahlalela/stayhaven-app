@@ -14,18 +14,33 @@ export default function GuestRegistrationScreen() {
 
   const handleSubmit = async () => {
     setError('');
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+    if (!trimmedName || !trimmedEmail || !password || !confirmPassword) {
+      setError('Please complete all fields.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    if (password.length < 10) {
+      setError('Password must be at least 10 characters.');
+      return;
+    }
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
     setSubmitting(true);
     try {
-      await api.post('/auth/register', { name: name.trim(), fullName: name.trim(), email: email.trim(), password, role: 'GUEST' });
+      await api.post('/auth/register', { name: trimmedName, fullName: trimmedName, email: trimmedEmail, password, role: 'GUEST' });
       if (Platform.OS === 'web') window.alert('Account created successfully!');
       else Alert.alert('Account created successfully!');
       router.replace('/login');
     } catch (requestError) {
-      setError(requestError instanceof Error ? requestError.message : 'Unable to create your account. Please try again.');
+      const responseError = requestError as { response?: { data?: { error?: { message?: string }; message?: string } } };
+      setError(responseError.response?.data?.error?.message || responseError.response?.data?.message || 'Unable to create your account. Please try again.');
     } finally {
       setSubmitting(false);
     }
