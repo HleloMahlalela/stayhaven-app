@@ -1,15 +1,22 @@
-const stats = [
-  { label: 'Pending listings', value: '8', trend: '3 new today', icon: 'document' },
-  { label: 'Active house admins', value: '24', trend: '+2 this week', icon: 'people' },
-  { label: 'Total live listings', value: '142', trend: '+12 this month', icon: 'house' },
-  { label: 'Reports & flags', value: '2', trend: '1 resolved today', icon: 'alert' },
-]
+import { Link } from 'react-router-dom'
+import { useAppAdminData } from '../../../data/AppAdminDataContext'
 
 export default function StatCards() {
+  const { listings, administrators } = useAppAdminData()
+  const pendingListings = listings.filter((listing) => listing.status === 'Pending').length
+  const activeAdmins = administrators.filter((admin) => ['Approved', 'Active'].includes(admin.status)).length
+  const totalListings = listings.filter((listing) => ['Active', 'Approved'].includes(listing.status)).length
+  const stats = [
+    { label: 'Pending listings', value: pendingListings, trend: 'Awaiting review', icon: 'document', to: '/appadmin/listings?status=Pending' },
+    { label: 'Active house admins', value: activeAdmins, trend: 'Approved or active', icon: 'people', to: '/appadmin/houseadmins' },
+    { label: 'Total live listings', value: totalListings, trend: 'Across all house admins', icon: 'house' },
+  ]
+
   return (
-    <section aria-label="Platform statistics" className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
-      {stats.map((stat) => (
-        <article key={stat.label} className="flex min-h-[160px] flex-col justify-between rounded-[32px] border border-[#E5E7EB] bg-white p-6 shadow-sm dark:border-[#1E2A45] dark:bg-[#141B2D]">
+    <section aria-label="Platform statistics" className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      {stats.map((stat) => {
+        const Card = (
+          <article className={`flex min-h-[160px] flex-col justify-between rounded-[32px] border border-[#E5E7EB] bg-white p-6 shadow-sm dark:border-[#1E2A45] dark:bg-[#141B2D] ${stat.to ? 'transition hover:-translate-y-0.5 hover:border-[#C4B5FD] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]' : ''}`}>
           <div className="flex items-center justify-between">
             <span className="text-[14px] font-medium text-[#64748B] dark:text-[#94A3B8]">{stat.label}</span>
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#EDE9FE] text-[#7C3AED] dark:bg-[#1E2A45] dark:text-[#8B5CF6]">
@@ -18,8 +25,10 @@ export default function StatCards() {
           </div>
           <div className="mb-2 mt-4 text-[32px] font-extrabold leading-none text-[#0F172A] dark:text-[#F1F5F9]">{stat.value}</div>
           <div className="text-[13px] font-semibold text-[#16A34A] dark:text-[#4ADE80]">{stat.trend}</div>
-        </article>
-      ))}
+          </article>
+        )
+        return stat.to ? <Link aria-label={`${stat.label}: ${stat.value}. Open details`} className="rounded-[32px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7C3AED]" key={stat.label} to={stat.to}>{Card}</Link> : <div key={stat.label}>{Card}</div>
+      })}
     </section>
   )
 }

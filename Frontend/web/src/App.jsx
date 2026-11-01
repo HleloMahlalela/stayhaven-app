@@ -22,6 +22,7 @@ import AddListing from './houseadmin/pages/Listings/AddListing';
 import Overview from './appadmin/pages/Overview';
 import AppAdminListings from './appadmin/pages/Listings';
 import HouseAdmins from './appadmin/pages/HouseAdmins';
+import { AppAdminDataProvider } from './appadmin/data/AppAdminDataContext';
 
 
 
@@ -31,6 +32,7 @@ export default function App() {
       <AuthProvider>
         <Router>
           <Navbar />
+          <AppAdminDataProvider>
           <Routes>
           <Route path="/" element={<Explore />} />
           <Route path="/explore" element={<Explore />} />
@@ -56,6 +58,7 @@ export default function App() {
 
           <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          </AppAdminDataProvider>
         </Router>
       </AuthProvider>
     </ThemeProvider>
