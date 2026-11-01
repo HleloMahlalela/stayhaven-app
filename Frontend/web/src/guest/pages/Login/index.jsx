@@ -47,12 +47,6 @@ export default function Login() {
           <LoginForm />
 
           <div className="mt-6 flex flex-col items-center text-center">
-            <p className="text-[14px] text-[#64748B] dark:text-[#94A3B8]">
-              New to StayHaven?
-              <a className="ml-1 font-semibold text-[#7C3AED] hover:underline dark:text-[#A78BFA]" href="#create-account">
-                Create an account
-              </a>
-            </p>
             <p className="mt-4 max-w-sm text-[12px] leading-relaxed text-[#94A3B8] dark:text-[#64748B]">
               Your registered account automatically determines which workspace you can access.
             </p>

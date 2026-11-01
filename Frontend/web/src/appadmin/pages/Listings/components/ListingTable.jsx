@@ -1,7 +1,9 @@
+import { initialListings } from '../../../../guest/data/listings'
+
 const listings = [
-  { name: 'Acacia Garden House', owner: 'Sarah K.', timing: 'Submitted 2h ago', status: 'Pending', iconBg: 'bg-[#F3E8FF] dark:bg-[#2A1F4E]', iconColor: 'text-[#7C3AED] dark:text-[#8B5CF6]' },
-  { name: 'Moonrise Cottage', owner: 'David M.', timing: 'Submitted 5h ago', status: 'Pending', iconBg: 'bg-[#DBEAFE] dark:bg-[#1E3A5F]', iconColor: 'text-[#1E40AF] dark:text-[#60A5FA]' },
-  { name: 'The Olive Rooms', owner: 'Talia N.', timing: 'Flagged yesterday', status: 'Review', iconBg: 'bg-[#FEF3C7] dark:bg-[#3F2E0A]', iconColor: 'text-[#92400E] dark:text-[#FBBF24]' },
+  { ...initialListings[6], owner: 'Sarah K.', timing: `Submitted · ${initialListings[6].location}`, status: 'Pending', iconBg: 'bg-[#F3E8FF] dark:bg-[#2A1F4E]', iconColor: 'text-[#7C3AED] dark:text-[#8B5CF6]' },
+  { ...initialListings[7], owner: 'David M.', timing: `Submitted · ${initialListings[7].location}`, status: 'Pending', iconBg: 'bg-[#DBEAFE] dark:bg-[#1E3A5F]', iconColor: 'text-[#1E40AF] dark:text-[#60A5FA]' },
+  { ...initialListings[8], owner: 'Talia N.', timing: `Flagged · ${initialListings[8].location}`, status: 'Review', iconBg: 'bg-[#FEF3C7] dark:bg-[#3F2E0A]', iconColor: 'text-[#92400E] dark:text-[#FBBF24]' },
 ]
 
 export default function ListingTable() {

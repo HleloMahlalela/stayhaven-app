@@ -1,7 +1,9 @@
-const bookings = [
-  { initials: 'MT', name: 'Maya Thompson', details: 'Lavender House · Jun 18–21', status: 'Confirmed', avatar: 'bg-[#F3E8FF] text-[#7C3AED] dark:bg-[#2A1F4E] dark:text-[#A78BFA]' },
-  { initials: 'DK', name: 'Daniel Kim', details: 'Casa Sol · Jun 22–27', status: 'Confirmed', avatar: 'bg-[#DBEAFE] text-[#1E40AF] dark:bg-[#1E3A5F] dark:text-[#93C5FD]' },
-  { initials: 'IO', name: 'Ife Okafor', details: 'The Cloud Villa · Jun 25–27', status: 'Pending', avatar: 'bg-[#FEF3C7] text-[#92400E] dark:bg-[#3F2E0A] dark:text-[#FBBF24]' },
+﻿import { useState } from 'react'
+
+const initialBookings = [
+  { initials: 'MT', name: 'Maya Thompson', details: 'Lavender House · Gaborone, Botswana Â· Jun 18â€“21', status: 'Confirmed', avatar: 'bg-[#F3E8FF] text-[#7C3AED] dark:bg-[#2A1F4E] dark:text-[#A78BFA]' },
+  { initials: 'DK', name: 'Daniel Kim', details: 'Kigo Hillside Haven · Francistown, Botswana Â· Jun 22â€“27', status: 'Confirmed', avatar: 'bg-[#DBEAFE] text-[#1E40AF] dark:bg-[#1E3A5F] dark:text-[#93C5FD]' },
+  { initials: 'IO', name: 'Ife Okafor', details: 'Nalubaale Stone Cottage · Maun, Botswana Â· Jun 25â€“27', status: 'Pending', avatar: 'bg-[#FEF3C7] text-[#92400E] dark:bg-[#3F2E0A] dark:text-[#FBBF24]' },
 ]
 
 function StatusPill({ status }) {
@@ -14,7 +16,7 @@ function StatusPill({ status }) {
   )
 }
 
-function BookingRow({ booking }) {
+function BookingRow({ booking, onDelete }) {
   return (
     <div className="flex items-center border-b border-[#F1F5F9] px-4 py-5 transition-colors last:border-0 hover:bg-[#F8FAFC]/70 dark:border-[#1E2A45] dark:hover:bg-[#1E2A45]/30 sm:px-6 dark:sm:px-8 sm:dark:py-6">
       <div className="flex w-[30%] min-w-0 items-center gap-3 sm:gap-3.5">
@@ -24,13 +26,19 @@ function BookingRow({ booking }) {
       <div className="w-[45%] min-w-0 truncate pr-2 text-xs text-[#64748B] dark:text-[#94A3B8] sm:text-sm">{booking.details}</div>
       <div className="flex w-[25%] items-center justify-end gap-2 sm:gap-4">
         <StatusPill status={booking.status} />
-        <button type="button" className="rounded-full bg-[#EDE9FE] px-3 py-1.5 text-xs font-semibold text-[#7C3AED] transition-colors hover:bg-[#DDD6FE] dark:border-[1.5px] dark:border-[#8B5CF6] dark:bg-transparent dark:px-4 dark:text-sm dark:text-[#8B5CF6] dark:hover:bg-[#8B5CF6] dark:hover:text-white">Manage</button>
+        <button type="button" onClick={() => onDelete(booking.initials)} className="rounded-full bg-[#EDE9FE] px-3 py-1.5 text-xs font-semibold text-[#7C3AED] transition-colors hover:bg-[#DDD6FE] dark:border-[1.5px] dark:border-[#8B5CF6] dark:bg-transparent dark:px-4 dark:text-sm dark:text-[#8B5CF6] dark:hover:bg-[#8B5CF6] dark:hover:text-white">Manage</button>
       </div>
     </div>
   )
 }
 
 export default function BookingTable() {
+  const [bookings, setBookings] = useState(initialBookings)
+  function handleDelete(initials) {
+    if (window.confirm('Are you sure you want to delete this reservation?')) {
+      setBookings((current) => current.filter((booking) => booking.initials !== initials))
+    }
+  }
   return (
     <section aria-label="Bookings" className="mt-10 w-full overflow-hidden rounded-[24px] border border-[#E5E7EB] bg-white shadow-sm dark:border-[#1E2A45] dark:bg-[#141B2D] dark:shadow-[0_4px_24px_-2px_rgba(139,92,246,0.06)]">
       <div className="flex items-center border-b border-[#F1F5F9] px-4 py-3.5 dark:border-[#1E2A45] dark:bg-[#0A0E1A] sm:px-6 sm:py-4 sm:dark:px-8">
@@ -39,7 +47,7 @@ export default function BookingTable() {
         <div className="w-[25%] text-right text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] sm:text-xs sm:tracking-[1px]">Status and actions</div>
       </div>
       <div className="divide-y divide-[#F1F5F9] dark:divide-[#1E2A45]">
-        {bookings.map((booking) => <BookingRow key={booking.initials} booking={booking} />)}
+        {bookings.map((booking) => <BookingRow key={booking.initials} booking={booking} onDelete={handleDelete} />)}
       </div>
     </section>
   )

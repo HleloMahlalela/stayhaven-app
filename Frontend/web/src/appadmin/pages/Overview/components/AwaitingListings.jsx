@@ -1,7 +1,8 @@
+import { initialListings } from '../../../../guest/data/listings'
 const listings = [
-  { name: 'Acacia Garden House', host: 'Sarah K.', location: 'Kampala', tone: 'purple' },
-  { name: 'Moonrise Cottage', host: 'David M.', location: 'Entebbe', tone: 'blue' },
-  { name: 'The Olive Rooms', host: 'Talia N.', location: 'Jinja', tone: 'amber' },
+  { ...initialListings[6], host: 'Sarah K.', tone: 'purple' },
+  { ...initialListings[7], host: 'David M.', tone: 'blue' },
+  { ...initialListings[8], host: 'Talia N.', tone: 'amber' },
 ]
 
 export default function AwaitingListings() {

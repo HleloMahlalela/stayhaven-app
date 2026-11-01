@@ -2,10 +2,21 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
+import cors from "cors";
 import mongoose from "mongoose";
 import { Listing } from "./models/Listing.js";
 
 const app = express();
+const frontendOrigins = (process.env.FRONTEND_ORIGINS ?? "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+app.use(cors({
+  origin: frontendOrigins,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express.json());
 app.get("/health", (_req, res) => res.json({ ok: true, database: mongoose.connection.readyState === 1 ? "connected" : "disconnected" }));
 app.get("/api/listings", async (_req, res, next) => {

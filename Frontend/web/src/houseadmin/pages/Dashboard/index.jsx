@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom'
 import DarkInfoPanel from './components/DarkInfoPanel'
 import StatCard, { stats } from './components/StatCard'
 import UpcomingBookings from './components/UpcomingBookings'
 
 export default function Dashboard() {
+  const navigate = useNavigate()
   return <main className="min-h-screen w-full bg-[#F8F9FA] dark:bg-[#0A0E1A] text-[#0F172A] dark:text-[#F1F5F9] transition-colors pb-24 md:pb-0">
     <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-8 lg:px-12 pt-10 pb-12 md:pb-16">
       <header className="w-full mb-8">
@@ -11,7 +13,7 @@ export default function Dashboard() {
           <h1 className="text-[32px] sm:text-[40px] font-extrabold leading-tight sm:leading-[48px] tracking-tight text-[#0F172A] dark:text-[#F1F5F9]">Good morning, Amara.</h1>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <p className="text-base text-[#64748B] dark:text-[#94A3B8]">Here's what's happening with your guesthouses.</p>
-            <button type="button" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] hover:brightness-110 shadow-md transition-all self-start sm:self-auto"><span className="material-symbols-outlined text-[18px]">add</span>Request new listing</button>
+            <button onClick={() => navigate('/houseadmin/add-listing')} type="button" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] hover:brightness-110 shadow-md transition-all self-start sm:self-auto"><span className="material-symbols-outlined text-[18px]">add</span>Request new listing</button>
           </div>
         </div>
       </header>

@@ -3,7 +3,8 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ExploreScreen from '../guest/screens/Explore/ExploreScreen';
-import PlaceholderScreen from '../guest/screens/PlaceholderScreen';
+import BookingsScreen from '../guest/screens/Bookings';
+import ReviewsScreen from '../guest/screens/Reviews';
 import { useGuestTheme } from '../guest/theme/ThemeContext';
 
 const Tab = createBottomTabNavigator();
@@ -42,8 +43,8 @@ export default function GuestTabNavigator() {
   return (
     <Tab.Navigator tabBar={(props) => <FloatingTabBar {...props} />} screenOptions={{ headerShown: false, sceneStyle: { backgroundColor: isDark ? '#0A0E1A' : '#F8F9FA' } }}>
       <Tab.Screen name="Explore" component={ExploreScreen} />
-      <Tab.Screen name="Bookings">{() => <PlaceholderScreen title="Bookings" />}</Tab.Screen>
-      <Tab.Screen name="Reviews">{() => <PlaceholderScreen title="Reviews" />}</Tab.Screen>
+      <Tab.Screen name="Bookings" component={BookingsScreen} />
+      <Tab.Screen name="Reviews" component={ReviewsScreen} />
     </Tab.Navigator>
   );
 }
