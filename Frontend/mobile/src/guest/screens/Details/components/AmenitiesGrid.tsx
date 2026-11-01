@@ -2,9 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const amenities = ['Fast Wi-Fi', 'Free parking', 'Dedicated workspace', 'Self check-in'];
-
-export default function AmenitiesGrid() {
+export default function AmenitiesGrid({ amenities = [] }: { amenities?: string[] }) {
   return (
     <View className="mt-6 px-4">
       <Text className="mb-3 text-lg font-bold text-gray-900 dark:text-white">What this place offers</Text>

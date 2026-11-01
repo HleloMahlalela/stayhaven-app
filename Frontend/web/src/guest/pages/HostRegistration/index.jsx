@@ -11,7 +11,7 @@ export default function HostRegistration() {
     event.preventDefault()
     setError('')
     const form = new FormData(event.currentTarget)
-    const name = form.get('name')
+    const fullName = form.get('name')
     const email = form.get('email')
     const password = form.get('password')
     if (password !== form.get('confirmPassword')) {
@@ -21,7 +21,7 @@ export default function HostRegistration() {
 
     setSubmitting(true)
     try {
-      await api.post('/auth/register', { name, email, password, role: 'HOUSE_ADMIN' })
+      await api.post('/auth/register', { fullName, email, password, role: 'HOUSE_ADMIN' })
       window.alert('Your host account has been created. Please sign in.')
       navigate('/login')
     } catch (requestError) {

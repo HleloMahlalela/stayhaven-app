@@ -1,9 +1,9 @@
 import { createHash, randomBytes } from "node:crypto";
 import jwt, { type SignOptions } from "jsonwebtoken";
-import type { Role } from "@prisma/client";
+import { Role } from "../../db/models/enums.js";
 import { env } from "../../config/env.js";
 
-const roles = new Set<Role>(["GUEST", "HOUSE_ADMIN", "APP_ADMIN"]);
+const roles = new Set<Role>(Object.values(Role));
 
 export function signAccessToken(payload: { sub: string; role: Role }): string {
   return jwt.sign(payload, env.JWT_ACCESS_SECRET, {

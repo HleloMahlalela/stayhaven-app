@@ -1,41 +1,55 @@
 import { Router } from "express";
 import { z } from "zod";
-import { prisma } from "../../db/prisma.js";
+import mongoose from "mongoose";
+import { Listing } from "../../models/Listing.js";
 import { requireAuth } from "../../middleware/requireAuth.js";
+import { requireRole } from "../../middleware/requireRole.js";
+import { Role } from "../../db/models/enums.js";
+import { CreateListingSchema } from "./listings.schemas.js";
 
 export const listingsRouter = Router();
-
-const CreateListingSchema = z.object({
-  title: z.string().trim().min(1),
-  description: z.string().trim().min(1),
-  location: z.string().trim().min(1),
-  price: z.number().finite().nonnegative(),
-  currency: z.string().trim().min(1).default("BWP"),
-  discount: z.number().finite().min(0).default(0),
-  images: z.array(z.string().url()).default([]),
-});
 
 listingsRouter.get("/", async (req, res, next) => {
   try {
     const location = typeof req.query.location === "string" ? req.query.location : undefined;
-    const listings = await prisma.listing.findMany({
-      where: {
-        status: "APPROVED",
-        ...(location ? { location: { contains: location, mode: "insensitive" } } : {}),
-      },
-      orderBy: { createdAt: "desc" },
-    });
+    const listings = await Listing.find({
+      status: "approved",
+      ...(location ? { location: { $regex: location.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), $options: "i" } } : {}),
+    }).sort({ createdAt: -1 });
     res.json(listings);
   } catch (error) {
     next(error);
   }
 });
 
+listingsRouter.get("/host", requireAuth, requireRole(Role.HOUSE_ADMIN), async (req, res, next) => {
+  try {
+    res.json(await Listing.find({ hostId: req.user!.id }).sort({ createdAt: -1 }));
+  } catch (error) { next(error); }
+});
+
+listingsRouter.get("/admin/pending", requireAuth, requireRole(Role.APP_ADMIN), async (_req, res, next) => {
+  try { res.json(await Listing.find({ status: "pending" }).sort({ createdAt: -1 })); }
+  catch (error) { next(error); }
+});
+
+listingsRouter.patch("/:id/status", requireAuth, requireRole(Role.APP_ADMIN), async (req, res, next) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) { res.status(404).json({ error: { code: "LISTING_NOT_FOUND" } }); return; }
+    const status = z.enum(["approved", "suspended"]).parse(req.body.status);
+    const listing = await Listing.findByIdAndUpdate(req.params.id, { status }, { new: true, runValidators: true });
+    if (!listing) { res.status(404).json({ error: { code: "LISTING_NOT_FOUND" } }); return; }
+    res.json(listing);
+  } catch (error) { next(error); }
+});
+
 listingsRouter.get("/:id", async (req, res, next) => {
   try {
-    const listing = await prisma.listing.findFirst({
-      where: { id: req.params.id, status: "APPROVED" },
-    });
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      res.status(404).json({ error: { code: "LISTING_NOT_FOUND" } });
+      return;
+    }
+    const listing = await Listing.findOne({ _id: req.params.id, status: "approved" });
     if (!listing) {
       res.status(404).json({ error: { code: "LISTING_NOT_FOUND" } });
       return;
@@ -53,9 +67,7 @@ listingsRouter.post("/", requireAuth, async (req, res, next) => {
       return;
     }
     const input = CreateListingSchema.parse(req.body);
-    const listing = await prisma.listing.create({
-      data: { ...input, hostId: req.user.id, status: "PENDING" },
-    });
+    const listing = await Listing.create({ ...input, hostId: req.user.id, status: "pending" });
     res.status(201).json(listing);
   } catch (error) {
     next(error);

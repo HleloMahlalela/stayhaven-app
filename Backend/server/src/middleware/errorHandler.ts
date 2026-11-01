@@ -3,6 +3,7 @@ import { ZodError } from "zod";
 import { AuthError } from "../modules/auth/auth.service.js";
 
 export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
+  console.error("BACKEND CRASH:", err);
   if (err instanceof AuthError) {
     res.status(err.status).json({
       error: { code: err.code, message: err.message },
@@ -17,6 +18,5 @@ export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
     return;
   }
 
-  console.error(err);
-  res.status(500).json({ error: { code: "INTERNAL" } });
+  res.status(500).json({ message: err.message, stack: err.stack });
 };

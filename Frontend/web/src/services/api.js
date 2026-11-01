@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  // Updated to /api/v1 to match the backend team's new API
-  baseURL: 'http://localhost:4000/api/v1',
+  baseURL: (import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1').replace(/\/$/, ''),
   // Added withCredentials to support cookies (if they are using them)
   withCredentials: true,
 })

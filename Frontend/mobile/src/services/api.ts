@@ -62,6 +62,7 @@ const api = {
   get: <T = unknown>(path: string) => request<T>(path, 'GET'),
   post: <T = unknown>(path: string, body?: unknown) => request<T>(path, 'POST', body),
   put: <T = unknown>(path: string, body?: unknown) => request<T>(path, 'PUT', body),
+  patch: <T = unknown>(path: string, body?: unknown) => request<T>(path, 'PATCH', body),
 };
 
 export default api;

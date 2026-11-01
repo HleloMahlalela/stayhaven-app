@@ -4,10 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import CalendarGrid from '../../components/CalendarGrid';
-import ImageGallery, { listingImages } from './components/ImageGallery';
+import ImageGallery from './components/ImageGallery';
 import AmenitiesGrid from './components/AmenitiesGrid';
 import BookingCard from './components/BookingCard';
-import { mockData } from '../Explore/listings';
+import api from '../../../services/api';
 
 const tomorrow = () => {
   const date = new Date();
@@ -41,25 +41,10 @@ export default function DetailsScreen() {
   } catch {
     routeListing = undefined;
   }
-  const selectedListing = routeListing ?? mockData.find((item) => item.id === listingId);
-  const defaultMockListing = {
-    title: 'Lavender House', hostName: 'Amara', price: 850, discount: 50, location: 'Gaborone, Botswana', rating: '4.92', reviews: 86,
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85', tag: 'Near CBD',
-    description: 'A carefully hosted retreat with warm interiors, peaceful shared spaces, and everything needed for a comfortable stay.',
-  };
-  const listing = selectedListing ? {
-    title: selectedListing.title ?? selectedListing.name ?? defaultMockListing.title,
-    hostName: selectedListing.hostName ?? 'Amara',
-    price: Number(selectedListing.price) || defaultMockListing.price,
-    discount: Number(selectedListing.discount) || 0,
-    location: selectedListing.location ?? selectedListing.place ?? defaultMockListing.location,
-    rating: selectedListing.rating ?? defaultMockListing.rating,
-    reviews: Number(selectedListing.reviews) || defaultMockListing.reviews,
-    image: selectedListing.image ?? defaultMockListing.image,
-    tag: selectedListing.tag ?? selectedListing.label ?? defaultMockListing.tag,
-    description: selectedListing.description ?? `A thoughtfully hosted stay in ${selectedListing.location ?? selectedListing.place ?? defaultMockListing.location}, with comfortable interiors and easy access to nearby landmarks.`,
-  } : defaultMockListing;
-  const galleryImages = listing.image ? [listing.image, ...listingImages.slice(1)] : listingImages;
+  const [listing, setListing] = useState<any>(routeListing ? { ...routeListing, title: routeListing.title ?? routeListing.name, image: routeListing.images?.[0] ?? routeListing.image ?? '', hostName: routeListing.hostName ?? '' } : null);
+  const [listingError, setListingError] = useState('');
+  useEffect(() => { if (!routeListing && listingId) api.get(`/listings/${listingId}`).then(({ data }) => setListing({ ...data, title: data.title, image: data.images?.[0] ?? '', hostName: data.host?.fullName ?? '' })).catch(() => setListingError('Unable to load this listing.')); }, [listingId, serializedListing]);
+  const galleryImages = listing?.images?.length ? listing.images : listing?.image ? [listing.image] : [];
   const scrollRef = useRef<ScrollView>(null);
   useEffect(() => { scrollRef.current?.scrollTo({ y: 0, animated: false }); }, []);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -87,6 +72,8 @@ export default function DetailsScreen() {
     setCalendarOpen(false);
   };
 
+  if (!listing) return <SafeAreaView className="flex-1 items-center justify-center bg-[#F8F9FA] px-6 dark:bg-[#0A0E1A]"><Text className="text-center text-gray-600 dark:text-white">{listingError || 'Loading listing…'}</Text></SafeAreaView>;
+
   const sendChat = () => {
     setChatOpen(false);
     Alert.alert('Message sent to host!');
@@ -109,7 +96,7 @@ export default function DetailsScreen() {
           <Text className="text-sm text-gray-500 dark:text-[#94A3B8]">4 guests · 2 beds · 1 private bathroom</Text>
         </View>
         <View className="mt-4 px-4"><Text className="mb-2 text-lg font-bold text-gray-900 dark:text-white">About this guesthouse</Text><Text className="text-sm leading-relaxed text-gray-600 dark:text-[#CBD5E1]">{listing.description}</Text></View>
-        <AmenitiesGrid />
+        <AmenitiesGrid amenities={listing.amenities ?? []} />
         <TouchableOpacity onPress={() => setChatOpen(true)} accessibilityRole="button" className="mx-4 mt-6 flex-row items-center gap-3 rounded-2xl bg-violet-50 p-4 dark:border dark:border-[#1E2A45] dark:bg-[#141B2D]">
           <View className="h-11 w-11 items-center justify-center rounded-full bg-[#7C3AED]"><Text className="text-sm font-bold text-white">{listing.hostName.slice(0, 1)}N</Text></View>
           <View><Text className="font-bold leading-tight text-gray-900 dark:text-white">Hosted by {listing.hostName}</Text><Text className="mt-0.5 text-[13px] text-gray-500 dark:text-[#94A3B8]">Responds within an hour</Text></View>

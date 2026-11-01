@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, Image, ImageBackground, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SymbolView } from 'expo-symbols';
 import { Ionicons } from '@expo/vector-icons';
@@ -6,7 +6,7 @@ import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useGuestTheme } from '../../theme/ThemeContext';
 import CalendarGrid from '../../components/CalendarGrid';
-import { mockData } from './listings';
+import api from '../../../services/api';
 
 const HERO_IMAGE = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=85';
 function Icon({ ios, android, color = '#7C3AED', size = 18 }) {
@@ -112,8 +112,10 @@ export default function ExploreScreen() {
   const { isDark, toggleTheme } = useGuestTheme();
   const [showFavorites, setShowFavorites] = useState(false);
   const [filters, setFilters] = useState({ location: 'All destinations', checkIn: 'Select a date' });
-  const [listings, setListings] = useState(mockData);
-  const searchedListings = listings.filter(item => (filters.location === 'All destinations' || item.place.toLowerCase().includes(filters.location.toLowerCase())) && (!item.unavailableDates?.includes(filters.checkIn)));
+  const [listings, setListings] = useState([]);
+  const [loadError, setLoadError] = useState('');
+  useEffect(() => { api.get('/listings').then(({ data }) => setListings(data.map(item => ({ ...item, id: item._id, name: item.title, place: item.location, image: item.images?.[0] || '', label: item.amenities?.[0] || '' })))).catch(() => setLoadError('Unable to load listings. Please try again.')); }, []);
+  const searchedListings = listings.filter(item => (filters.location === 'All destinations' || item.place.toLowerCase().includes(filters.location.toLowerCase())));
   const visibleListings = showFavorites ? searchedListings.filter((item) => item.isFavorite === true) : searchedListings;
   const toggleFavorite = (id) => setListings((current) => current.map((item) => item.id === id ? { ...item, isFavorite: !item.isFavorite } : item));
   return (
@@ -127,7 +129,7 @@ export default function ExploreScreen() {
         columnWrapperStyle={{ gap: 24, paddingHorizontal: 16 }}
         contentContainerStyle={{ paddingBottom: 32 }}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<><Hero /><SearchPanel onSearch={setFilters} /><ListingsHeading showFavorites={showFavorites} onToggleFavorites={() => setShowFavorites((current) => !current)} count={visibleListings.length} /></>}
+        ListHeaderComponent={<><Hero /><SearchPanel onSearch={setFilters} /><ListingsHeading showFavorites={showFavorites} onToggleFavorites={() => setShowFavorites((current) => !current)} count={visibleListings.length} />{loadError ? <Text className="px-4 py-5 text-red-600">{loadError}</Text> : visibleListings.length === 0 ? <Text className="px-4 py-5 text-gray-500">No listings available yet.</Text> : null}</>}
         renderItem={({ item }) => <ListingCard item={item} onToggleFavorite={toggleFavorite} />}
       />
     </SafeAreaView>

@@ -29,8 +29,8 @@ export default function LoginForm() {
       }
 
       navigate(destination)
-    } catch {
-      setError('Invalid credentials')
+    } catch (requestError) {
+      setError(requestError.response?.data?.error?.message || requestError.response?.data?.message || requestError.message || 'Unable to sign in. Please try again.')
     } finally {
       setSubmitting(false)
     }

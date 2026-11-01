@@ -18,6 +18,11 @@ export default function GuestRegistration() {
     const password = String(form.get('password') || '')
     const confirmPassword = String(form.get('confirmPassword') || '')
 
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters')
+      return
+    }
+
     if (password !== confirmPassword) {
       setError('Passwords do not match.')
       return
@@ -25,7 +30,7 @@ export default function GuestRegistration() {
 
     setSubmitting(true)
     try {
-      await api.post('/auth/register', { name, fullName: name, email, password, role: 'GUEST' })
+      await api.post('/auth/register', { fullName: name, email, password })
       window.alert('Account created successfully!')
       navigate('/login')
     } catch (requestError) {
@@ -49,7 +54,7 @@ export default function GuestRegistration() {
           ].map(([name, label, type, autoComplete]) => (
             <label className="block" key={name}>
               <span className="mb-2 block text-sm font-semibold">{label}</span>
-              <input className={inputClass} autoComplete={autoComplete} name={name} required minLength={type === 'password' ? 10 : undefined} type={type} />
+              <input className={inputClass} autoComplete={autoComplete} name={name} required minLength={type === 'password' ? 8 : undefined} type={type} />
             </label>
           ))}
           {error && <p className="text-sm text-red-600 dark:text-red-400" role="alert">{error}</p>}

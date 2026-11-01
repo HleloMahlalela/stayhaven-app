@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-import { prisma } from "../db/prisma.js";
+import { User, UserStatus } from "../db/models/User.js";
 import { verifyAccessToken } from "../modules/auth/auth.tokens.js";
 
 export const requireAuth: RequestHandler = async (req, res, next) => {
@@ -19,20 +19,17 @@ export const requireAuth: RequestHandler = async (req, res, next) => {
   }
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: payload.sub },
-      select: { id: true, email: true, role: true, status: true },
-    });
+    const user = await User.findById(payload.sub).select("email role status");
     if (!user) {
       res.status(401).json({ error: { code: "USER_GONE" } });
       return;
     }
-    if (user.status !== "ACTIVE") {
+    if (user.status !== UserStatus.ACTIVE) {
       res.status(403).json({ error: { code: "ACCOUNT_SUSPENDED" } });
       return;
     }
 
-    req.user = user;
+    req.user = { id: user.id, email: user.email, role: user.role, status: user.status };
     next();
   } catch (error) {
     next(error);

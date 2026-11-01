@@ -15,8 +15,14 @@ export function AuthProvider({ children }) {
   }, [])
 
   const login = useCallback(async (email, password) => {
-    const response = await api.post('/auth/login', { email, password })
-    const nextToken = response.data.token ?? response.data.accessToken
+    let response
+    try {
+      response = await api.post('/auth/login', { email, password })
+    } catch (error) {
+      console.log('Backend Error:', error.response?.data)
+      throw error
+    }
+    const nextToken = response.data.accessToken
 
     if (!nextToken) {
       throw new Error('The login response did not include an authentication token.')

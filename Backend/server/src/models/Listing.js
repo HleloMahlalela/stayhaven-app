@@ -8,7 +8,8 @@ const listingSchema = new mongoose.Schema({
   currency: { type: String, default: "BWP", trim: true },
   discount: { type: Number, default: 0, min: 0 },
   images: { type: [String], default: [] },
-  hostId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  amenities: { type: [String], default: [] },
+  hostId: { type: String, ref: "User", required: true },
   status: { type: String, enum: ["pending", "approved", "suspended"], default: "pending" },
 }, { timestamps: true });
 
