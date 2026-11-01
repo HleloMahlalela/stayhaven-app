@@ -1,39 +1,31 @@
-import { Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_BASE_URL = (process.env.EXPO_PUBLIC_API_URL || 'http://localhost:4000/api/v1').replace(/\/$/, '');
-const TOKEN_KEY = 'token';
+export const TOKEN_KEY = 'token';
+export const USER_KEY = 'user';
 
+export type AuthUser = {
+  id?: string;
+  email: string;
+  fullName?: string;
+  name?: string;
+  role: string;
+  [key: string]: unknown;
+};
+type AuthResponse = { accessToken: string; user: AuthUser; refreshToken?: string };
 type ApiResult<T> = { data: T };
 type ApiErrorBody = { message?: string; error?: { message?: string } };
 
-async function readToken() {
-  if (Platform.OS === 'web') {
-    return typeof window === 'undefined' ? null : window.localStorage.getItem(TOKEN_KEY);
-  }
-  const SecureStore = await import('expo-secure-store');
-  return SecureStore.getItemAsync(TOKEN_KEY);
-}
-
 export async function saveAccessToken(token: string) {
-  if (Platform.OS === 'web') {
-    if (typeof window !== 'undefined') window.localStorage.setItem(TOKEN_KEY, token);
-    return;
-  }
-  const SecureStore = await import('expo-secure-store');
-  await SecureStore.setItemAsync(TOKEN_KEY, token);
+  await AsyncStorage.setItem(TOKEN_KEY, token);
 }
 
 export async function clearAccessToken() {
-  if (Platform.OS === 'web') {
-    if (typeof window !== 'undefined') window.localStorage.removeItem(TOKEN_KEY);
-    return;
-  }
-  const SecureStore = await import('expo-secure-store');
-  await SecureStore.deleteItemAsync(TOKEN_KEY);
+  await AsyncStorage.removeItem(TOKEN_KEY);
 }
 
-async function request<T>(path: string, method: 'GET' | 'POST' | 'PUT' | 'PATCH', body?: unknown): Promise<ApiResult<T>> {
-  const token = await readToken();
+async function request<T>(path: string, method: 'GET' | 'POST' | 'PUT', body?: unknown, authenticated = true): Promise<ApiResult<T>> {
+  const token = authenticated ? await AsyncStorage.getItem(TOKEN_KEY) : null;
   const response = await fetch(`${API_BASE_URL}${path.startsWith('/') ? path : `/${path}`}`, {
     method,
     headers: {
@@ -51,6 +43,19 @@ async function request<T>(path: string, method: 'GET' | 'POST' | 'PUT' | 'PATCH'
     throw error;
   }
   return { data: data as T };
+}
+
+export async function login(email: string, password: string) {
+  const { data } = await request<AuthResponse>('/auth/login', 'POST', { email, password }, false);
+  await AsyncStorage.multiSet([
+    [TOKEN_KEY, data.accessToken],
+    [USER_KEY, JSON.stringify(data.user)],
+  ]);
+  return data;
+}
+
+export async function registerGuest(name: string, email: string, password: string) {
+  return request<{ user: AuthUser }>('/auth/register', 'POST', { name, fullName: name, email, password, role: 'GUEST' }, false);
 }
 
 const api = {

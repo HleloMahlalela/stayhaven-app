@@ -4,6 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useColorScheme } from 'react-native';
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AuthProvider } from '../context/AuthContext';
 
 // This is YOUR custom theme provider
 import { ThemeProvider as CustomThemeProvider } from '../guest/theme/ThemeContext'; 
@@ -18,8 +19,14 @@ export default function TabLayout() {
       <SafeAreaProvider>
         {/* We wrap your custom provider inside the Expo one */}
         <CustomThemeProvider>
-          <AnimatedSplashOverlay />
-          <Stack screenOptions={{ headerShown: false }} />
+          <AuthProvider>
+            <AnimatedSplashOverlay />
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="index" />
+              <Stack.Screen name="login" />
+              <Stack.Screen name="register" />
+            </Stack>
+          </AuthProvider>
         </CustomThemeProvider>
       </SafeAreaProvider>
     </ExpoThemeProvider>
