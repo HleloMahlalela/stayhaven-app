@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import api from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 
 type UserData = {
   id?: string;
@@ -22,6 +23,7 @@ const normalizeUser = (user: Partial<UserData>): UserData => ({
 
 export default function ProfileScreen() {
   const router = useRouter();
+  const { signOut } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -73,6 +75,11 @@ export default function ProfileScreen() {
     } finally {
       setIsSaving(false);
     }
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.replace('/login');
   };
 
   const inputClass = 'mt-2 rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-900 dark:border-[#1E2A45] dark:bg-[#0A0E1A] dark:text-white';
@@ -132,6 +139,9 @@ export default function ProfileScreen() {
                 <Text className="font-semibold text-[#7C3AED] dark:text-[#A78BFA]">Sign in to view your profile</Text>
               </TouchableOpacity>
             )}
+            <TouchableOpacity onPress={handleSignOut} accessibilityRole="button" className="mt-4 items-center rounded-full border border-gray-200 py-3.5 dark:border-[#334155]">
+              <Text className="font-semibold text-gray-700 dark:text-gray-200">Sign out</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
