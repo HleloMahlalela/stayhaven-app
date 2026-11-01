@@ -1,7 +1,10 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:4000/api',
+  // Updated to /api/v1 to match the backend team's new API
+  baseURL: 'http://localhost:4000/api/v1',
+  // Added withCredentials to support cookies (if they are using them)
+  withCredentials: true,
 })
 
 api.interceptors.request.use((config) => {
