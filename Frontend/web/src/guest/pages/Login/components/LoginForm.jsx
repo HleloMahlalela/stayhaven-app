@@ -1,12 +1,25 @@
 import { useState } from 'react'
+import api from '../../../../services/api'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
+    setError('')
+    setIsSubmitting(true)
+
+    try {
+      await api.post('/auth/login', { email, password })
+    } catch (requestError) {
+      setError(requestError.message || 'Unable to sign in. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -62,11 +75,13 @@ export default function LoginForm() {
         </div>
       </div>
 
+      {error && <p className="mt-4 text-sm text-red-600 dark:text-red-400" role="alert">{error}</p>}
+
       <button
         className="mt-6 flex h-[52px] w-full cursor-pointer items-center justify-center rounded-full border-0 bg-[#7C3AED] text-[16px] font-semibold text-white shadow-sm transition-colors hover:bg-[#6D28D9] active:scale-[0.98] dark:bg-gradient-to-r dark:from-[#8B5CF6] dark:to-[#7C3AED] dark:font-bold dark:tracking-wide dark:shadow-[0_4px_20px_rgba(139,92,246,0.4)] dark:hover:shadow-[0_0_28px_rgba(139,92,246,0.6)]"
         type="submit"
       >
-        Sign in
+        {isSubmitting ? 'Signing in…' : 'Sign in'}
       </button>
     </form>
   )
