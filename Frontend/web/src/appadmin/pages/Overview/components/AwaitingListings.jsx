@@ -1,12 +1,18 @@
-import { initialListings } from '../../../../guest/data/listings'
-const listings = [
-  { ...initialListings[6], host: 'Sarah K.', tone: 'purple' },
-  { ...initialListings[7], host: 'David M.', tone: 'blue' },
-  { ...initialListings[8], host: 'Talia N.', tone: 'amber' },
-]
+import { useState } from 'react'
+import ListingReviewModal from '../../../components/ListingReviewModal'
+import { useAppAdminData } from '../../../data/AppAdminDataContext'
 
 export default function AwaitingListings() {
+  const { listings, setListings } = useAppAdminData()
+  const items = listings.filter((listing) => listing.status === 'Pending')
+  const [reviewing, setReviewing] = useState(null)
+  const changeStatus = (id, status) => {
+    setListings((current) => current.map((item) => item.id === id ? { ...item, status } : item))
+    setReviewing((item) => item?.id === id ? { ...item, status } : item)
+  }
+
   return (
+    <>
     <section className="rounded-[32px] border border-[#E5E7EB] bg-white p-6 shadow-sm dark:border-[#1E2A45] dark:bg-[#141B2D] sm:p-8">
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
@@ -16,25 +22,28 @@ export default function AwaitingListings() {
         <a className="shrink-0 text-sm font-semibold text-[#7C3AED] hover:underline dark:text-[#8B5CF6]" href="/appadmin/listings">View all</a>
       </div>
       <div>
-        {listings.map((listing, index) => (
-          <div key={listing.name} className={`flex items-center justify-between gap-3 py-5 ${index < listings.length - 1 ? 'border-b border-[#F1F5F9] dark:border-[#1E2A45]' : ''}`}>
+        {items.map((listing, index) => (
+          <div key={listing.name} className={`flex items-center justify-between gap-3 py-5 ${index < items.length - 1 ? 'border-b border-[#F1F5F9] dark:border-[#1E2A45]' : ''}`}>
             <div className="flex min-w-0 items-center gap-4">
-              <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${listing.tone === 'purple' ? 'bg-[#F3E8FF] text-[#7C3AED] dark:bg-[#2A1F4E] dark:text-[#8B5CF6]' : listing.tone === 'blue' ? 'bg-[#DBEAFE] text-[#1E40AF] dark:bg-[#1E3A5F] dark:text-[#60A5FA]' : 'bg-[#FEF3C7] text-[#92400E] dark:bg-[#3F2E0A] dark:text-[#F59E0B]'}`}>
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F3E8FF] text-[#7C3AED] dark:bg-[#2A1F4E] dark:text-[#8B5CF6]">
                 <HouseIcon />
               </span>
               <div className="min-w-0">
                 <div className="truncate text-[15px] font-bold text-[#0F172A] dark:text-[#F1F5F9]">{listing.name}</div>
-                <div className="mt-0.5 text-[13px] text-[#64748B] dark:text-[#94A3B8]">{listing.host} · {listing.location}</div>
+                <div className="mt-0.5 text-[13px] text-[#64748B] dark:text-[#94A3B8]">{listing.owner} · {listing.location}</div>
               </div>
             </div>
             <div className="flex shrink-0 items-center gap-3">
-              <button className="rounded-full border-0 bg-[#EDE9FE] px-4 py-2 text-sm font-semibold text-[#7C3AED] transition-colors hover:bg-[#DDD6FE] dark:bg-[#2A1F4E] dark:text-[#A78BFA] dark:hover:bg-[#3B2D6E]" type="button">Review</button>
+              <button className="rounded-full border-0 bg-[#EDE9FE] px-4 py-2 text-sm font-semibold text-[#7C3AED] transition-colors hover:bg-[#DDD6FE] dark:bg-[#2A1F4E] dark:text-[#A78BFA] dark:hover:bg-[#3B2D6E]" type="button" onClick={() => setReviewing(listing)}>Review</button>
               <ChevronIcon />
             </div>
           </div>
         ))}
+        {items.length === 0 && <p className="py-10 text-center text-sm text-[#64748B] dark:text-[#94A3B8]">No pending listings.</p>}
       </div>
     </section>
+    {reviewing && <ListingReviewModal listing={reviewing} onClose={() => setReviewing(null)} onStatusChange={changeStatus} />}
+    </>
   )
 }
 
