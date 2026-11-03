@@ -7,6 +7,7 @@ const listingSchema = new mongoose.Schema({
   price: { type: Number, required: true, min: 0 },
   currency: { type: String, default: "BWP", trim: true },
   discount: { type: Number, default: 0, min: 0 },
+  discountInterval: { type: Number, default: 1, min: 1 },
   images: { type: [String], default: [] },
   amenities: { type: [String], default: [] },
   hostId: { type: String, ref: "User", required: true },

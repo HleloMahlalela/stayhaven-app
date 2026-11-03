@@ -39,6 +39,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = useCallback(async (email: string, password: string) => {
     const result = await apiLogin(email, password);
+    if (result.user.role !== 'GUEST') {
+      await AsyncStorage.multiRemove([TOKEN_KEY, USER_KEY]);
+      setToken(null);
+      setUser(null);
+      throw new Error('Access Denied: Only guest accounts can use the mobile app.');
+    }
     setToken(result.accessToken);
     setUser(result.user);
   }, []);

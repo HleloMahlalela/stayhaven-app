@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import api from '../../../../services/api'
 import ListingReviewModal from '../../../components/ListingReviewModal'
 import { useAppAdminData } from '../../../data/AppAdminDataContext'
 
@@ -7,11 +8,15 @@ const statusOptions = ['Pending', 'Active', 'Suspended']
 export default function ListingTable({ filter = 'All' }) {
   const { listings, setListings } = useAppAdminData()
   const [reviewing, setReviewing] = useState(null)
-  const visibleListings = useMemo(() => filter === 'All' ? listings : listings.filter((listing) => listing.status === filter), [filter, listings])
+  const statusValue = { Pending: 'pending', Active: 'approved', Suspended: 'suspended' }[filter]
+  const visibleListings = useMemo(() => filter === 'All' ? listings : listings.filter((listing) => String(listing.status).toLowerCase() === statusValue || String(listing.status).toLowerCase() === filter.toLowerCase()), [filter, listings, statusValue])
 
-  const changeStatus = (id, status) => {
-    setListings((items) => items.map((item) => item.id === id ? { ...item, status } : item))
-    setReviewing((item) => item?.id === id ? { ...item, status } : item)
+  const changeStatus = async (id, status) => {
+    try {
+      await api.patch(`/listings/${id}/status`, { status: status === 'Active' ? 'approved' : status.toLowerCase() })
+      setListings((items) => items.map((item) => item.id === id ? { ...item, status } : item))
+      setReviewing((item) => item?.id === id ? { ...item, status } : item)
+    } catch (error) { window.alert(error.response?.data?.message || 'Unable to update listing status.') }
   }
 
   return (
@@ -28,7 +33,7 @@ export default function ListingTable({ filter = 'All' }) {
           {visibleListings.length === 0 && <p className="px-6 py-10 text-center text-sm text-[#64748B] dark:text-[#94A3B8]">{filter === 'All' ? 'No data available.' : 'No listings have this status.'}</p>}
         </div>
       </section>
-      {reviewing && <ListingReviewModal listing={reviewing} onClose={() => setReviewing(null)} onStatusChange={changeStatus} />}
+      {reviewing && <ListingReviewModal listing={reviewing} onClose={() => setReviewing(null)} />}
     </>
   )
 }

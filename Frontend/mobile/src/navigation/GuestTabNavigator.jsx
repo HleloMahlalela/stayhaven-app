@@ -4,14 +4,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ExploreScreen from '../guest/screens/Explore/ExploreScreen';
 import BookingsScreen from '../guest/screens/Bookings';
-import ReviewsScreen from '../guest/screens/Reviews';
+import MessagesScreen from '../guest/screens/Messages';
 import { useGuestTheme } from '../guest/theme/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 const tabIcons = {
   Explore: 'compass-outline',
   Bookings: 'calendar-outline',
-  Reviews: 'star-outline',
+  Messages: 'chatbubble-ellipses-outline',
 };
 
 function FloatingTabBar({ state, descriptors, navigation }) {
@@ -44,7 +44,7 @@ export default function GuestTabNavigator() {
     <Tab.Navigator tabBar={(props) => <FloatingTabBar {...props} />} screenOptions={{ headerShown: false, sceneStyle: { backgroundColor: isDark ? '#0A0E1A' : '#F8F9FA' } }}>
       <Tab.Screen name="Explore" component={ExploreScreen} />
       <Tab.Screen name="Bookings" component={BookingsScreen} />
-      <Tab.Screen name="Reviews" component={ReviewsScreen} />
+      <Tab.Screen name="Messages" component={MessagesScreen} />
     </Tab.Navigator>
   );
 }

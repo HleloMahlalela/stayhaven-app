@@ -8,4 +8,5 @@ export const CreateListingSchema = z.object({
   images: z.array(z.string()).default([]),
   amenities: z.array(z.string()).optional().default([]),
   discount: z.number().finite().min(0).optional().default(0),
+  discountInterval: z.number().int().positive().optional().default(1),
 });

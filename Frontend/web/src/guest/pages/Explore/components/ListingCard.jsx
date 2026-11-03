@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-export default function ListingCard({ listing, onToggleFavorite }) {
+export default function ListingCard({ listing, onToggleFavorite, className = '' }) {
   const navigate = useNavigate()
   const [favorite, setFavorite] = useState(listing.isFavorite)
   useEffect(() => {
@@ -11,7 +11,7 @@ export default function ListingCard({ listing, onToggleFavorite }) {
     } catch { /* Ignore malformed saved favorites. */ }
   }, [listing.name])
   return (
-    <div role="link" tabIndex={0} onClick={() => navigate("/details", { state: { listing } })} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); navigate("/details", { state: { listing } }) } }} className="bg-white dark:bg-[#171B28] rounded-[32px] overflow-hidden border border-gray-100 dark:border-[#2A3040] shadow-sm hover:shadow-md transition-shadow flex flex-col group">
+    <div role="link" tabIndex={0} onClick={() => navigate("/details", { state: { listing } })} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); navigate("/details", { state: { listing } }) } }} className={`bg-white dark:bg-[#171B28] rounded-[32px] overflow-hidden border border-gray-100 dark:border-[#2A3040] shadow-sm hover:shadow-md transition-shadow flex flex-col group ${className}`}>
       <div className="relative w-full aspect-[4/3] overflow-hidden rounded-t-[32px]">
         {listing.image ? <img alt={listing.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src={listing.image} /> : <div className="h-full w-full bg-slate-100 dark:bg-slate-800" aria-label="No listing photo" />}
         <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#0F172A] shadow-sm">{listing.tag}</span>

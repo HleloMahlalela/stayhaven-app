@@ -21,21 +21,42 @@ function SearchSection({ label, value, icon, onClick, className = '' }) {
 
 export default function SearchBar({ onSearch }) {
   const [location, setLocation] = useState('All destinations')
-  const [date, setDate] = useState('Select a date')
+  const [checkIn, setCheckIn] = useState(null)
+  const [checkOut, setCheckOut] = useState(null)
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false)
   const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false)
+  const [dateTarget, setDateTarget] = useState('checkIn')
   const selectDate = (selectedDate) => {
-    setDate(formatDate(selectedDate))
-    setIsCalendarModalOpen(false)
+    if (!checkIn || checkOut) {
+      setCheckIn(selectedDate)
+      setCheckOut(null)
+      setDateTarget('checkOut')
+      onSearch?.({ location, checkIn: null, checkOut: null })
+      return
+    }
+    if (selectedDate > checkIn) {
+      setCheckOut(selectedDate)
+      onSearch?.({ location, checkIn: checkIn.toISOString(), checkOut: selectedDate.toISOString() })
+      setIsCalendarModalOpen(false)
+      return
+    }
+    setCheckIn(selectedDate)
+    setDateTarget('checkOut')
+    onSearch?.({ location, checkIn: null, checkOut: null })
   }
+  const openCalendar = () => {
+    setDateTarget(checkIn && !checkOut ? 'checkOut' : 'checkIn')
+    setIsCalendarModalOpen(true)
+  }
+  const date = checkIn ? `${formatDate(checkIn)}${checkOut ? ` – ${formatDate(checkOut)}` : ''}` : 'Select a date'
 
   return (
     <>
       <div className="relative z-20 mx-auto -mt-10 flex w-full max-w-[960px] flex-col rounded-[32px] border border-[#E5E7EB] bg-white p-3 shadow-xl dark:border-[#2A3040] dark:bg-[#171B28] md:flex-row md:items-center md:rounded-full md:p-2.5">
         <SearchSection label="Location" value={location} icon="location_on" onClick={() => setIsLocationModalOpen(true)} />
         <div aria-hidden="true" className="my-1 h-px shrink-0 bg-[#E5E7EB] dark:bg-[#343B4C] md:my-0 md:h-10 md:w-px" />
-        <SearchSection label="Check-in date" value={date} icon="calendar_today" onClick={() => setIsCalendarModalOpen(true)} />
-        <button onClick={() => onSearch?.({ location, date })} className="mt-3 flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] px-8 py-3.5 font-semibold text-white shadow-md transition-all hover:opacity-90 md:mt-0 md:w-auto" type="button">
+        <SearchSection label="Check-in date" value={date} icon="calendar_today" onClick={openCalendar} />
+        <button onClick={() => onSearch?.({ location, checkIn: checkIn && checkOut ? checkIn.toISOString() : null, checkOut: checkIn && checkOut ? checkOut.toISOString() : null })} className="mt-3 flex w-full shrink-0 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] px-8 py-3.5 font-semibold text-white shadow-md transition-all hover:opacity-90 md:mt-0 md:w-auto" type="button">
           <span className="material-symbols-outlined text-[20px]">search</span><span className="text-[15px]">Search</span>
         </button>
       </div>
@@ -43,12 +64,12 @@ export default function SearchBar({ onSearch }) {
       {isLocationModalOpen && <div className="fixed inset-0 z-[70] flex items-end justify-center bg-black/50 sm:items-center sm:px-5" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsLocationModalOpen(false) }}>
         <section role="dialog" aria-modal="true" aria-labelledby="choose-area-title" className="w-full rounded-t-3xl bg-white p-5 dark:bg-[#141B2D] sm:max-w-md sm:rounded-3xl">
           <div className="mb-4 flex items-center justify-between"><h2 id="choose-area-title" className="text-lg font-bold text-gray-950 dark:text-white">Choose an area</h2><button type="button" aria-label="Close" onClick={() => setIsLocationModalOpen(false)} className="rounded-full p-1 text-[#94A3B8]"><span className="material-symbols-outlined">close</span></button></div>
-          {['All destinations', ...AREAS].map((area) => <button key={area} type="button" onClick={() => { setLocation(area); setIsLocationModalOpen(false) }} className="block w-full border-t border-gray-100 py-4 text-left text-base text-gray-900 dark:border-[#1E2A45] dark:text-white">{area}</button>)}
+          {['All destinations', ...AREAS].map((area) => <button key={area} type="button" onClick={() => { setLocation(area); onSearch?.({ location: area, checkIn: checkIn && checkOut ? checkIn.toISOString() : null, checkOut: checkIn && checkOut ? checkOut.toISOString() : null }); setIsLocationModalOpen(false) }} className="block w-full border-t border-gray-100 py-4 text-left text-base text-gray-900 dark:border-[#1E2A45] dark:text-white">{area}</button>)}
         </section>
       </div>}
 
       {isCalendarModalOpen && <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/50 px-5" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsCalendarModalOpen(false) }}>
-        <DatePickerCalendar modal className="max-w-md" onSelect={selectDate} onClose={() => setIsCalendarModalOpen(false)} />
+        <DatePickerCalendar modal className="max-w-md" selectedDate={dateTarget === 'checkIn' ? checkIn : checkOut} onSelect={selectDate} onClose={() => setIsCalendarModalOpen(false)} />
       </div>}
     </>
   )

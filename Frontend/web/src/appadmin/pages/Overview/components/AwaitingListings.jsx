@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import api from '../../../../services/api'
 import ListingReviewModal from '../../../components/ListingReviewModal'
 import { useAppAdminData } from '../../../data/AppAdminDataContext'
 
@@ -6,9 +7,14 @@ export default function AwaitingListings() {
   const { listings, setListings } = useAppAdminData()
   const items = listings.filter((listing) => listing.status === 'Pending')
   const [reviewing, setReviewing] = useState(null)
-  const changeStatus = (id, status) => {
-    setListings((current) => current.map((item) => item.id === id ? { ...item, status } : item))
-    setReviewing((item) => item?.id === id ? { ...item, status } : item)
+  const changeStatus = async (id, status) => {
+    try {
+      await api.patch(`/listings/${id}/status`, { status: status === 'Active' ? 'approved' : status.toLowerCase() })
+      setListings((current) => status === 'Active' ? current.filter((item) => item.id !== id) : current.map((item) => item.id === id ? { ...item, status } : item))
+      setReviewing((item) => item?.id === id ? (status === 'Active' ? null : { ...item, status }) : item)
+    } catch (error) {
+      window.alert(error.response?.data?.message || 'Unable to update listing status.')
+    }
   }
 
   return (
@@ -23,7 +29,7 @@ export default function AwaitingListings() {
       </div>
       <div>
         {items.map((listing, index) => (
-          <div key={listing.name} className={`flex items-center justify-between gap-3 py-5 ${index < items.length - 1 ? 'border-b border-[#F1F5F9] dark:border-[#1E2A45]' : ''}`}>
+          <div key={listing.id} className={`flex items-center justify-between gap-3 py-5 ${index < items.length - 1 ? 'border-b border-[#F1F5F9] dark:border-[#1E2A45]' : ''}`}>
             <div className="flex min-w-0 items-center gap-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F3E8FF] text-[#7C3AED] dark:bg-[#2A1F4E] dark:text-[#8B5CF6]">
                 <HouseIcon />

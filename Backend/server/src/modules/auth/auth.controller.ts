@@ -1,6 +1,8 @@
 import type { CookieOptions, Request, RequestHandler } from "express";
 import { env } from "../../config/env.js";
+import { Role } from "../../db/models/enums.js";
 import { AuthError } from "./auth.service.js";
+import { mailer } from "../../lib/mailer.js";
 import {
   forgotPassword,
   loginUser,
@@ -48,7 +50,12 @@ function requireUserId(req: Request): string {
 export const register: RequestHandler = async (req, res, next) => {
   try {
     const input = RegisterSchema.parse(req.body);
-    const user = await registerUser(input);
+    const user = await registerUser({ ...input, role: input.role as Role });
+    void mailer.send({
+      to: user.email,
+      subject: "Welcome to StayHaven",
+      body: `Hi ${user.fullName}, your StayHaven account has been created successfully.`,
+    });
     res.status(201).json({ user });
   } catch (error) {
     next(error);
@@ -63,7 +70,13 @@ export const login: RequestHandler = async (req, res, next) => {
       userAgent: req.get("user-agent") ?? undefined,
       ip: req.ip,
     });
+    void mailer.send({
+      to: result.user.email,
+      subject: "New Sign-In to StayHaven",
+      body: `A successful sign-in to your StayHaven account occurred at ${new Date().toISOString()}.`,
+    });
     res.cookie("refreshToken", result.refreshToken, refreshCookieOptions);
+    console.log("SENDING LOGIN RESPONSE:", result);
     res.json(result);
   } catch (error) {
     next(error);

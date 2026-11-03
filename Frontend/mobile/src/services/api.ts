@@ -1,6 +1,25 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const API_BASE_URL = (process.env.EXPO_PUBLIC_API_URL || 'http://localhost:4000/api/v1').replace(/\/$/, '');
+const imageApiBase = process.env.EXPO_PUBLIC_API_URL || '';
+const imageOrigin = imageApiBase.split('/api')[0];
+export const getImageUrl = (path?: string): string => {
+  if (!path) return '';
+  if (path.startsWith('http')) {
+    const parsed = new URL(path);
+    if (imageOrigin && ['localhost', '127.0.0.1', '0.0.0.0'].includes(parsed.hostname)) {
+      return `${imageOrigin}${parsed.pathname}${parsed.search}${parsed.hash}`;
+    }
+    return path;
+  }
+  return `${imageOrigin}${path}`;
+};
+export const resolveAssetUrl = (url?: string): string => {
+  if (!url) return '';
+  if (/^(https?:|data:|blob:)/i.test(url)) return url;
+  const apiOrigin = API_BASE_URL.replace(/\/api\/v1\/?$/, '');
+  return `${apiOrigin}${url.startsWith('/') ? '' : '/'}${url}`;
+};
 export const TOKEN_KEY = 'token';
 export const USER_KEY = 'user';
 
@@ -24,7 +43,7 @@ export async function clearAccessToken() {
   await AsyncStorage.removeItem(TOKEN_KEY);
 }
 
-async function request<T>(path: string, method: 'GET' | 'POST' | 'PUT', body?: unknown, authenticated = true): Promise<ApiResult<T>> {
+async function request<T>(path: string, method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE', body?: unknown, authenticated = true): Promise<ApiResult<T>> {
   const token = authenticated ? await AsyncStorage.getItem(TOKEN_KEY) : null;
   const response = await fetch(`${API_BASE_URL}${path.startsWith('/') ? path : `/${path}`}`, {
     method,
@@ -55,7 +74,7 @@ export async function login(email: string, password: string) {
 }
 
 export async function registerGuest(name: string, email: string, password: string) {
-  return request<{ user: AuthUser }>('/auth/register', 'POST', { name, fullName: name, email, password, role: 'GUEST' }, false);
+  return request<{ user: AuthUser }>('/auth/register', 'POST', { fullName: name, email, password }, false);
 }
 
 const api = {
@@ -63,6 +82,7 @@ const api = {
   post: <T = unknown>(path: string, body?: unknown) => request<T>(path, 'POST', body),
   put: <T = unknown>(path: string, body?: unknown) => request<T>(path, 'PUT', body),
   patch: <T = unknown>(path: string, body?: unknown) => request<T>(path, 'PATCH', body),
+  delete: <T = unknown>(path: string) => request<T>(path, 'DELETE'),
 };
 
 export default api;

@@ -19,11 +19,8 @@ try {
   for (const user of seedUsers) {
     const passwordHash = await bcrypt.hash(user.password, 12);
     const { password: _plainPassword, ...userFields } = user;
-    await User.updateOne(
-      { email: user.email },
-      { $set: { ...userFields, passwordHash, status: UserStatus.ACTIVE, emailVerifiedAt: new Date() } },
-      { upsert: true, runValidators: true, setDefaultsOnInsert: true },
-    );
+    await User.deleteOne({ email: user.email });
+    await User.create({ ...userFields, passwordHash, status: UserStatus.ACTIVE, emailVerifiedAt: new Date() });
   }
   console.log("Seeded App Admin, Guest, and House Admin accounts.");
 } finally {

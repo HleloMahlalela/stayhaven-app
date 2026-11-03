@@ -1,9 +1,11 @@
-const stats = [
-  { label: 'Active listings', value: '4', note: '+1 this month', icon: 'view_list', to: '/houseadmin/listings' },
-  { label: 'Upcoming stays', value: '12', note: 'Next: tomorrow', icon: 'calendar_month', to: '/houseadmin/bookings' },
-  { label: 'Occupancy', value: '86%', note: '+8.2%', icon: 'group' },
-  { label: 'Guest ratings', value: '4.91', note: 'From 128 reviews', icon: 'star', to: '/reviews' },
-]
+export const makeStats = (listings = [], bookings = []) => {
+  const confirmed = bookings.filter((booking) => String(booking.status).toLowerCase() === 'confirmed')
+  return [
+    { label: 'Active listings', value: listings.length, note: 'Your listings', icon: 'view_list', to: '/houseadmin/listings' },
+    { label: 'Upcoming stays', value: confirmed.length, note: 'Confirmed bookings', icon: 'calendar_month', to: '/houseadmin/bookings' },
+    { label: 'Occupancy', value: '--', note: 'Based on stay availability', icon: 'group' },
+  ]
+}
 
 import { Link } from 'react-router-dom'
 
@@ -14,5 +16,3 @@ export default function StatCard({ stat }) {
     <div><div className="text-[32px] font-extrabold text-[#0F172A] dark:text-[#F1F5F9] leading-tight mb-1">{stat.value}</div><div className="text-[13px] font-semibold text-[#16A34A] dark:text-[#4ADE80]">{stat.note}</div></div>
   </Card>
 }
-
-export { stats }

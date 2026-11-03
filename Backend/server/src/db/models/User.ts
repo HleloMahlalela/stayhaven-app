@@ -1,11 +1,10 @@
-import { randomUUID } from "node:crypto";
-import { model, Schema, type HydratedDocument, type Model } from "mongoose";
+import { model, Schema, Types, type HydratedDocument, type Model } from "mongoose";
 import { Role, UserStatus } from "./enums.js";
 
 export { Role, UserStatus } from "./enums.js";
 
 export interface IUser {
-  _id: string;
+  _id: Types.ObjectId;
   email: string;
   passwordHash: string;
   fullName: string;
@@ -20,7 +19,6 @@ export type UserDocument = HydratedDocument<IUser>;
 
 const userSchema = new Schema<IUser>(
   {
-    _id: { type: String, default: () => randomUUID() },
     email: { type: String, required: true, lowercase: true, trim: true },
     passwordHash: { type: String, required: true },
     fullName: { type: String, required: true },
