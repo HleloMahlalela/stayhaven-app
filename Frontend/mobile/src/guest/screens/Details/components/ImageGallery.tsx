@@ -1,10 +1,14 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, TouchableOpacity } from 'react-native';
+import { getImageUrl } from '../../../../services/api';
 
-export default function ImageGallery({ onOpen, heroImage }: { onOpen: () => void; heroImage?: string }) {
-  return (
-    <View className="mx-4 h-[250px] flex-row gap-2">
-      {heroImage ? <TouchableOpacity onPress={onOpen} activeOpacity={0.9} className="h-full flex-[2]"><Image source={{ uri: heroImage }} accessibilityLabel="Property photo" resizeMode="cover" className="h-[250px] w-full rounded-2xl" /></TouchableOpacity> : <View className="h-full flex-[2] rounded-2xl bg-gray-100 dark:bg-gray-800" />}
-    </View>
-  );
+export default function ImageGallery({ onOpen, images = [] }: { onOpen: () => void; images?: string[] }) {
+  if (!images.length) return null;
+  return <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }} className="mx-4 h-[250px]">
+    {images.map((image, index) => {
+      const imageUrl = getImageUrl(image);
+      console.log('Fetching Image:', getImageUrl(image));
+      return <TouchableOpacity key={`${image}-${index}`} onPress={onOpen} activeOpacity={0.9} className="h-[250px] w-[320px]"><Image source={{ uri: imageUrl }} accessibilityLabel={`Property photo ${index + 1}`} resizeMode="cover" className="h-[250px] w-full rounded-2xl" /></TouchableOpacity>;
+    })}
+  </ScrollView>;
 }

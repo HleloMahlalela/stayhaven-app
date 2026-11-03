@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import ListingImageGallery from '../../../components/ListingImageGallery'
 import { getAdminListings, useAppAdminData } from '../../../data/AppAdminDataContext'
+import api from '../../../../services/api'
 const accountActions = [
   { value: 'Approved', label: 'Approve account' },
   { value: 'Suspended', label: 'Suspend account' },
@@ -8,13 +9,21 @@ const accountActions = [
 ]
 
 export default function HouseAdminTable({ filter = 'All' }) {
-  const { administrators, listings, setAdministrators } = useAppAdminData()
+  const { administrators, listings, setAdministrators, refetchAll } = useAppAdminData()
   const [selectedAdmin, setSelectedAdmin] = useState(null)
   const visibleAdmins = useMemo(() => filter === 'All' ? administrators : administrators.filter((admin) => admin.status === filter), [administrators, filter])
 
-  const updateStatus = (adminId, status) => {
-    setAdministrators((items) => items.map((admin) => admin.id === adminId ? { ...admin, status } : admin))
-    setSelectedAdmin((admin) => admin?.id === adminId ? { ...admin, status } : admin)
+  const updateStatus = async (adminId, status) => {
+    try {
+      if (status === 'Approved' || status === 'Suspended') {
+        await api.patch(`/users/${adminId}/status`, { status: status === 'Suspended' ? 'SUSPENDED' : 'ACTIVE' })
+      }
+      await refetchAll()
+      setAdministrators((items) => items.map((admin) => admin.id === adminId ? { ...admin, status } : admin))
+      setSelectedAdmin((admin) => admin?.id === adminId ? { ...admin, status } : admin)
+    } catch (error) {
+      window.alert(error.response?.data?.message || 'Unable to update house admin status.')
+    }
   }
 
   return (
@@ -30,7 +39,7 @@ export default function HouseAdminTable({ filter = 'All' }) {
             </tr></thead>
             <tbody className="divide-y divide-[#F1F5F9] dark:divide-[#1E2A45]">
               {visibleAdmins.map((admin) => <AdminRow key={admin.id} admin={admin} listingCount={getAdminListings(admin, listings).length} onManage={() => setSelectedAdmin(admin)} />)}
-              {visibleAdmins.length === 0 && <tr><td className="px-8 py-10 text-center text-sm text-[#64748B] dark:text-[#94A3B8]" colSpan="3">{filter === 'All' ? 'No data available.' : 'No house admins match this status.'}</td></tr>}
+              {visibleAdmins.length === 0 && <tr key="empty-state"><td className="px-8 py-10 text-center text-sm text-[#64748B] dark:text-[#94A3B8]" colSpan="3">{filter === 'All' ? 'No data available.' : 'No house admins match this status.'}</td></tr>}
             </tbody>
           </table>
         </div>

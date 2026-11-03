@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { resolveAssetUrl } from '../../services/api'
 
 export default function ListingImageGallery({ name, images }) {
   const [activeImageIndex, setActiveImageIndex] = useState(0)
@@ -11,7 +12,7 @@ export default function ListingImageGallery({ name, images }) {
   return (
     <div className="grid gap-3 sm:grid-cols-[2fr_1fr]">
       <div className="relative overflow-hidden rounded-2xl">
-        <img src={activeImage} alt={`${name} preview`} className="h-64 w-full rounded-2xl object-cover sm:h-80" />
+        <img src={resolveAssetUrl(activeImage)} alt={`${name} preview`} className="h-64 w-full rounded-2xl object-cover sm:h-80" />
       </div>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-1 sm:content-start">
         {images.map((src, index) => {
@@ -23,7 +24,7 @@ export default function ListingImageGallery({ name, images }) {
             key={`${src}-${index}`}
             onClick={() => setActiveImageIndex(index)}
             type="button"
-          ><img src={src} alt={`${name}, photo ${index + 1}`} className="h-20 w-full object-cover transition-transform group-hover:scale-105 sm:h-[94px]" /></button>
+          ><img src={resolveAssetUrl(src)} alt={`${name}, photo ${index + 1}`} className="h-20 w-full object-cover transition-transform group-hover:scale-105 sm:h-[94px]" /></button>
         })}
       </div>
     </div>

@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import Explore from './guest/pages/Explore';
 import Login from './guest/pages/Login';
 import Bookings from './guest/pages/Bookings';
-import Reviews from './guest/pages/Reviews';
+import Messages from './guest/pages/Messages';
 import Details from './guest/pages/Details';
 import HostRegistration from './guest/pages/HostRegistration';
 import Profile from './guest/pages/Profile';
@@ -23,6 +23,15 @@ import Overview from './appadmin/pages/Overview';
 import AppAdminListings from './appadmin/pages/Listings';
 import HouseAdmins from './appadmin/pages/HouseAdmins';
 import { AppAdminDataProvider } from './appadmin/data/AppAdminDataContext';
+import { useAuth } from './context/AuthContext';
+
+function GuestPortalRoute({ children }) {
+  const { user, loading } = useAuth();
+  if (loading) return null;
+  if (user?.role === 'HOUSE_ADMIN') return <Navigate to="/houseadmin/dashboard" replace />;
+  if (user?.role === 'APP_ADMIN') return <Navigate to="/appadmin/overview" replace />;
+  return children;
+}
 
 
 
@@ -34,15 +43,16 @@ export default function App() {
           <Navbar />
           <AppAdminDataProvider>
           <Routes>
-          <Route path="/" element={<Explore />} />
-          <Route path="/explore" element={<Explore />} />
+          <Route path="/" element={<GuestPortalRoute><Explore /></GuestPortalRoute>} />
+          <Route path="/explore" element={<GuestPortalRoute><Explore /></GuestPortalRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/guest-registration" element={<GuestRegistration />} />
-          <Route path="/bookings" element={<Bookings />} />
-          <Route path="/reviews" element={<Reviews />} />
-          <Route path="/details" element={<Details />} />
+          <Route path="/bookings" element={<GuestPortalRoute><Bookings /></GuestPortalRoute>} />
+          <Route path="/messages" element={<GuestPortalRoute><Messages /></GuestPortalRoute>} />
+          <Route path="/houseadmin/messages" element={<Messages />} />
+          <Route path="/details" element={<GuestPortalRoute><Details /></GuestPortalRoute>} />
           <Route path="/host-registration" element={<HostRegistration />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<GuestPortalRoute><Profile /></GuestPortalRoute>} />
 
 
           <Route path="/houseadmin/dashboard" element={<Dashboard />} />

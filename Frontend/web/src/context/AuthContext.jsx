@@ -15,30 +15,33 @@ export function AuthProvider({ children }) {
   }, [])
 
   const login = useCallback(async (email, password) => {
-    let response
     try {
-      response = await api.post('/auth/login', { email, password })
+      const response = await api.post('/auth/login', { email, password });
+      localStorage.setItem('token', response.data.accessToken);
+      alert("Token saved: " + (localStorage.getItem('token') ? "YES" : "NO"));
+      console.log('LOGIN RESPONSE:', response);
+      console.log("TOKEN SAVED SUCCESSFULLY:", localStorage.getItem('token'));
+      const token = response.data.accessToken;
+      console.log('EXTRACTED TOKEN:', token);
+      if (!token) {
+        throw new Error('The login response did not include an authentication token.')
+      }
+
+      setToken(token)
+      setUser(response.data.user ?? null)
+      return response.data.user
     } catch (error) {
-      console.log('Backend Error:', error.response?.data)
+      console.error("LOGIN FAILED:", error);
       throw error
     }
-    const nextToken = response.data.accessToken
-
-    if (!nextToken) {
-      throw new Error('The login response did not include an authentication token.')
-    }
-
-    window.localStorage.setItem('token', nextToken)
-    setToken(nextToken)
-    setUser(response.data.user ?? null)
-    return response.data.user
   }, [])
 
   useEffect(() => {
     let active = true
 
     async function loadUser() {
-      if (!token) {
+      const storedToken = localStorage.getItem('token')
+      if (!storedToken) {
         setLoading(false)
         return
       }
@@ -46,8 +49,8 @@ export function AuthProvider({ children }) {
       try {
         const response = await api.get('/auth/me')
         if (active) setUser(response.data.user ?? response.data)
-      } catch {
-        if (active) logout()
+      } catch (error) {
+        if (active) console.error("AUTH/ME FAILED:", error.response?.data || error.message)
       } finally {
         if (active) setLoading(false)
       }

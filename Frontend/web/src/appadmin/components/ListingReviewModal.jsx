@@ -1,15 +1,10 @@
 import ListingImageGallery from './ListingImageGallery'
 
-const extraGalleryImages = [
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuCLN7Qd8PnnUWrIA9rC6RBmBgA-EN0o3ppip4vhI6O_zeT3dqprE9bs0w90VmaCH3hEnmQDbaSrdSOk2RNcuSeoOvTf5r8ZStGpY1NUKjyBWI7rZLSDRlgI8BzmuKbD3Un9zwIULLUVlbc_Vi9POmOiBR0Aav9ojHMbSRvwur9tOKXVXIhvxQ9_isgSu8avLv61iP0x49QbyzZUdbnbRdD3gEZfOxVHEmAWppE9WqS6e9r4ucQKrfZS',
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuCu70KxE9IMZVzAZYVilAnfYVOBdk9Tp6mD6n3JgF4xqWqq09irtvQj87fLz9Zqgfmo8ctWNW9FK_jfXr795dgqQNDL0zEoxgjgjvaUNGyBxpGF_69Q6EBm5CtRabHlROaig3v7h8tGKWfsgt67ZvtqqU_oEREDE4qSWaI-Qqdj5N1kY-qkHF2uAnUYWatiApSrcvx136iRaVV4CM8LaHw9P5xZCfwkxel9t1efL0H7SkCEjschcvmO',
-]
-const statusOptions = ['Pending', 'Active', 'Suspended']
 const money = (amount) => `BWP ${Number(amount || 0).toLocaleString()}`
 
-export default function ListingReviewModal({ listing, onClose, onStatusChange }) {
-  const gallery = listing.images?.length ? listing.images : [listing.image, ...extraGalleryImages].filter(Boolean)
-  const host = listing.owner || listing.host
+export default function ListingReviewModal({ listing, onClose }) {
+  const gallery = Array.isArray(listing.images) ? listing.images : []
+  const host = typeof listing.owner === 'string' ? listing.owner : listing.owner?.fullName || listing.host?.fullName || listing.host?.name || listing.hostName || '—'
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose() }}>
@@ -22,7 +17,6 @@ export default function ListingReviewModal({ listing, onClose, onStatusChange })
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           <Detail label="Location" value={listing.location} /><Detail label="Price per night" value={`${money(listing.price)} / night`} />
           <Detail label="Listing tag" value={listing.tag || '—'} /><Detail label="Host" value={host || '—'} />
-          {onStatusChange && <label className="rounded-2xl bg-[#F8FAFC] p-4 dark:bg-[#0A0E1A]"><span className="text-xs font-semibold uppercase tracking-wider text-[#94A3B8]">Listing status</span><select aria-label={`Change status for ${listing.name}`} className="mt-1 block w-full rounded-lg bg-transparent text-sm text-[#0F172A] outline-none focus:ring-2 focus:ring-[#7C3AED] dark:text-[#F1F5F9]" value={listing.status || 'Pending'} onChange={(event) => onStatusChange(listing.id, event.target.value)}>{statusOptions.map((status) => <option key={status} value={status}>{status}</option>)}</select></label>}
         </div>
       </section>
     </div>

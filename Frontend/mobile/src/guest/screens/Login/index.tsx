@@ -27,6 +27,10 @@ export default function LoginScreen() {
       router.replace('/');
     } catch (cause) {
       const message = cause instanceof Error ? cause.message : '';
+      if (message === 'Access Denied: Only guest accounts can use the mobile app.') {
+        if (Platform.OS === 'web') window.alert(message);
+        else Alert.alert('Access Denied', message);
+      }
       setError(message.toLowerCase().includes('invalid') ? 'Invalid credentials.' : message || 'Unable to sign in. Please try again.');
     } finally { setSubmitting(false); }
   };

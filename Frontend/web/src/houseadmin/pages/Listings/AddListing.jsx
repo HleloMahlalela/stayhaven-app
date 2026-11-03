@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../../services/api'
+import { useAuth } from '../../../context/AuthContext'
+import { useAppAdminData } from '../../../appadmin/data/AppAdminDataContext'
 
 const cities = ['Gaborone', 'Francistown', 'Maun', 'Kasane', 'Palapye', 'Serowe', 'Mahalapye', 'Molepolole', 'Kanye', 'Mochudi']
 const availableAmenities = ['Fast Wi-Fi', 'Free parking', 'Breakfast included', 'Private workspace', '24-hour security', 'Private garden']
 
 export default function AddListing() {
   const navigate = useNavigate()
+  const { user } = useAuth()
+  const { refetchAll } = useAppAdminData()
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [amenities, setAmenities] = useState([])
@@ -16,23 +20,39 @@ export default function AddListing() {
   async function handleSubmit(event) {
     event.preventDefault()
     setError('')
-    const form = new FormData(event.currentTarget)
-    // Keep this object in sync with CreateListingSchema in the API.
-    const data = {
-      title: String(form.get('title') || '').trim(),
-      description: String(form.get('description') || '').trim(),
-      location: String(form.get('location') || '').trim(),
-      price: Number(form.get('price')),
-      discount: Number(form.get('discount') || 0),
-      images: Array.from(selectedFiles).map((f, i) => `https://via.placeholder.com/400?text=House+${i + 1}`),
-      amenities,
+    if (user?.role !== 'HOUSE_ADMIN') {
+      setError('You must be logged in as a House Admin to create a listing.')
+      return
+    }
+    if (selectedFiles.length < 3) {
+      setError('You must upload at least 3 images')
+      return
     }
     setSubmitting(true)
     try {
+      const form = new FormData(event.currentTarget)
+      const images = await Promise.all(selectedFiles.map(async (file) => {
+        const uploadForm = new FormData()
+        uploadForm.append('file', file)
+        const { data } = await api.post('/upload', uploadForm)
+        return data.url
+      }))
+      // Keep this object in sync with CreateListingSchema in the API.
+      const data = {
+        title: String(form.get('title') || '').trim(),
+        description: String(form.get('description') || '').trim(),
+        location: String(form.get('location') || '').trim(),
+        price: Number(form.get('price')),
+        discount: Number(form.get('discount') || 0),
+        discountInterval: Number(form.get('discountInterval') || 1),
+        images,
+        amenities,
+      }
       await api.post('/listings', data)
+      await refetchAll()
       navigate('/houseadmin/listings')
     } catch (requestError) {
-      setError(requestError.response?.data?.message || 'Failed to create listing')
+      setError(requestError.response?.data?.error?.message || requestError.response?.data?.message || requestError.message || 'Failed to create listing')
     } finally { setSubmitting(false) }
   }
 
@@ -43,7 +63,8 @@ export default function AddListing() {
       <label className="block sm:col-span-2">Description<textarea className={inputClass} name="description" required rows="4" /></label>
       <label className="block">Location<select className={inputClass} defaultValue="" name="location" required><option disabled value="">Select a city</option>{cities.map(city => <option key={city}>{city}</option>)}</select></label>
       <label className="block">Price per night<input className={inputClass} min="0" name="price" required type="number" /></label>
-      <label className="block">Discount amount<input className={inputClass} defaultValue="0" min="0" name="discount" type="number" /></label>
+      <label className="block">Discount Amount (P)<input className={inputClass} defaultValue="0" min="0" name="discount" type="number" /></label>
+      <label className="block">Apply Discount Every (Days)<input className={inputClass} defaultValue="1" min="1" name="discountInterval" type="number" /></label>
       <fieldset className="sm:col-span-2"><legend className="font-medium">Amenities</legend><div className="mt-2 grid gap-3 sm:grid-cols-2">{availableAmenities.map((amenity) => <label key={amenity} className="flex items-center gap-2"><input checked={amenities.includes(amenity)} onChange={(event) => setAmenities((current) => event.target.checked ? [...current, amenity] : current.filter((item) => item !== amenity))} type="checkbox" />{amenity}</label>)}</div><div className="mt-4 flex gap-2"><input className={inputClass} value={customAmenity} onChange={e => setCustomAmenity(e.target.value)} placeholder="Add a custom amenity" /><button type="button" className="rounded-lg bg-violet-100 px-4 text-violet-700" onClick={() => { const item=customAmenity.trim(); if(item && !amenities.includes(item)) setAmenities([...amenities,item]); setCustomAmenity('') }}>Add</button></div></fieldset>
       <label className="block sm:col-span-2">Images<input className={inputClass} accept="image/*" multiple onChange={(event) => setSelectedFiles(Array.from(event.target.files || []))} type="file" /></label>
       {error && <p className="text-sm text-red-600 sm:col-span-2" role="alert">{error}</p>}

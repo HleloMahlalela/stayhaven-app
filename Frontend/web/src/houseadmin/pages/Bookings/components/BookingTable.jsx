@@ -1,54 +1,20 @@
-﻿import { useState } from 'react'
-
-const initialBookings = [
-  { initials: 'MT', name: 'Maya Thompson', details: 'Lavender House · Gaborone, Botswana Â· Jun 18â€“21', status: 'Confirmed', avatar: 'bg-[#F3E8FF] text-[#7C3AED] dark:bg-[#2A1F4E] dark:text-[#A78BFA]' },
-  { initials: 'DK', name: 'Daniel Kim', details: 'Kigo Hillside Haven · Francistown, Botswana Â· Jun 22â€“27', status: 'Confirmed', avatar: 'bg-[#DBEAFE] text-[#1E40AF] dark:bg-[#1E3A5F] dark:text-[#93C5FD]' },
-  { initials: 'IO', name: 'Ife Okafor', details: 'Nalubaale Stone Cottage · Maun, Botswana Â· Jun 25â€“27', status: 'Pending', avatar: 'bg-[#FEF3C7] text-[#92400E] dark:bg-[#3F2E0A] dark:text-[#FBBF24]' },
-]
-
-function StatusPill({ status }) {
-  const confirmed = status === 'Confirmed'
-  return (
-    <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${confirmed ? 'bg-[#DCFCE7] text-[#166534] dark:bg-[#0F3D24] dark:text-[#4ADE80]' : 'bg-[#FEF3C7] text-[#92400E] dark:bg-[#3F2E0A] dark:text-[#FBBF24]'}`}>
-      <span className={`mr-1.5 inline-block h-1.5 w-1.5 rounded-full ${confirmed ? 'bg-[#166534] dark:bg-[#4ADE80]' : 'bg-[#92400E] dark:bg-[#FBBF24]'}`} />
-      {status}
-    </span>
-  )
-}
-
-function BookingRow({ booking, onDelete }) {
-  return (
-    <div className="flex items-center border-b border-[#F1F5F9] px-4 py-5 transition-colors last:border-0 hover:bg-[#F8FAFC]/70 dark:border-[#1E2A45] dark:hover:bg-[#1E2A45]/30 sm:px-6 dark:sm:px-8 sm:dark:py-6">
-      <div className="flex w-[30%] min-w-0 items-center gap-3 sm:gap-3.5">
-        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-sm font-bold dark:h-11 dark:w-11 dark:rounded-full ${booking.avatar}`}>{booking.initials}</div>
-        <span className="truncate text-sm font-semibold text-[#0F172A] dark:text-[#F1F5F9] sm:text-base">{booking.name}</span>
-      </div>
-      <div className="w-[45%] min-w-0 truncate pr-2 text-xs text-[#64748B] dark:text-[#94A3B8] sm:text-sm">{booking.details}</div>
-      <div className="flex w-[25%] items-center justify-end gap-2 sm:gap-4">
-        <StatusPill status={booking.status} />
-        <button type="button" onClick={() => onDelete(booking.initials)} className="rounded-full bg-[#EDE9FE] px-3 py-1.5 text-xs font-semibold text-[#7C3AED] transition-colors hover:bg-[#DDD6FE] dark:border-[1.5px] dark:border-[#8B5CF6] dark:bg-transparent dark:px-4 dark:text-sm dark:text-[#8B5CF6] dark:hover:bg-[#8B5CF6] dark:hover:text-white">Manage</button>
-      </div>
-    </div>
-  )
-}
+import { useEffect, useState } from 'react'
+import api from '../../../../services/api'
 
 export default function BookingTable() {
-  const [bookings, setBookings] = useState(initialBookings)
-  function handleDelete(initials) {
-    if (window.confirm('Are you sure you want to delete this reservation?')) {
-      setBookings((current) => current.filter((booking) => booking.initials !== initials))
-    }
+  const [bookings, setBookings] = useState([])
+  const [error, setError] = useState('')
+  useEffect(() => { api.get('/bookings/host-bookings').then(({ data }) => setBookings(Array.isArray(data) ? data : [])).catch(() => setError('Unable to load bookings.')) }, [])
+  async function manage(booking) {
+    const status = String(booking.status).toLowerCase() === 'pending' ? 'confirmed' : 'cancelled'
+    if (!window.confirm(`Change this booking to ${status}?`)) return
+    try { const { data } = await api.patch(`/bookings/${booking._id}/status`, { status }); setBookings((items) => items.map((item) => item._id === booking._id ? data : item)) }
+    catch (requestError) { window.alert(requestError.response?.data?.message || 'Unable to update booking.') }
   }
-  return (
-    <section aria-label="Bookings" className="mt-10 w-full overflow-hidden rounded-[24px] border border-[#E5E7EB] bg-white shadow-sm dark:border-[#1E2A45] dark:bg-[#141B2D] dark:shadow-[0_4px_24px_-2px_rgba(139,92,246,0.06)]">
-      <div className="flex items-center border-b border-[#F1F5F9] px-4 py-3.5 dark:border-[#1E2A45] dark:bg-[#0A0E1A] sm:px-6 sm:py-4 sm:dark:px-8">
-        <div className="w-[30%] text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] sm:text-xs sm:tracking-[1px]">Guest</div>
-        <div className="w-[45%] text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] sm:text-xs sm:tracking-[1px]">Details</div>
-        <div className="w-[25%] text-right text-[10px] font-bold uppercase tracking-wider text-[#94A3B8] sm:text-xs sm:tracking-[1px]">Status and actions</div>
-      </div>
-      <div className="divide-y divide-[#F1F5F9] dark:divide-[#1E2A45]">
-        {bookings.map((booking) => <BookingRow key={booking.initials} booking={booking} onDelete={handleDelete} />)}
-      </div>
-    </section>
-  )
+  return <section aria-label="Bookings" className="mt-10 w-full overflow-hidden rounded-[24px] border border-[#E5E7EB] bg-white shadow-sm dark:border-[#1E2A45] dark:bg-[#141B2D]">
+    <div className="grid grid-cols-[25%_45%_30%] border-b px-4 py-4 text-xs font-bold uppercase tracking-wider text-[#94A3B8] sm:px-8"><span>Guest</span><span>Details</span><span className="text-right">Status and actions</span></div>
+    {error && <p role="alert" className="p-6 text-red-600">{error}</p>}
+    {bookings.map((booking) => { const guest = booking.guest || {}; const listing = booking.listing || {}; const name = guest.name || guest.fullName || guest.email || 'Guest'; const initials = name.split(/\s+/).map((part) => part[0]).slice(0, 2).join('').toUpperCase(); const dates = `${booking.checkInDate ? new Date(booking.checkInDate).toLocaleDateString() : ''} – ${booking.checkOutDate ? new Date(booking.checkOutDate).toLocaleDateString() : ''}`; return <div key={booking._id} className="grid grid-cols-[25%_45%_30%] items-center border-b px-4 py-5 last:border-0 sm:px-8"><span className="truncate font-semibold">{initials} {name}</span><span className="truncate text-sm text-[#64748B]">{listing.title || 'Stay'} · {listing.location || ''} · {dates}</span><span className="flex items-center justify-end gap-2"><span className="text-xs capitalize">{booking.status}</span><button onClick={() => manage(booking)} type="button" className="rounded-full bg-violet-100 px-4 py-2 text-xs font-semibold text-violet-700">Manage</button></span></div> })}
+    {!error && bookings.length === 0 && <p className="p-8 text-center text-sm text-[#64748B]">No bookings yet.</p>}
+  </section>
 }

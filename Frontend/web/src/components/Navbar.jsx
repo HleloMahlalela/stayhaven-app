@@ -11,7 +11,7 @@ export default function Navbar() {
     ? [['/appadmin/overview', 'Overview', 'dashboard'], ['/appadmin/listings', 'Listings', 'view_list'], ['/appadmin/houseadmins', 'House admins', 'group']]
     : houseAdmin
       ? [['/houseadmin/dashboard', 'Dashboard', 'dashboard'], ['/houseadmin/listings', 'Listings', 'view_list'], ['/houseadmin/bookings', 'Bookings', 'event']]
-      : [['/', 'Explore', 'explore'], ['/bookings', 'Bookings', 'event'], ['/reviews', 'Reviews', 'star']]
+      : [['/', 'Explore', 'explore'], ['/bookings', 'Bookings', 'event'], ['/messages', 'Messages', 'chat']]
 
   return (
     <>

@@ -6,11 +6,22 @@ const api = axios.create({
   withCredentials: true,
 })
 
+export const resolveAssetUrl = (url = '') => {
+  if (!url) return ''
+  if (/^(https?:|data:|blob:)/i.test(url)) return url
+  const apiOrigin = api.defaults.baseURL.replace(/\/api\/v1\/?$/, '')
+  return `${apiOrigin}${url.startsWith('/') ? '' : '/'}${url}`
+}
+
 api.interceptors.request.use((config) => {
-  const token = window.localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
+  }
+
+  if (config.url?.includes('/auth/me')) {
+    console.log("SENDING TOKEN TO /auth/me:", config.headers.Authorization);
   }
 
   return config
