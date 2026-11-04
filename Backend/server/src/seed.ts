@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { User } from "../dist/db/models/User.js";
-import { Role, UserStatus } from "../dist/db/models/enums.js";
+import { User } from "./db/models/User.js";
+import { Role, UserStatus } from "./db/models/enums.js";
 
 const uri = process.env.MONGODB_URI;
 if (!uri) throw new Error("MONGODB_URI is required");

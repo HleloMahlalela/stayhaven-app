@@ -1,7 +1,7 @@
-import { model, Schema, type Model } from "mongoose";
+import { model, Schema, type Model, type Types } from "mongoose";
 
 export interface IBooking {
-  listing: Schema.Types.ObjectId;
+  listing: Types.ObjectId;
   guest: string;
   checkInDate: Date;
   checkOutDate: Date;
