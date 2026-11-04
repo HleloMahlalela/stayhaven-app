@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://stayhaven-app-bkwy.onrender.com/api/v1',
+  baseURL: 'http://localhost:4000/api/v1',
   // Added withCredentials to support cookies (if they are using them)
   withCredentials: true,
 })
