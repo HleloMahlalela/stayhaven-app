@@ -1,16 +1,28 @@
 import axios from 'axios'
 
+export const API_ORIGIN = 'http://localhost:4000'
+
 const api = axios.create({
-  baseURL: 'http://localhost:4000/api/v1',
+  baseURL: `${API_ORIGIN}/api/v1`,
   // Added withCredentials to support cookies (if they are using them)
   withCredentials: true,
 })
 
 export const resolveAssetUrl = (url = '') => {
   if (!url) return ''
-  if (/^(https?:|data:|blob:)/i.test(url)) return url
-  const apiOrigin = api.defaults.baseURL.replace(/\/api\/v1\/?$/, '')
-  return `${apiOrigin}${url.startsWith('/') ? '' : '/'}${url}`
+  if (/^(data:|blob:)/i.test(url)) return url
+  if (/^https?:\/\//i.test(url)) {
+    try {
+      const parsed = new URL(url)
+      if (['localhost', '127.0.0.1', '0.0.0.0'].includes(parsed.hostname)) {
+        return `${API_ORIGIN}${parsed.pathname}${parsed.search}${parsed.hash}`
+      }
+      return url
+    } catch {
+      return url
+    }
+  }
+  return `${API_ORIGIN}${url.startsWith('/') ? '' : '/'}${url}`
 }
 
 api.interceptors.request.use((config) => {
