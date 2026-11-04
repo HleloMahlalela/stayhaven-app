@@ -30,8 +30,8 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "stayhaven",
-    allowed_formats: ["jpg", "png", "jpeg"],
-  },
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
+  } as any,
 });
 const upload = multer({
   storage,
