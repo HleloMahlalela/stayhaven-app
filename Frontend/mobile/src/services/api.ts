@@ -1,8 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_BASE_URL = (process.env.EXPO_PUBLIC_API_URL || 'http://localhost:4000/api/v1').replace(/\/$/, '');
-const imageApiBase = process.env.EXPO_PUBLIC_API_URL || '';
-const imageOrigin = imageApiBase.split('/api')[0];
+const API_BASE_URL = 'https://stayhaven-app.onrender.com/api/v1';
+const imageOrigin = API_BASE_URL.replace(/\/api\/v1\/?$/, '');
 export const getImageUrl = (path?: string): string => {
   if (!path) return '';
   if (path.startsWith('http')) {
