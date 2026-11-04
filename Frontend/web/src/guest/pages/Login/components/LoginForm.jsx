@@ -28,7 +28,7 @@ export default function LoginForm() {
         throw new Error('The login response did not include a valid user role.')
       }
 
-      window.location.href = destination
+      navigate(destination, { replace: true })
     } catch (requestError) {
       setError(requestError.response?.data?.error?.message || requestError.response?.data?.message || requestError.message || 'Unable to sign in. Please try again.')
     } finally {
