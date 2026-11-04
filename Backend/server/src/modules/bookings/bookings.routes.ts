@@ -11,10 +11,15 @@ export const bookingsRouter = Router();
 
 bookingsRouter.post("/", requireAuth, requireRole(Role.GUEST), async (req, res, next) => {
   try {
-    const input = z.object({ listing: z.string(), checkInDate: z.coerce.date(), checkOutDate: z.coerce.date() }).parse(req.body);
+    const input = z.object({
+      listingId: z.string().min(1),
+      checkInDate: z.coerce.date(),
+      checkOutDate: z.coerce.date(),
+      guests: z.number().int().min(1).max(10),
+    }).parse(req.body);
     if (input.checkOutDate <= input.checkInDate) { res.status(400).json({ message: "Check-out must be after check-in" }); return; }
-    if (!mongoose.isValidObjectId(input.listing)) { res.status(404).json({ message: "Listing not found" }); return; }
-    const listing = await Listing.findOne({ _id: input.listing, status: "approved" });
+    if (!mongoose.isValidObjectId(input.listingId)) { res.status(404).json({ message: "Listing not found" }); return; }
+    const listing = await Listing.findOne({ _id: input.listingId, status: "approved" });
     if (!listing) { res.status(404).json({ message: "Listing not found" }); return; }
     const overlap = await Booking.findOne({ listing: listing._id, status: { $in: ["pending", "confirmed"] }, checkInDate: { $lt: input.checkOutDate }, checkOutDate: { $gt: input.checkInDate } });
     if (overlap) { res.status(409).json({ message: "Listing is not available for those dates" }); return; }

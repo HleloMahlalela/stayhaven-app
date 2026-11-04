@@ -1,6 +1,22 @@
 import mongoose from "mongoose";
 
-const listingSchema = new mongoose.Schema({
+interface ListingDocument {
+  title: string;
+  description: string;
+  location: string;
+  price: number;
+  currency: string;
+  discount: number;
+  discountInterval: number;
+  images: string[];
+  amenities: string[];
+  hostId: string;
+  status: "pending" | "approved" | "suspended";
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const listingSchema = new mongoose.Schema<ListingDocument>({
   title: { type: String, required: true, trim: true },
   description: { type: String, required: true, trim: true },
   location: { type: String, required: true, trim: true },
@@ -14,4 +30,6 @@ const listingSchema = new mongoose.Schema({
   status: { type: String, enum: ["pending", "approved", "suspended"], default: "pending" },
 }, { timestamps: true });
 
-export const Listing = mongoose.models.Listing || mongoose.model("Listing", listingSchema);
+export const Listing =
+  (mongoose.models.Listing as mongoose.Model<ListingDocument> | undefined) ??
+  mongoose.model<ListingDocument>("Listing", listingSchema);

@@ -4,9 +4,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import multer from "multer";
-import path from "node:path";
-import { randomUUID } from "node:crypto";
-import { mkdirSync } from "node:fs";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { z } from "zod";
 import { env } from "./config/env.js";
 import { errorHandler } from "./middleware/errorHandler.js";
@@ -21,14 +20,21 @@ import { bookingsRouter } from "./modules/bookings/bookings.routes.js";
 import { reviewsRouter } from "./modules/reviews/reviews.routes.js";
 import { messagesRouter } from "./modules/messages/messages.routes.js";
 
-const appDirectory = path.dirname(decodeURIComponent(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, "$1"));
-const uploadsDirectory = path.resolve(appDirectory, "../uploads");
-mkdirSync(uploadsDirectory, { recursive: true });
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "stayhaven",
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
+  } as any,
+});
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: uploadsDirectory,
-    filename: (_req, file, callback) => callback(null, `${randomUUID()}${path.extname(file.originalname).toLowerCase()}`),
-  }),
+  storage,
   limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter: (_req, file, callback) => callback(null, file.mimetype.startsWith("image/")),
 });
@@ -39,18 +45,18 @@ export function createApp() {
   app.set("trust proxy", 1);
   app.use(helmet());
   app.use(cors({
-    origin: env.FRONTEND_ORIGINS.split(",").map((s) => s.trim()).filter(Boolean),
+    origin: [
+      ...env.FRONTEND_ORIGINS.split(",").map((s) => s.trim()).filter(Boolean),
+      "http://localhost:3000",
+      "http://localhost:5173",
+      /\.vercel\.app$/,
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }));
   app.use(express.json({ limit: "100kb" }));
   app.use(cookieParser());
-  app.use("/uploads", (req, res, next) => {
-    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
-    next();
-  }, express.static(uploadsDirectory));
-
   app.get("/health", (_req, res) => res.json({
     ok: true,
     database: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
@@ -65,7 +71,7 @@ export function createApp() {
       res.status(400).json({ message: "An image file is required." });
       return;
     }
-    res.status(201).json({ url: `/uploads/${req.file.filename}` });
+    res.status(201).json({ url: req.file.path });
   });
   app.patch("/api/v1/users/:id/status", requireAuth, requireRole(Role.APP_ADMIN), async (req, res, next) => {
     try {

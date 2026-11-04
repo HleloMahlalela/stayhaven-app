@@ -16,8 +16,13 @@ export default function Details() {
   const hostName = listing?.hostName || ''
   const [favorite, setFavorite] = useState(false)
   const openContact = async () => {
+    const listingId = listing?._id || listing?.id
+    if (typeof listingId !== 'string' || !/^[a-f\d]{24}$/i.test(listingId)) {
+      window.alert('This listing has an invalid ID and cannot start a conversation.')
+      return
+    }
     try {
-      const { data: thread } = await api.post('/messages/threads', { listingId: listing._id || listing.id })
+      const { data: thread } = await api.post('/messages/threads', { listingId })
       navigate(`/messages?threadId=${thread._id}`)
     } catch (error) { window.alert(error.response?.data?.message || 'Please sign in to message this host.') }
   }

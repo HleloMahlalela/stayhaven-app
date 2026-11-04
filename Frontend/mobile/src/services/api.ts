@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
-const API_BASE_URL = (process.env.EXPO_PUBLIC_API_URL || 'http://localhost:4000/api/v1').replace(/\/$/, '');
-const imageApiBase = process.env.EXPO_PUBLIC_API_URL || '';
-const imageOrigin = imageApiBase.split('/api')[0];
+const hostUri = Constants.expoConfig?.hostUri;
+export const localIp = hostUri ? hostUri.split(':')[0] : 'localhost';
+const API_BASE_URL = `http://${localIp}:4000/api/v1`;
+const imageOrigin = API_BASE_URL.replace(/\/api\/v1\/?$/, '');
 export const getImageUrl = (path?: string): string => {
   if (!path) return '';
   if (path.startsWith('http')) {

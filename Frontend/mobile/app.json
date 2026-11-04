@@ -17,7 +17,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.hlelomosh.mobile"
     },
     "web": {
       "bundler": "metro",
@@ -39,6 +40,11 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "867f4410-a89f-45e7-aa3a-fa1404aed51b"
+      }
     }
   }
 }

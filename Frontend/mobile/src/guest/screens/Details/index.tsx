@@ -81,11 +81,10 @@ export default function DetailsScreen() {
     }
     try {
       await api.post('/bookings', {
-        listing: listing._id || listing.id || listingId,
+        listingId: String(listing._id || listing.id || listingId),
         checkInDate: checkIn.toISOString(),
         checkOutDate: checkOut.toISOString(),
-        guests,
-        totalPrice,
+        guests: Number(guests),
       });
       Alert.alert('Booking Confirmed', 'Your stay has been reserved.');
       router.push('/bookings');
