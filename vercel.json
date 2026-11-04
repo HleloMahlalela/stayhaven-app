@@ -1,8 +1,0 @@
-{
-  "buildCommand": "cd Frontend/web && npm install && npm run build && cp -r dist/* ../../",
-  "outputDirectory": "./",
-  "framework": "vite",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
