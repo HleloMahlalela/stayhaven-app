@@ -12,7 +12,8 @@ import { CreateListingSchema } from "./listings.schemas.js";
 export const listingsRouter = Router();
 
 async function withHostNames(listings: Array<{ hostId: string } & Record<string, any>>) {
-  const hostIds = [...new Set(listings.map((listing) => listing.hostId))];
+  const hostIds = [...new Set(listings.map((listing) => listing.hostId))]
+    .filter((hostId) => /^[a-f\d]{24}$/i.test(hostId));
   const hosts = await User.find({ _id: { $in: hostIds } }).select("_id fullName").lean();
   const names = new Map(hosts.map((host) => [String(host._id), host.fullName]));
   return listings.map((listing) => ({ ...listing, host: { fullName: names.get(listing.hostId) || "" } }));
