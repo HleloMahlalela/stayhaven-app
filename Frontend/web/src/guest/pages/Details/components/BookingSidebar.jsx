@@ -48,10 +48,10 @@ export default function BookingSidebar({ listingId, price = 0, discount = 0, dis
     }
     try {
       await api.post('/bookings', {
-        listing: listingId,
+        listingId: String(listingId),
         checkInDate: checkInDate.toISOString(),
         checkOutDate: checkOutDate.toISOString(),
-        guests: Number(guests),
+        guests: Number.parseInt(guests, 10),
       })
       window.alert('Booking Confirmed!')
       navigate('/bookings')

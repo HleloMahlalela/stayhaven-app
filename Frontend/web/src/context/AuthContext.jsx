@@ -18,11 +18,7 @@ export function AuthProvider({ children }) {
     try {
       const response = await api.post('/auth/login', { email, password });
       localStorage.setItem('token', response.data.accessToken);
-      alert("Token saved: " + (localStorage.getItem('token') ? "YES" : "NO"));
-      console.log('LOGIN RESPONSE:', response);
-      console.log("TOKEN SAVED SUCCESSFULLY:", localStorage.getItem('token'));
       const token = response.data.accessToken;
-      console.log('EXTRACTED TOKEN:', token);
       if (!token) {
         throw new Error('The login response did not include an authentication token.')
       }
@@ -31,7 +27,6 @@ export function AuthProvider({ children }) {
       setUser(response.data.user ?? null)
       return response.data.user
     } catch (error) {
-      console.error("LOGIN FAILED:", error);
       throw error
     }
   }, [])
@@ -50,7 +45,7 @@ export function AuthProvider({ children }) {
         const response = await api.get('/auth/me')
         if (active) setUser(response.data.user ?? response.data)
       } catch (error) {
-        if (active) console.error("AUTH/ME FAILED:", error.response?.data || error.message)
+        if (active && error.response?.status === 401) logout()
       } finally {
         if (active) setLoading(false)
       }

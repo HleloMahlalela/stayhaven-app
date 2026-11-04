@@ -32,10 +32,6 @@ api.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`
   }
 
-  if (config.url?.includes('/auth/me')) {
-    console.log("SENDING TOKEN TO /auth/me:", config.headers.Authorization);
-  }
-
   return config
 })
 
