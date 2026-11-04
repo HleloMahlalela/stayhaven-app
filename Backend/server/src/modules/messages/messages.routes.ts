@@ -11,6 +11,10 @@ import { Thread } from "../../models/Thread.js";
 export const messagesRouter = Router();
 messagesRouter.use(requireAuth);
 
+function isMongoObjectId(value: unknown): value is string {
+  return typeof value === "string" && mongoose.isObjectIdOrHexString(value);
+}
+
 function participantQuery(userId: string, role: Role) {
   return role === Role.GUEST ? { guestId: userId } : role === Role.HOUSE_ADMIN ? { houselisterId: userId } : null;
 }
@@ -27,13 +31,14 @@ async function populateThread(thread: any) {
 messagesRouter.post("/threads", async (req, res, next) => {
   try {
     if (req.user!.role !== Role.GUEST) { res.status(403).json({ message: "Only guests can start a conversation." }); return; }
-    const input = z.object({ listingId: z.string(), bookingId: z.string().optional() }).parse(req.body);
-    if (!mongoose.isValidObjectId(input.listingId)) { res.status(404).json({ message: "Listing not found." }); return; }
+    const input = z.object({
+      listingId: z.string().refine(isMongoObjectId, "listingId must be a valid MongoDB ObjectId"),
+      bookingId: z.string().refine(isMongoObjectId, "bookingId must be a valid MongoDB ObjectId").optional(),
+    }).parse(req.body);
     const listing = await Listing.findById(input.listingId);
     if (!listing) { res.status(404).json({ message: "Listing not found." }); return; }
     let bookingId: mongoose.Types.ObjectId | undefined;
     if (input.bookingId) {
-      if (!mongoose.isValidObjectId(input.bookingId)) { res.status(404).json({ message: "Booking not found." }); return; }
       const booking = await Booking.findOne({ _id: input.bookingId, listing: listing._id, guest: req.user!.id });
       if (!booking) { res.status(404).json({ message: "Booking not found." }); return; }
       bookingId = booking._id;
@@ -70,7 +75,7 @@ messagesRouter.get("/threads", async (req, res, next) => {
 
 messagesRouter.get("/threads/:id", async (req, res, next) => {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) { res.status(404).json({ message: "Conversation not found." }); return; }
+    if (!isMongoObjectId(req.params.id)) { res.status(400).json({ message: "Conversation ID must be a valid MongoDB ObjectId." }); return; }
     const query = participantQuery(req.user!.id, req.user!.role);
     if (!query) { res.status(403).json({ message: "Messages are unavailable for this role." }); return; }
     const thread = await Thread.findOne({ _id: req.params.id, ...query });
@@ -82,7 +87,7 @@ messagesRouter.get("/threads/:id", async (req, res, next) => {
 
 messagesRouter.post("/threads/:id/messages", async (req, res, next) => {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) { res.status(404).json({ message: "Conversation not found." }); return; }
+    if (!isMongoObjectId(req.params.id)) { res.status(400).json({ message: "Conversation ID must be a valid MongoDB ObjectId." }); return; }
     if (![Role.GUEST, Role.HOUSE_ADMIN].includes(req.user!.role)) { res.status(403).json({ message: "Messages are unavailable for this role." }); return; }
     const input = z.object({ body: z.string().trim().min(1).max(5000) }).parse(req.body);
     const thread = await Thread.findOne({ _id: req.params.id, ...(req.user!.role === Role.GUEST ? { guestId: req.user!.id } : { houselisterId: req.user!.id }) });
