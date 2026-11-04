@@ -45,7 +45,12 @@ export function createApp() {
   app.set("trust proxy", 1);
   app.use(helmet());
   app.use(cors({
-    origin: env.FRONTEND_ORIGINS.split(",").map((s) => s.trim()).filter(Boolean),
+    origin: [
+      ...env.FRONTEND_ORIGINS.split(",").map((s) => s.trim()).filter(Boolean),
+      "http://localhost:3000",
+      "http://localhost:5173",
+      /\.vercel\.app$/,
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
